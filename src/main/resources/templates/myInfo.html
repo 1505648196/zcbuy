@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes,
+				minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+	<link rel="stylesheet" href="static/css/font.css">
+	<link rel="stylesheet" href="static/css/login.css">
+	<link rel="stylesheet" href="static/layui/css/layui.css">
+	<link rel="stylesheet" href="static/css/xadmin.css">
+	<style>
+		.login {
+			margin: 20px auto 0 auto; /*表格上外边距*/
+			min-height: 420px; /*表格高度*/
+			max-width: 840px; /*表格宽度*/
+			padding: 40px; /*表格内边距*/
+		}
+		.login-bg{
+			background: url(static/images/bg.png) no-repeat center;
+			background-size:cover;
+			background-attachment: fixed;
+
+		}
+	</style>
+	<script src="static/layui/layui.js"></script>
+	<!--[if lt IE 9]>
+	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="login-bg">
+
+<div class="login layui-anim layui-anim-up">
+	<h1 style="text-align: center">个人资料</h1>
+	<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+		<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+	</a>
+	<form class="layui-form">
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">姓名：</label>
+			<div class="layui-input-block">
+				<input type="text" th:value="${session.userMsg.name}" readonly class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">账号：</label>
+			<div class="layui-input-block">
+				<input type="text" th:value="${session.userMsg.loginName}" readonly class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">单位：</label>
+			<div class="layui-input-block">
+				<input type="text" th:value="${session.userMsg.unit.name}" readonly class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">部门：</label>
+			<div class="layui-input-block">
+				<input type="text" th:value="${session.userMsg.department.name}" readonly class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手机：<span
+				style="color: red;font-size: 12px;">(可修改)</span></label>
+			<div class="layui-input-block">
+				<input type="text" id="phone" th:value="${session.userMsg.phone}" name="phone" lay-verify="phone" class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+		<div class="layui-form-item">
+			<label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<span
+				style="color: red;font-size: 12px;">(可修改)</span></label>
+			<div class="layui-input-block">
+				<input type="text" id="email" th:value="${session.userMsg.email}" name="email" lay-verify="email" class="layui-input"/>
+			</div>
+		</div>
+
+		<hr class="hr15">
+
+		<input value="修改个人资料" lay-submit lay-filter="sub" style="width:40%;margin-left: 110px" type="button">
+		<input value="点击修改密码" id="pwd" style="width:40%;margin-left: 30px" type="button"/>
+
+		<hr class="hr20">
+	</form>
+
+
+</div>
+</body>
+<script>
+  layui.use(['form', 'jquery', 'layer'], function () {
+    var form = layui.form,
+      layer = layui.layer,
+      $ = layui.jquery;
+
+    //监听提交
+    form.on('submit(sub)', function (data) {
+      $.post(urlpre + "/updateInfo", data.field, function (res) {
+        if (res.result) {
+          layer.msg(res.msg, {
+            time: 1000
+          }, function () {
+            location.reload();
+          });
+        } else {
+          layer.msg(res.msg, {
+            time: 1000
+          });
+        }
+      });
+      return false;
+    });
+
+    $("#pwd").click(function () {
+      layer.open({
+        title: '改密码',
+        type: 2,
+        area: ['50%', '80%'],
+        success: function (layero, index) {
+          var body = layer.getChildFrame('body', index);
+          body.find('#cardNum').val($("#cardNum").val());
+        },
+        content: "editPwd"
+      });
+    })
+
+
+  });
+
+</script>
+<!-- 底部结束 -->
+
+</html>
