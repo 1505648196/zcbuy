@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 	//定义一个线程域，存放登录的对象
-	private static final ThreadLocal<User> thread = new ThreadLocal<>();
+	private static final ThreadLocal<String> thread = new ThreadLocal<>();
     //调用目标方法之前被拦截
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		    return false;
 	    }
 	    User user = JSON.parseObject(JSON.toJSONString(userMsg), User.class);
-	    thread.set(user);
+	    thread.set(user.getId());
 	    return true;
     }
 	//页面渲染之后调用，一般用于资源清理操作
@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	}
 
 	//获取登陆用户
-	public static User getUser() {
+	public static String getId() {
 		return thread.get();
 	}
 

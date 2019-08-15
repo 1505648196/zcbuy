@@ -22,40 +22,34 @@
 <div class="layui-container" style="margin-top: 20px;margin-right: 20px">
 	<form class="layui-form">
 
-		<input type="hidden" id="cardNum" name="cardNum"/>
-
-		<div class="layui-form-item">
-			<label class="layui-form-label">入党时间：</label>
-			<div class="layui-input-block">
-				<input type="text" id="strTime" name="strTime" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">党支部：</label>
-			<div class="layui-input-block">
-				<select type="text" name="branch" id="branch" class="layui-input" lay-verify="required">
-					<option value="综合支部">综合支部</option>
-					<option value="计财支部">计财支部</option>
-					<option value="技术支部">技术支部</option>
-					<option value="研发支部">研发支部</option>
-					<option value="运维支部">运维支部</option>
-					<option value="经开支部">经开支部</option>
-					<option value="工程支部">工程支部</option>
-				</select>
-			</div>
-		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">姓名：</label>
 			<div class="layui-input-block">
 				<input type="text" id="name" name="name" class="layui-input" lay-verify="required">
 			</div>
 		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">单位：</label>
+			<div class="layui-input-block">
+				<select id="unitId" name="unitId" class="layui-input" lay-filter="change"  lay-verify="required"></select>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">部门：</label>
+			<div class="layui-input-block">
+				<select id="departmentId" name="departmentId" class="layui-input" lay-verify="required"></select>
+			</div>
+		</div>
+
 		<div class="layui-form-item">
 			<label class="layui-form-label">角色：</label>
 			<div class="layui-input-block">
-				<select type="text" name="roleId" id="roleId" class="layui-input" lay-verify="required"></select>
+				<select name="roleId" id="roleId" class="layui-input" lay-verify="required"></select>
 			</div>
 		</div>
+
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机：</label>
 			<div class="layui-input-block">
@@ -63,21 +57,9 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">职务：</label>
+			<label class="layui-form-label">邮箱：</label>
 			<div class="layui-input-block">
-				<input type="text" id="duties" name="duties" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">政治面貌：</label>
-			<div class="layui-input-block">
-				<input type="text" id="politicalAppearance" name="politicalAppearance" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">文化程度：</label>
-			<div class="layui-input-block">
-				<input type="text" id="diploma" name="diploma" class="layui-input">
+				<input type="text" id="email" name="email" lay-verify="email" class="layui-input">
 			</div>
 		</div>
 
@@ -86,9 +68,11 @@
 				<button lay-submit class="layui-btn" id="sub" lay-filter="sub">提交</button>
 			</div>
 		</div>
-
+		<input type="hidden" id="id"/>
+		<input type="hidden" id="rid"/>
+		<input type="hidden" id="uid"/>
+		<input type="hidden" id="did"/>
 	</form>
-	<input type="hidden" id="id" name="id"/>
 </div>
 </body>
 
@@ -97,34 +81,67 @@
 	  function () {
       var laydate = layui.laydate, //日期
       layer = layui.layer, //弹层
-      table = layui.table, //表格
       form = layui.form;
       $ = layui.jquery; //jquery控件
+      var id =$("#id").val();
 
-    //日期范围
-    laydate.render({
-      elem: '#strTime'
-    });
-
-    //角色下拉框
-    $.get(urlpre+"/getMyRole",function (res) {
-      var data=res.data;
-      var id=$("#id").val();
-      var html="";
-			$.each(data,function (index,item) {
-			  if(id==item.id){
-          html+="<option value='"+item.id+"' selected>"+item.roleName+"</option>";
-        }else {
-          html+="<option value='"+item.id+"'>"+item.roleName+"</option>";
-        }
+      //单位下拉框
+      $.get("getAllUnit",function (res) {
+        var data=res.data;
+        var id=$("#id").val()==null?-1:$("#uid").val();
+        var html="";
+        $.each(data,function (index,item) {
+          if(id==item.id){
+            html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
+          }else {
+            html+="<option value='"+item.id+"'>"+item.name+"</option>";
+          }
+        });
+        $("#unitId").html(html);
+        form.render();
+        getDepartment();
       });
-	    $("#roleId").html(html);
-      form.render();
-    });
+
+      form.on('select(change)', function(data){
+        getDepartment();
+      });
+
+      function getDepartment() {
+        var params={"unitId":$("#unitId").val()};
+        $.get("getDepartment",params,function (res) {
+          var data=res.data;
+          var id=$("#id").val()==null?-1:$("#did").val();
+          var html="";
+          $.each(data,function (index,item) {
+            if(id==item.id){
+              html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
+            }else {
+              html+="<option value='"+item.id+"'>"+item.name+"</option>";
+            }            });
+          $("#departmentId").html(html);
+          form.render();
+        })
+      }
+
+      //角色下拉框
+      $.get("getAllRole",function (res) {
+        var data=res.data;
+        var id=$("#id").val()==null?-1:$("#rid").val();
+        var html="";
+        $.each(data,function (index,item) {
+          if(id==item.id){
+						html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
+					}else {
+						html+="<option value='"+item.id+"'>"+item.name+"</option>";
+					}
+        });
+        $("#roleId").html(html);
+        form.render();
+      });
 
     form.on('submit(sub)',function (data) {
 
-      $.post(urlpre+"/doAdmin/updateUser", data.field,
+      $.post("updateUserInfo", data.field,
         function (res) {
           if(res.result){
             layer.msg('更新成功！', {

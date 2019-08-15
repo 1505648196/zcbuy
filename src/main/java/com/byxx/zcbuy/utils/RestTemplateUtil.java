@@ -38,7 +38,7 @@ public class RestTemplateUtil {
 	/**
 	 * 单例实例
 	 */
-	public static RestTemplate getInstance() {
+	private static RestTemplate getInstance() {
 		return SingletonRestTemplate.INSTANCE;
 	}
 

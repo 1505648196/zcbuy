@@ -22,6 +22,7 @@ public class MyResponseBody {
 
 	@ExceptionHandler(Exception.class)
 	public NpResult exceptionHandler(Exception e, HttpServletRequest request, HttpServletResponse response){
+		e.printStackTrace();
 		return NpResult.error("服务器异常!");
 	}
 }

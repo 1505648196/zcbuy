@@ -1,10 +1,9 @@
-﻿layui.use(['layer', 'form', 'jquery', 'table', 'laydate', 'upload'], function () {
-  var laydate = layui.laydate, //日期
+﻿layui.use(['layer', 'form', 'jquery', 'table'], function () {
+  var form = layui.form,  //表单
     layer = layui.layer, //弹层
-    table = layui.table, //表格
-    upload = layui.upload, //表格
-    form = layui.form;    //表单
-  $ = layui.jquery; //jquery控件
+    table = layui.table; //表格
+    $ = layui.jquery; //jquery控件
+  //单位下拉框
   $.get("getAllUnit",function (res) {
     var data=res.data;
     console.log(JSON.stringify(data));
@@ -31,7 +30,7 @@
       $.each(data,function (index,item) {
           html+="<option value='"+item.id+"'>"+item.name+"</option>";
       });
-      $("#department").html(html);
+      $("#department").append(html);
       form.render();
     })
   }
@@ -46,6 +45,7 @@
     var param = {'unitId': unitId, 'departmentId': departmentId,'name':name};
     table.render({
       elem: '#show',
+      toolbar: '#toolbarDemo',
       page: true,
       url: "getUserBy",
       where: param,
@@ -104,8 +104,7 @@
   //监听工具事件
   table.on('tool(show)', function (obj) {
     var data = obj.data;
-    if (obj.event === 'edit')
-    {
+    if (obj.event === 'edit') {
       layer.open({
         title: '编辑',
         type: 2,
@@ -113,24 +112,20 @@
         area: ['50%', '80%'],
         success: function (layero, index) {
           var body = layer.getChildFrame('body', index);
-          body.find('#cardNum').val(data.cardNum);
-          body.find('#unit').val(data.unit);
-          body.find('#cardNum').val(data.cardNum);
+          body.find('#id').val(data.id);
           body.find('#name').val(data.name);
+          body.find('#uid').val(data.unit.unitId);
+          body.find('#did').val(data.department.departmentId);
+          body.find('#rid').val(data.role.roleId);
           body.find('#phone').val(data.phone);
-          body.find('#duties').val(data.duties);
-          body.find('#politicalAppearance').val(data.politicalAppearance);
-          body.find('#strTime').val(data.admissionyyyyMm);
-          body.find('#diploma').val(data.diploma);
-          body.find('#id').val(data.role.id);
+          body.find('#email').val(data.email);
         },
-        content:urlpre+"/admin/edit/user/updatePage"
+        content:"editUser"
       });
     }
-    else if (obj.event === 'del')
-    {
+    else if (obj.event === 'del') {
       layer.confirm('确定删除吗', function(index){
-        $.post(urlpre+"/doAdmin/deleteUser", {'cardNum':data.cardNum},
+        $.post("delUser", {'id':data.id},
           function (res) {
             if(res.result){
               getlist();
@@ -150,8 +145,11 @@
 
     if (obj.event === 'add') {
       layer.open({
-        type: 1,
-        content: $('#add')
+        title: '添加',
+        type: 2,
+        maxmin: true, //开启最大化最小化按钮
+        area: ['50%', '80%'],
+        content:"editUser"
       });
     }
   });

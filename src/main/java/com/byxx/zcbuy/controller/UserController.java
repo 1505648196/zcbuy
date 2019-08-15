@@ -8,10 +8,7 @@ import com.byxx.zcbuy.utils.RestTemplateUtil;
 import com.byxx.zcbuy.utils.ResultBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -73,23 +70,44 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@RequestMapping("/getUserById")
+	public Object getUserById() {
+		return RestTemplateUtil.get(MyUrl.GET_ALL_ROLE,LoginInterceptor.getId());
+	}
+
+	@ResponseBody
 	@GetMapping("/getAllUnit")
 	public Object getAllUnit() {
-		return RestTemplateUtil.get(MyUrl.GET_ALL_UNIT, LoginInterceptor.getUser().getId());
+		return RestTemplateUtil.get(MyUrl.GET_ALL_UNIT, LoginInterceptor.getId());
 	}
 	@ResponseBody
 	@GetMapping("/getDepartment")
 	public Object getDepartment(HttpServletRequest request) {
-		return RestTemplateUtil.get(MyUrl.GET_DEPARTMENTS_BY+request.getQueryString(), LoginInterceptor.getUser().getId());
+		return RestTemplateUtil.get(MyUrl.GET_DEPARTMENTS_BY+request.getQueryString(), LoginInterceptor.getId());
 	}
 	@ResponseBody
 	@GetMapping("/getUserBy")
 	public Object getUserBy(HttpServletRequest request) {
-		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getQueryString(), LoginInterceptor.getUser().getId());
+		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getQueryString(), LoginInterceptor.getId());
 	}
 
-	public static void main(String[] args) {
-		Object o = RestTemplateUtil.get(MyUrl.GET_ALL_UNIT, LoginInterceptor.getUser().getId());
-		System.err.println(JSON.toJSONString(o));
+	@ResponseBody
+	@GetMapping("/getAllRole")
+	public Object getAllRole() {
+		return RestTemplateUtil.get(MyUrl.GET_ALL_ROLE, LoginInterceptor.getId());
 	}
+
+	@ResponseBody
+	@GetMapping("/delUser")
+	public Object delUser(HttpServletRequest request) {
+		System.err.println(request.getQueryString());
+		return RestTemplateUtil.get(MyUrl.DEL_USER+request.getQueryString(), LoginInterceptor.getId());
+	}
+
+	@ResponseBody
+	@GetMapping("/updateUserInfo")
+	public Object updateUserInfo(@RequestBody User user) {
+		return RestTemplateUtil.post(MyUrl.UPDATE_USER_INFO, user, LoginInterceptor.getId());
+	}
+
 }

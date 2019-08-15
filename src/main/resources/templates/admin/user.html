@@ -41,7 +41,9 @@
 						</div>
 
 						<div class="layui-inline layui-show-xs-block">
-							<select name="departmentId" id="department" class="layui-input"></select>
+							<select name="departmentId" id="department" class="layui-input">
+								<option>部门</option>
+							</select>
 						</div>
 
 						<div class="layui-inline layui-show-xs-block">
@@ -62,7 +64,6 @@
 </div>
 <input type="hidden" th:value="${session.userMsg.unitId}" id="unitid"/>
 </body>
-
 	<script type="text/html" id="toolbarDemo">
 		<div class="layui-btn-container">
 			<button class="layui-btn layui-btn layui-btn-radius" lay-event="add">新增用户</button>
