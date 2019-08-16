@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>欢迎</title>
@@ -37,13 +37,15 @@
 					<form class="layui-form layui-col-space5">
 
 						<div class="layui-inline layui-show-xs-block">
-							<select name="unitId" id="unit"  lay-filter="change" class="layui-input"></select>
+							<select name="unitId" id="unitId"  lay-filter="change" class="layui-input"></select>
 						</div>
 
 						<div class="layui-inline layui-show-xs-block">
-							<select name="departmentId" id="department" class="layui-input">
-								<option>部门</option>
-							</select>
+							<select name="departmentId" id="department" class="layui-input"></select>
+						</div>
+
+						<div class="layui-inline layui-show-xs-block">
+							<select name="roleId" id="roleId" class="layui-input"></select>
 						</div>
 
 						<div class="layui-inline layui-show-xs-block">
@@ -62,11 +64,11 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" th:value="${session.userMsg.unitId}" id="unitid"/>
+<input type="hidden" th:value="${session.userMsg.unitId}" id="unit"/>
 </body>
 	<script type="text/html" id="toolbarDemo">
 		<div class="layui-btn-container">
-			<button class="layui-btn layui-btn layui-btn-radius" lay-event="add">新增用户</button>
+			<button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add">新增用户</button>
 		</div>
 	</script>
 

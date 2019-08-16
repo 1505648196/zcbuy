@@ -8,7 +8,10 @@ import com.byxx.zcbuy.utils.RestTemplateUtil;
 import com.byxx.zcbuy.utils.ResultBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,17 +34,6 @@ public class UserController {
 	public String noLogin(HttpSession session) {
 		session.removeAttribute("userMsg");
 		return "login";
-	}
-
-	@ResponseBody
-	@PostMapping("/doLogin")
-	public Object doLogin(User user, HttpSession session) {
-		System.err.println(JSON.toJSONString(user));
-		Object post = RestTemplateUtil.post(MyUrl.DO_LOGIN, user);
-		System.err.println(JSON.toJSONString(post));
-		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post), ResultBean.class);
-		session.setAttribute("userMsg",resultBean.getData());
-		return post;
 	}
 
 	@RequestMapping("/index")
@@ -70,6 +62,15 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@PostMapping("/doLogin")
+	public Object doLogin(User user, HttpSession session) {
+		Object post = RestTemplateUtil.post(MyUrl.DO_LOGIN, user);
+		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post), ResultBean.class);
+		session.setAttribute("userMsg",resultBean.getData());
+		return post;
+	}
+
+	@ResponseBody
 	@RequestMapping("/getUserById")
 	public Object getUserById() {
 		return RestTemplateUtil.get(MyUrl.GET_ALL_ROLE,LoginInterceptor.getId());
@@ -83,12 +84,12 @@ public class UserController {
 	@ResponseBody
 	@GetMapping("/getDepartment")
 	public Object getDepartment(HttpServletRequest request) {
-		return RestTemplateUtil.get(MyUrl.GET_DEPARTMENTS_BY+request.getQueryString(), LoginInterceptor.getId());
+		return RestTemplateUtil.get(MyUrl.GET_DEPARTMENTS_BY+request.getAttribute("p"), LoginInterceptor.getId());
 	}
 	@ResponseBody
 	@GetMapping("/getUserBy")
 	public Object getUserBy(HttpServletRequest request) {
-		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getQueryString(), LoginInterceptor.getId());
+		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getAttribute("p"), LoginInterceptor.getId());
 	}
 
 	@ResponseBody
@@ -98,16 +99,20 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@GetMapping("/delUser")
-	public Object delUser(HttpServletRequest request) {
-		System.err.println(request.getQueryString());
-		return RestTemplateUtil.get(MyUrl.DEL_USER+request.getQueryString(), LoginInterceptor.getId());
+	@PostMapping("/delUser")
+	public Object delUser(User user) {
+		return RestTemplateUtil.post(MyUrl.DEL_USER,user, LoginInterceptor.getId());
 	}
 
 	@ResponseBody
-	@GetMapping("/updateUserInfo")
-	public Object updateUserInfo(@RequestBody User user) {
+	@PostMapping("/updateUserInfo")
+	public Object updateUserInfo(User user) {
 		return RestTemplateUtil.post(MyUrl.UPDATE_USER_INFO, user, LoginInterceptor.getId());
+	}
+	@ResponseBody
+	@PostMapping("/register")
+	public Object register(User user) {
+		return RestTemplateUtil.post(MyUrl.REGISTER, user, LoginInterceptor.getId());
 	}
 
 }

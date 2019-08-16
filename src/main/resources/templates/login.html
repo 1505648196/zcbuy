@@ -61,7 +61,7 @@
           if (res.result) {
             location.href = "/zcbuy/index";
           } else {
-            $("#error").text("用户名或密码错误!");
+            $("#error").text(res.msg);
           }
         });
       return false;

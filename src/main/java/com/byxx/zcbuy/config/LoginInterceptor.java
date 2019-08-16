@@ -7,6 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
 
 /**
  * 定义登录拦截器
@@ -18,8 +19,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     //调用目标方法之前被拦截
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-	    Object userMsg = request.getSession().getAttribute("userMsg");
-	    System.err.println(request.getRequestURI());
+
+	    String uri = request.getRequestURI();
+	    String params = request.getQueryString()==null?"":"?"+ URLDecoder.decode(request.getQueryString(),"utf-8");
+	    request.setAttribute("p",params);
+	    System.err.println("请求的url:"+uri+params);
+    	Object userMsg = request.getSession().getAttribute("userMsg");
 	    if( userMsg == null) {
 		    //没有登录过
 		    request.setAttribute("msg", "没有登录！");

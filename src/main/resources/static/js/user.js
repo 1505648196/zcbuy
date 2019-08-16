@@ -2,13 +2,12 @@
   var form = layui.form,  //表单
     layer = layui.layer, //弹层
     table = layui.table; //表格
-    $ = layui.jquery; //jquery控件
+  $ = layui.jquery; //jquery控件
   //单位下拉框
   $.get("getAllUnit",function (res) {
     var data=res.data;
-    console.log(JSON.stringify(data));
-    var id=$("#unitid").val();
-    var html="";
+    var id=$("#unit").val();
+    var html="<option value=''>全部单位</option>";
     $.each(data,function (index,item) {
       if(id==item.id){
         html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
@@ -16,33 +15,40 @@
         html+="<option value='"+item.id+"'>"+item.name+"</option>";
       }
     });
-    $("#unit").html(html);
-    form.render();
+    $("#unitId").html(html);
     getDepartment();
   });
 
   function getDepartment() {
-    var params={"unitId":$("#unit").val()};
+    var params={"unitId":$("#unitId").val()};
     $.get("getDepartment",params,function (res) {
       var data=res.data;
-      console.log(JSON.stringify(data));
-      var html="<option></option>";
+      var html="<option value=''>全部部门</option>";
       $.each(data,function (index,item) {
-          html+="<option value='"+item.id+"'>"+item.name+"</option>";
+        html+="<option value='"+item.id+"'>"+item.name+"</option>";
       });
-      $("#department").append(html);
+      $("#department").html(html);
       form.render();
     })
   }
-
+  //单位下拉框
+  $.get("getAllRole",function (res) {
+    var data=res.data;
+    var html="<option value=''>全部角色</option>";
+    $.each(data,function (index,item) {
+        html+="<option value='"+item.id+"'>"+item.name+"</option>";
+    });
+    $("#roleId").html(html);
+  });
   //加载表格数据
   getlist();
   //表头
   function getlist() {
-    var unitId = $("#unit").val();
+    var unitId = $("#unitId").val();
     var departmentId = $("#department").val();
     var name = $("#name").val();
-    var param = {'unitId': unitId, 'departmentId': departmentId,'name':name};
+    var roleId = $("#roleId").val();
+    var param = {'unitId': unitId, 'departmentId': departmentId,"roleId":roleId,'name':name};
     table.render({
       elem: '#show',
       toolbar: '#toolbarDemo',
@@ -114,9 +120,10 @@
           var body = layer.getChildFrame('body', index);
           body.find('#id').val(data.id);
           body.find('#name').val(data.name);
-          body.find('#uid').val(data.unit.unitId);
-          body.find('#did').val(data.department.departmentId);
-          body.find('#rid').val(data.role.roleId);
+          body.find('#loginName').val(data.loginName);
+          body.find('#uid').val(data.unit.id);
+          body.find('#did').val(data.department.id);
+          body.find('#rid').val(data.role.id);
           body.find('#phone').val(data.phone);
           body.find('#email').val(data.email);
         },
