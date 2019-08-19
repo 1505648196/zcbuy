@@ -1,9 +1,11 @@
 package com.byxx.zcbuy.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.byxx.zcbuy.config.LoginInterceptor;
 import com.byxx.zcbuy.model.User;
 import com.byxx.zcbuy.utils.MyUrl;
+import com.byxx.zcbuy.utils.NpResult;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import com.byxx.zcbuy.utils.ResultBean;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,11 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
 
+	@ResponseBody
+	@GetMapping("/t")
+	public NpResult t() {
+		return NpResult.success();
+	}
 	@RequestMapping("/")
 	public String login() {
 		return "login";
@@ -51,6 +58,11 @@ public class UserController {
 		return "myInfo";
 	}
 
+	@RequestMapping("/editPwd")
+	public String editPwd() {
+		return "editPwd";
+	}
+
 	@RequestMapping("/user")
 	public String user() {
 		return "admin/user";
@@ -65,7 +77,7 @@ public class UserController {
 	@PostMapping("/doLogin")
 	public Object doLogin(User user, HttpSession session) {
 		Object post = RestTemplateUtil.post(MyUrl.DO_LOGIN, user);
-		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post), ResultBean.class);
+		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post, SerializerFeature.WriteMapNullValue), ResultBean.class);
 		session.setAttribute("userMsg",resultBean.getData());
 		return post;
 	}
@@ -113,6 +125,20 @@ public class UserController {
 	@PostMapping("/register")
 	public Object register(User user) {
 		return RestTemplateUtil.post(MyUrl.REGISTER, user, LoginInterceptor.getId());
+	}
+
+	@ResponseBody
+	@PostMapping("/updateMyInfo")
+	public Object updateMyInfo(User user,HttpSession session) {
+		Object post = RestTemplateUtil.post(MyUrl.UPDATE_MY_INFO, user, LoginInterceptor.getId());
+		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post, SerializerFeature.WriteMapNullValue), ResultBean.class);
+		session.setAttribute("userMsg",resultBean.getData());
+		return NpResult.success();
+	}
+	@ResponseBody
+	@PostMapping("/updatePwd")
+	public Object updatePwd(User user) {
+		return RestTemplateUtil.post(MyUrl.UPDATE_MY_INFO, user, LoginInterceptor.getId());
 	}
 
 }
