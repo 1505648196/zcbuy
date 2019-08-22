@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	    String uri = request.getRequestURI();
 	    String params = request.getQueryString()==null?"":"?"+ URLDecoder.decode(request.getQueryString(),"utf-8");
-	    request.setAttribute("p",params);
+	    request.setAttribute("p",params);//参数请求
 	    System.err.println("请求的url:"+uri+params);
     	Object userMsg = request.getSession().getAttribute("userMsg");
 	    if( userMsg == null) {
@@ -41,7 +41,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		//过滤器完成后，从线程域中删除用户信息
 		thread.remove();
 	}
-
 	//获取登陆用户
 	public static String getId() {
 		return thread.get();

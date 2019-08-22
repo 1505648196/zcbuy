@@ -32,5 +32,9 @@ public class MyUrl {
 	public static final String DEL_USER = PRE+"/api/user/disabled";
 	/** */
 	public static final String X = PRE+"";
+	/**
+	 * 获取权限表全部权限
+	 */
+	public  static  final String GET_ALl_Perission = PRE+"/api/power";
 
 }

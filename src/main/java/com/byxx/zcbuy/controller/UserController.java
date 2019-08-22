@@ -37,6 +37,11 @@ public class UserController {
 		return "login";
 	}
 
+	@GetMapping("/permission")
+	public String permission(){
+		return  "admin/permission";
+	}
+
 	@RequestMapping("/noLogin")
 	public String noLogin(HttpSession session) {
 		session.removeAttribute("userMsg");
@@ -73,6 +78,21 @@ public class UserController {
 		return "admin/editUser";
 	}
 
+	@RequestMapping("/editPermission")
+	public  String editPermission(){
+		return "admin/editPermission";
+	}
+
+	@RequestMapping("/editUSerplus")
+	public  String editUSerplus(){
+		return "admin/editUSerplus";
+	}
+
+	@RequestMapping("/conciseUser")
+	public  String conciseUser(){
+		return  "admin/conciseUser";
+
+	}
 	@ResponseBody
 	@PostMapping("/doLogin")
 	public Object doLogin(User user, HttpSession session) {
@@ -104,6 +124,16 @@ public class UserController {
 		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getAttribute("p"), LoginInterceptor.getId());
 	}
 
+	/**
+	 * 查询所有的权限
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/getPermissionBy")
+	public Object getPermissionBy(HttpServletRequest request){
+		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getAttribute("p"), LoginInterceptor.getId());
+	}
 	@ResponseBody
 	@GetMapping("/getAllRole")
 	public Object getAllRole() {

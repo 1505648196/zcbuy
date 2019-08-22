@@ -90,8 +90,12 @@
               return d.role.name;
             }},
           {field: 'phone', title: '手机', align: 'center'},
-          {field: 'email', title: '邮箱', align: 'center'},
-          {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
+          {field: 'email', title: '邮箱', align: 'center',templet:function (d) {
+                if (d.email==""||d.email==null){
+                  return "无"
+                }
+            }},
+           //{fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
 
         ]
       ]
@@ -110,27 +114,27 @@
   //监听工具事件
   table.on('tool(show)', function (obj) {
     var data = obj.data;
-    if (obj.event === 'edit') {
-      layer.open({
-        title: '编辑',
-        type: 2,
-        maxmin: true, //开启最大化最小化按钮
-        area: ['50%', '80%'],
-        success: function (layero, index) {
-          var body = layer.getChildFrame('body', index);
-          body.find('#id').val(data.id);
-          body.find('#name').val(data.name);
-          body.find('#loginName').val(data.loginName);
-          body.find('#uid').val(data.unit.id);
-          body.find('#did').val(data.department.id);
-          body.find('#rid').val(data.role.id);
-          body.find('#phone').val(data.phone);
-          body.find('#email').val(data.email);
-        },
-        content:"editUser"
-      });
-    }
-    else
+    // if (obj.event === 'edit') {
+    //   layer.open({
+    //     title: '编辑',
+    //     type: 2,
+    //     maxmin: true, //开启最大化最小化按钮
+    //     area: ['50%', '80%'],
+    //     success: function (layero, index) {
+    //       var body = layer.getChildFrame('body', index);
+    //       body.find('#id').val(data.id);
+    //       body.find('#name').val(data.name);
+    //       body.find('#loginName').val(data.loginName);
+    //       body.find('#uid').val(data.unit.id);
+    //       body.find('#did').val(data.department.id);
+    //       body.find('#rid').val(data.role.id);
+    //       body.find('#phone').val(data.phone);
+    //       body.find('#email').val(data.email);
+    //     },
+    //     content:"editUser"
+    //   });
+    // }
+    // else
     if (obj.event === 'del') {
       layer.confirm('确定删除吗', function(index){
         $.post("delUser", {'id':data.id},
