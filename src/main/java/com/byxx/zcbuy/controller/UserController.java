@@ -78,27 +78,39 @@ public class UserController {
 		return "admin/editUser";
 	}
 
-	@RequestMapping("/editPermission")
-	public  String editPermission(){
-		return "admin/editPermission";
-	}
-
+	/**
+	 * 无用
+	 * @return
+	 */
 	@RequestMapping("/editUSerplus")
 	public  String editUSerplus(){
 		return "admin/editUSerplus";
 	}
 
+
+	/**
+	 * 无用
+	 * @return
+	 */
 	@RequestMapping("/conciseUser")
 	public  String conciseUser(){
 		return  "admin/conciseUser";
 
 	}
+
+	/***
+	 * login start
+	 * @param user
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/doLogin")
 	public Object doLogin(User user, HttpSession session) {
 		Object post = RestTemplateUtil.post(MyUrl.DO_LOGIN, user);
 		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post, SerializerFeature.WriteMapNullValue), ResultBean.class);
 		session.setAttribute("userMsg",resultBean.getData());
+		System.out.println(resultBean.getData());
 		return post;
 	}
 
@@ -124,16 +136,6 @@ public class UserController {
 		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getAttribute("p"), LoginInterceptor.getId());
 	}
 
-	/**
-	 * 查询所有的权限
-	 * @param request
-	 * @return
-	 */
-	@ResponseBody
-	@GetMapping("/getPermissionBy")
-	public Object getPermissionBy(HttpServletRequest request){
-		return RestTemplateUtil.get(MyUrl.GET_USER_BY+request.getAttribute("p"), LoginInterceptor.getId());
-	}
 	@ResponseBody
 	@GetMapping("/getAllRole")
 	public Object getAllRole() {

@@ -82,6 +82,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 [
                     {type: 'numbers'},
                     {field: 'name', title: '单位', align: 'center',templet:function (d) {
+                                    console.log(d.role)
                                    return d.role.name;
                                  }},
                     {field: 'power', title: '拥有', align: 'center',templet:function (d) {
@@ -149,7 +150,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                             layer.close(index);
                         }else {
                             layer.msg('操作失败！'+res.msg, {
-                                time: 1000
+                                time: 8000
                             });
                         }
 

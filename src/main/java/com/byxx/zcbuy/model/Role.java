@@ -17,5 +17,4 @@ public class Role {
      * 角色名
      */
     private String name;
-
 }
