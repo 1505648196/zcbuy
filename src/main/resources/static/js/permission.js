@@ -124,7 +124,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     //监听工具事件
     table.on('tool(show)', function (obj) {
         var data = obj.data;
-        console.log(data);
+        console.log("来了")
+        console.log(data.role.id);
         if (obj.event === 'edit') {
             layer.open({
                 title: '修改',
@@ -141,7 +142,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         }
         else if (obj.event === 'del') {
             layer.confirm('确定删除吗', function(index){
-                $.post("delUser", {'id':data.id},
+                $.post("http://chunyin1992.vicp.io/api/role/delRole", {'id':data.role.id},
                     function (res) {
                         if(res.result){
                             getlist();
