@@ -3,59 +3,17 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         layer = layui.layer, //弹层
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
-    //单位下拉框
-    // $.get("getAllUnit",function (res) {
-    //     var data=res.data;
-    //     var id=$("#unit").val();
-    //     var html="<option value=''>全部单位</option>";
-    //     $.each(data,function (index,item) {
-    //         if(id==item.id){
-    //             html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
-    //         }else {
-    //             html+="<option value='"+item.id+"'>"+item.name+"</option>";
-    //         }
-    //     });
-    //     $("#unitId").html(html);
-    //     getDepartment();
-    // });
 
-    // function getDepartment() {
-    //     var params={"unitId":$("#unitId").val()};
-    //     $.get("getDepartment",params,function (res) {
-    //         var data=res.data;
-    //         var html="<option value=''>全部部门</option>";
-    //         $.each(data,function (index,item) {
-    //             html+="<option value='"+item.id+"'>"+item.name+"</option>";
-    //         });
-    //         $("#department").html(html);
-    //         form.render();
-    //     })
-    // }
-    // //单位下拉框
-    // $.get("getAllRole",function (res) {
-    //     var data=res.data;
-    //     var html="<option value=''>全部角色</option>";
-    //     $.each(data,function (index,item) {
-    //         html+="<option value='"+item.id+"'>"+item.name+"</option>";
-    //     });
-    //     $("#roleId").html(html);
-    // });
-    //加载表格数据
-    getlist();
+     getlist();
     //表头
     function getlist() {
-        //带参数
-        //var unitId = $("#unitId").val();
-        // var departmentId = $("#department").val();
-        // var name = $("#name").val();
-        // var roleId = $("#roleId").val();
-        // var param = {'unitId': unitId, 'departmentId': departmentId,"roleId":roleId,'name':name};
+
         table.render({
             elem: '#show',
-            // toolbar: '#toolbarDemo',
-            page: true,
+             // toolbar: '#toolbarDemo',
+            page: true, //我把分页关了
             url: "http://chunyin1992.vicp.io/api/power/getPowerByRoles",
-        //    where: param,
+            //    where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
                     var code=0;
@@ -82,19 +40,22 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 [
                     {type: 'numbers'},
                     {field: 'name', title: '单位', align: 'center',templet:function (d) {
-                                    console.log(d.role)
-                                   return d.role.name;
-                                 }},
+                            console.log(d.role)
+                            return d.role.name;
+                        }},
                     {field: 'power', title: '拥有', align: 'center',templet:function (d) {
                             var contextPower = "";
-                             if (d.role.name=="超级管理员"){
-                                 return "拥有所有权限"
-                             } else{
-                                  d.powers.forEach(function (item,index) {
-                                      contextPower +=item.name+"、"
-                                  } )
-                                  return contextPower
-                             }
+                            if (d.role.name=="超级管理员"){
+                                return "拥有所有权限";
+                                console.log("你好啊");
+                                console.log(d.powers);
+                            } else{
+                                d.powers.forEach(function (item,index) {
+                                    contextPower +=item.name+"//"+item.children[index].name;
+                                } )
+                                return contextPower
+
+                            }
                         }},
 
                     // {field: 'department', title: '部门', align: 'center',templet:function (d) {
@@ -107,7 +68,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     // {field: 'phone', title: '手机', align: 'center'},
                     // {field: 'email', title: '邮箱', align: 'center'},
                     //
-                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
+                    {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
             ]
         });
@@ -158,18 +119,46 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             });
         }
     });
-    //头工具栏事件
-    // table.on('toolbar(show)', function (obj) {
-    //
-    //     if (obj.event === 'add') {
-    //         layer.open({
-    //             title: '添加',
-    //             type: 2,
-    //             maxmin: true, //开启最大化最小化按钮
-    //             area: ['50%', '80%'],
-    //             content:"editUser"
-    //         });
-    //     }
-    // });
+   // 头工具栏事件
+   //  table.on('toolbar(show)', function (obj) {
+   //      if (obj.event === 'add') {
+   //          layer.open({
+   //              title: '添加',
+   //              type: 2,
+   //              maxmin: true, //开启最大化最小化按钮
+   //              area: ['50%', '80%'],
+   //              content:"editUser"
+   //          });
+   //      }
+   //  });
+
+    form.on('submit(sub)', function (data) {
+        console.log(data.field.name)
+        if (data.field.name==""){
+            layer.msg("请输入角色名",{
+                icon:2,
+                time:1500,
+            })
+            return false;
+        }else {
+            $.ajax({
+                url: "http://chunyin1992.vicp.io/api/role/addRole",
+                data: JSON.stringify( {name:data.field.name}),
+                type:"post",
+                dataType: "json",
+                contentType : "application/json",//否则报错类型不能少
+                // jsonp: "selfNamedReplaceCallback",
+                // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
+                success:function (res) {
+                    location.href = "user";
+                }
+            })
+
+
+
+        }
+
+
+    });
 
 });
