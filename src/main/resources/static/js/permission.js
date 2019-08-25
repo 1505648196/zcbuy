@@ -19,6 +19,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     var code=0;
                     if (!res.result){
                         code=1;
+
                     }
                     return {
                         "code": code,
