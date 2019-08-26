@@ -4,12 +4,12 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
 
+    //初始化
      getlist();
     //表头
     function getlist() {
-
         table.render({
-            elem: '#show',
+            elem: '#shows',
              // toolbar: '#toolbarDemo',
             page: true, //我把分页关了
             url: "http://chunyin1992.vicp.io/api/power/getPowerByRoles",
@@ -19,7 +19,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     var code=0;
                     if (!res.result){
                         code=1;
-
                     }
                     return {
                         "code": code,
@@ -28,6 +27,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                         "data": res.data
                     };
                 },
+            //颜色换行
             done: function (res, curr, count) {
                 $('th').css({'background-color': '#5792c6', 'color': '#fff', 'font-weight': '500', 'font-size': '14px'});
                 var that = this.elem.next();
@@ -37,6 +37,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     }
                 });
             },
+            //数据字段填充
             cols: [
                 [
                     {type: 'numbers'},
@@ -52,7 +53,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                                 console.log(d.powers);
                             } else{
                                 d.powers.forEach(function (item,index) {
-                                    contextPower +=item.name+"//"+item.children[index].name;
+                                    console.log(item.name);
+                                    contextPower +=item.name;
                                 } )
                                 return contextPower
 
@@ -85,7 +87,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     // });
 
     //监听工具事件
-    table.on('tool(show)', function (obj) {
+    table.on('tool(shows)', function (obj) {
         var data = obj.data;
         console.log("来了")
         console.log(data.role.id);
@@ -133,31 +135,73 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
    //      }
    //  });
 
-    form.on('submit(sub)', function (data) {
-        console.log(data.field.name)
-        if (data.field.name==""){
+
+    $(".subAddPowertwo").click(function () {
+        var name =  $("#name").val();
+        console.log(name);
+        if (name==""){
             layer.msg("请输入角色名",{
                 icon:2,
                 time:1500,
             })
             return false;
         }else {
+            // console.log("来了")
+            // $.ajax({
+            //     url: "http://chunyin1992.vicp.io/api/role/addRole",
+            //     //data :{name:data.field.name},
+            //     data: JSON.stringify( {name:data.field.name}),
+            //     type:"post",
+            //     dataType: "json",
+            //     contentType : "application/json",//否则报错类型不能少
+            //     // jsonp: "selfNamedReplaceCallback",
+            //     // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
+            //     success:function (res) {
+            //         console.log("来了2");
+            //         if(res.result){
+            //             layer.alert(res.msg);
+            //             location.href = "user";
+            //         }
+            //     },
+            //     error:function () {
+            //         console.log("出错了")
+            //     }
+            // })
+            //增加
             $.ajax({
                 url: "http://chunyin1992.vicp.io/api/role/addRole",
-                data: JSON.stringify( {name:data.field.name}),
+                data: JSON.stringify( {name:name}),
                 type:"post",
                 dataType: "json",
                 contentType : "application/json",//否则报错类型不能少
                 // jsonp: "selfNamedReplaceCallback",
                 // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
                 success:function (res) {
-                    location.href = "user";
+                    console.log(res.result);
+                    if (res.result) {
+
+                        layer.msg('添加成功！', {
+                            time: 500
+                        }, function () {
+                            location.href="permission"
+                            //传到爹哪里去
+                            // var index = parent.layer.getFrameIndex(window.name);
+                            // parent.layer.close(index);
+                            // parent.location.reload();
+                        });
+                    } else {
+                        console.log(res.msg);
+                        layer.msg('添加失败！' + res.msg, {
+                            time: 1000
+                        });
+                    }
                 }
-            })
-
-
-
+            });
         }
+    })
+
+    form.on('submit(subAddPowertwo)', function (data) {
+
 
 
     });

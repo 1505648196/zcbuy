@@ -68,6 +68,7 @@
             "data": res.data
           };
         },
+      //变色
       done: function (res, curr, count) {
         $('th').css({'background-color': '#5792c6', 'color': '#fff', 'font-weight': '500', 'font-size': '14px'});
         var that = this.elem.next();
