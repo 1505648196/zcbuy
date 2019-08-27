@@ -112,8 +112,9 @@
   table.on('tool(show)', function (obj) {
     var arr = new Array();
     var content ="";
-    //权限
     var data = obj.data;
+    //权限
+
     if (obj.event === 'editRole') {
       layer.open({
         title: '权限',
@@ -121,68 +122,12 @@
         maxmin: true, //开启最大化最小化按钮
         area: ['50%', '80%'],
         success: function (layero, index) {
-          //根据id获取用户权限
-          $.ajax({
-          url: "http://chunyin1992.vicp.io/api/power/getUserPowers?userId="+data.id,
-          type:"get",
-          dataType: "json",
-          contentType : "application/json",//否则报错   类型不能少
-          // jsonp: "selfNamedReplaceCallback",
-          // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
-          success:function (res) {
-            console.log("来了老弟")
-                if (res.result) {
-                  var data = res.data
-                  console.log(data);
-                  $.get("http://chunyin1992.vicp.io/api/power/getPowers",function (resplus) {
-                        var dataplus=resplus.data;
-                        console.log(dataplus);
-                        var html="";
-                        //循环管理者拥有的权限对象集合
-                        $.each(dataplus,function (index, item) {
-                         var name = item.name;
-                          content = name+","+content;
-                        console.log(content);
-                        });
-
-                    $.each(data,function (index, items) {
-                      console.log(items.power.name);
-                     if (content.search(items.power.name)){
-                       b=true;
-                     }
-                          if(b){
-                            console.log("you")
-                            // html+="<input lay-skin='primary' type='checkbox' checked name='cc'  value='"+items.power.children[index].id+"' title='"+items.power.children[index].name+"'/>";
-                            html+="<input lay-skin='primary' type='checkbox' checked name='cc'  value='\"+items.power.children[index].id+\"' />";
-                          }else {
-                            html+="<input lay-skin='primary' type='checkbox' checked name='cc' />";
-                            // html+="<input lay-skin='primary' type='checkbox' checked name='cc'  value='"+items.power.children[index].id+"' title='"+items.power.children[index].name+"'/>";
-                          }
-                    });
-                        $("#select").html(html);
-                        form.render();
-                      }
-                  );
-              // layer.msg('添加成功！', {
-              //   time: 500
-              // }, function () {
-              //   location.href="permission"
-              //   //传到爹哪里去
-              //   // var index = parent.layer.getFrameIndex(window.name);
-              //   // parent.layer.close(index);
-              //   // parent.location.reload();
-              // });
-            } else {
-              console.log(res.msg);
-              layer.msg('添加失败！' + res.msg, {
-                time: 1000
-              });
-            }
-          }
-        });
+          var body = layer.getChildFrame('body', index);//获得子窗口
+          var iframe = window['layui-layer-iframe' + index];//反正就是传递
+          iframe.childs(data)//通过js传值：child()是子界面的Js方法
 
         },
-        content:"UserRole"
+        content:"userRole"
       });
     }
     //用户信息
