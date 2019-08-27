@@ -29,6 +29,12 @@ public class PowerrController {
         return "admin/editPermission";
     }
 
+    @RequestMapping("/userRole")
+    public String userRole(){
+        return "admin/UserRole";
+
+    }
+
 }
 
 
