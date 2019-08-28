@@ -96,9 +96,53 @@
 
   //增加
   form.on('submit(supply)', function (data) {
-        console.log(data.field.supplyName);
+    supplyName = data.field.supplyName;
+    console.log(supplyName);
+    //增加
+    $.ajax({
+      url: "http://chunyin1992.vicp.io/api/area/addArea",
+      data: JSON.stringify({name: supplyName}),
+      type: "post",
+      dataType: "json",
+      contentType: "application/json",//否则报错类型不能少
+      success:function (res) {
+        console.log(res.result);
+        if (res.result) {
+
+          layer.msg('添加成功！', {
+            time: 500
+          }, function () {
+            location.href="supplyPlace"
+            //传到爹哪里去
+            // var index = parent.layer.getFrameIndex(window.name);
+            // parent.layer.close(index);
+            // parent.location.reload();
+          });
+        } else {
+          console.log(res.msg);
+          layer.msg('添加失败！' + res.msg, {
+            time: 1000
+          });
+        }
+      }
+
+      })
 
 
+
+
+    // $.post("http://chunyin1992.vicp.io/api/area/addArea",
+    //     {name:supplyName},
+    //     function (res) {
+    //           if (res.result){
+    //             layer.msg("成功");
+    //             location.href = "supplyPlace";
+    //           } else {
+    //             layer.msg("失败");
+    //           }
+    //
+    // })
+    return false;
   });
 
 
@@ -133,7 +177,7 @@
     else
     if (obj.event === 'del') {
       layer.confirm('确定删除吗', function(index){
-        $.post("delUser", {'id':data.id},
+        $.get("http://chunyin1992.vicp.io/api/area/delArea", {'id':data.id},
           function (res) {
             if(res.result){
               getlist();
