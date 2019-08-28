@@ -135,7 +135,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
    //      }
    //  });
 
-
+    //
     $(".subAddPowertwo").click(function () {
         var name =  $("#name").val();
         console.log(name);

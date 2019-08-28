@@ -32,7 +32,6 @@ public class PowerrController {
     @RequestMapping("/userRole")
     public String userRole(){
         return "admin/UserRole";
-
     }
 
 }
