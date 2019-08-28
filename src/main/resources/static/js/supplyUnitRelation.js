@@ -16,45 +16,25 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             }
         });
         $("#unitId").html(html);
-        getDepartment();
+        form.render();
     });
 
-    function getDepartment() {
-        var params={"unitId":$("#unitId").val()};
-        $.get("getDepartment",params,function (res) {
-            var data=res.data;
-            var html="<option value=''>全部部门</option>";
-            $.each(data,function (index,item) {
-                html+="<option value='"+item.id+"'>"+item.name+"</option>";
-            });
-            $("#department").html(html);
-            form.render();
-        })
-    }
-    //单位下拉框
-    $.get("getAllRole",function (res) {
-        var data=res.data;
-        var html="<option value=''>全部角色</option>";
-        $.each(data,function (index,item) {
-            html+="<option value='"+item.id+"'>"+item.name+"</option>";
-        });
-        $("#roleId").html(html);
-    });
+
     //加载表格数据
     getlist();
     //表头
     function getlist() {
         var unitId = $("#unitId").val();
-        var departmentId = $("#department").val();
+
         var name = $("#name").val();
-        var roleId = $("#roleId").val();
-       // var param = {'unitId': unitId, 'departmentId': departmentId,"roleId":roleId,'name':name};
+
+        var param = {'unitId': unitId,'name':name};
         table.render({
             elem: '#show',
             //toolbar: '#toolbarDemo',
             page: true,
             url: "getSupplyBy",
-          //  where: param,
+           where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
                     var code=0;
