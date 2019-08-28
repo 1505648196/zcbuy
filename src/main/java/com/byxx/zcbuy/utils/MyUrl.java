@@ -37,4 +37,8 @@ public class MyUrl {
 	 */
 	public  static  final String GET_ALl_Perission = PRE+"/api/power";
 
+	/**
+	 *筛选获取供货商与单位关联信息
+	 */
+	public  static  final String  UNIT_MERCHANT= PRE+"/api/unitMerchant/getUnitMerchants";
 }
