@@ -167,6 +167,7 @@ public class UserController {
 		session.setAttribute("userMsg",resultBean.getData());
 		return NpResult.success();
 	}
+
 	@ResponseBody
 	@PostMapping("/updatePwd")
 	public Object updatePwd(User user) {

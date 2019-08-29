@@ -28,10 +28,10 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
         var name = $("#name").val();
 
-        var param = {'unitId': unitId,'name':name};
+        var param = {'unitId': unitId,'merchantName':name};
         table.render({
             elem: '#show',
-            //toolbar: '#toolbarDemo',
+            toolbar: '#toolbarDemo',
             page: true,
             url: "getSupplyBy",
            where: param,
@@ -94,24 +94,26 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var arr = new Array();
         var content ="";
         var data = obj.data;
+        console.log(data);
         //用户信息
         if (obj.event === 'edit') {
             layer.open({
                 title: '编辑',
                 type: 2,
+                toolbar: '#toolbarDemo',
                 maxmin: true, //开启最大化最小化按钮
                 area: ['50%', '80%'],
                 success: function (layero, index) {
-                    // console.log(data.id)
-                    var body = layer.getChildFrame('body', index);
-                    body.find('#id').val(data.id);
-                    body.find('#name').val(data.name);
-                    body.find('#loginName').val(data.loginName);
-                    body.find('#uid').val(data.unit.id);
-                    body.find('#did').val(data.department.id);
-                    body.find('#rid').val(data.role.id);
-                    body.find('#phone').val(data.phone);
-                    body.find('#email').val(data.email);
+                    // // console.log(data.id)
+                    // var body = layer.getChildFrame('body', index);
+                    // body.find('#id').val(data.id);
+                    // body.find('#name').val(data.name);
+                    // body.find('#loginName').val(data.loginName);
+                    // body.find('#uid').val(data.unit.id);
+                    // body.find('#did').val(data.department.id);
+                    // body.find('#rid').val(data.role.id);
+                    // body.find('#phone').val(data.phone);
+                    // body.find('#email').val(data.email);
                 },
                 content:"editUser"
             });
@@ -119,7 +121,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         else
         if (obj.event === 'del') {
             layer.confirm('确定删除吗', function(index){
-                $.post("delUser", {'id':data.id},
+                $.get("delsupplyUnitRelation", {'id':data.id},
                     function (res) {
                         if(res.result){
                             getlist();
@@ -136,14 +138,13 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     });
     //头工具栏事件
     table.on('toolbar(show)', function (obj) {
-
         if (obj.event === 'add') {
             layer.open({
-                title: '添加',
+                title: '新增',
                 type: 2,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['50%', '80%'],
-                content:"editUser"
+                content:"addRelation"
             });
         }
     });

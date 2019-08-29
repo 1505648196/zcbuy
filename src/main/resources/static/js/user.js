@@ -51,7 +51,7 @@
     var param = {'unitId': unitId, 'departmentId': departmentId,"roleId":roleId,'name':name};
     table.render({
       elem: '#show',
-      //toolbar: '#toolbarDemo',
+      toolbar: '#toolbarDemo',
       page: true,
       url: "getUserBy",
       where: param,
@@ -68,7 +68,7 @@
             "data": res.data
           };
         },
-      //变色
+      //隔行变色
       done: function (res, curr, count) {
         $('th').css({'background-color': '#5792c6', 'color': '#fff', 'font-weight': '500', 'font-size': '14px'});
         var that = this.elem.next();
@@ -172,7 +172,6 @@
   });
   //头工具栏事件
   table.on('toolbar(show)', function (obj) {
-
     if (obj.event === 'add') {
       layer.open({
         title: '添加',

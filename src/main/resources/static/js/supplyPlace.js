@@ -180,6 +180,9 @@
         $.get("http://chunyin1992.vicp.io/api/area/delArea", {'id':data.id},
           function (res) {
             if(res.result){
+              layer.msg('成功！'+res.msg, {
+                time: 1000
+              });
               getlist();
               layer.close(index);
             }else {
