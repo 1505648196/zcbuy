@@ -3,58 +3,19 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         layer = layui.layer, //弹层
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
-    //单位下拉框
-    $.get("getAllUnit",function (res) {
-        var data=res.data;
-        var id=$("#unit").val();
-        var html="<option value=''>全部单位</option>";
-        $.each(data,function (index,item) {
-            if(id==item.id){
-                html+="<option value='"+item.id+"' selected>"+item.name+"</option>";
-            }else {
-                html+="<option value='"+item.id+"'>"+item.name+"</option>";
-            }
-        });
-        $("#unitId").html(html);
-        getDepartment();
-    });
 
-    function getDepartment() {
-        var params={"unitId":$("#unitId").val()};
-        $.get("getDepartment",params,function (res) {
-            var data=res.data;
-            var html="<option value=''>全部部门</option>";
-            $.each(data,function (index,item) {
-                html+="<option value='"+item.id+"'>"+item.name+"</option>";
-            });
-            $("#department").html(html);
-            form.render();
-        })
-    }
-    //单位下拉框
-    $.get("getAllRole",function (res) {
-        var data=res.data;
-        var html="<option value=''>全部角色</option>";
-        $.each(data,function (index,item) {
-            html+="<option value='"+item.id+"'>"+item.name+"</option>";
-        });
-        $("#roleId").html(html);
-    });
     //加载表格数据
     getlist();
     //表头
     function getlist() {
-        var unitId = $("#unitId").val();
-        var departmentId = $("#department").val();
         var name = $("#name").val();
-        var roleId = $("#roleId").val();
-        var param = {'unitId': unitId, 'departmentId': departmentId,"roleId":roleId,'name':name};
+        var param = {'name':name};
         table.render({
             elem: '#show',
             toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/goods/getAll",
-          //  where: param,
+            url: "http://chunyin1992.vicp.io/api/goods/getGoods",
+            where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
                     var code=0;
@@ -97,38 +58,15 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             ]
         });
     }
-
     //搜索
     form.on('submit(sub)', function (data) {
         getlist();
         return false;
     });
-    form.on('select(change)', function(data){
-        getDepartment();
-    });
 
     //监听工具事件
     table.on('tool(show)', function (obj) {
-        var arr = new Array();
-        var content ="";
         var data = obj.data;
-        //权限
-
-        if (obj.event === 'editRole') {
-            layer.open({
-                title: '权限',
-                type: 2,
-                maxmin: true, //开启最大化最小化按钮
-                area: ['50%', '80%'],
-                success: function (layero, index) {
-                    var body = layer.getChildFrame('body', index);//获得子窗口
-                    var iframe = window['layui-layer-iframe' + index];//反正就是传递
-                    iframe.childs(data)//通过js传值：child()是子界面的Js方法
-
-                },
-                content:"userRole"
-            });
-        }
         //用户信息
         if (obj.event === 'edit') {
             layer.open({
@@ -137,18 +75,12 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 maxmin: true, //开启最大化最小化按钮
                 area: ['50%', '80%'],
                 success: function (layero, index) {
-                    // console.log(data.id)
                     var body = layer.getChildFrame('body', index);
                     body.find('#id').val(data.id);
+                    body.find('#price').val(data.price);
                     body.find('#name').val(data.name);
-                    body.find('#loginName').val(data.loginName);
-                    body.find('#uid').val(data.unit.id);
-                    body.find('#did').val(data.department.id);
-                    body.find('#rid').val(data.role.id);
-                    body.find('#phone').val(data.phone);
-                    body.find('#email').val(data.email);
                 },
-                content:"editUser"
+                content:"editCommodity"
             });
         }
         else

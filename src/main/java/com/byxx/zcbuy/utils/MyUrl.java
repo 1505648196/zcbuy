@@ -49,4 +49,9 @@ public class MyUrl {
 	 *添加供货商与单位关联信息
 	 */
 	public  static  final String  ADDSUPPLYUNITRELATION = PRE+"/api/unitMerchant/addUnitMerchant";
+	/**
+	 *商品更新
+	 */
+	public  static  final String  UPDATEGOODS = PRE+"/api/goods/updateGoods";
+
 }
