@@ -17,6 +17,7 @@ public class AuditResult implements Serializable {
 
     private String id;
 
+
     /**
      * 审批人ID
      */
