@@ -18,9 +18,8 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     if(res.result){
 
                         layer.msg(res.msg, {
-                            time: 10000
+                            time: 1000
                         },function () {
-
                             //传到爹哪里去
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);

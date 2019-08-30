@@ -1,6 +1,7 @@
 package com.byxx.zcbuy.controller;
 
 import com.byxx.zcbuy.config.LoginInterceptor;
+import com.byxx.zcbuy.model.Goods;
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import com.byxx.zcbuy.utils.ResultBean;
@@ -34,8 +35,8 @@ public class merchandiseController {
      */
     @ResponseBody
     @RequestMapping("/updateGoods")
-    public Object updateGoods(ResultBean resultBean) {
-        return RestTemplateUtil.post(MyUrl.UPDATEGOODS,resultBean,LoginInterceptor.getId());
+    public Object updateGoods(Goods goods) {
+        return RestTemplateUtil.post(MyUrl.UPDATEGOODS,goods,LoginInterceptor.getId());
     }
 
 
