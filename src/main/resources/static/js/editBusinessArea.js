@@ -6,14 +6,14 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         $ = layui.jquery; //jquery控件
 
         form.on('submit(sub)',function (data) {
-           var id = $("#id").val();
+            var id = $("#id").val();
             console.log(id) ;
-           var name = $("#name").val();
-            var price = $("#price").val();
+            var name = $("#name").val();
+            var areaName = $("#areaName").val();
             console.log(price,name);
-            $.post("updateGoods",
+            $.post("updateAreaMerchant",
                 //status状态没写  后台未定义好状态
-                {"id":id,"name":name,"price":price},//可以试试ES6 7 8 的语法
+                {"id":id,"name":name,"areaName":areaName},//可以试试ES6 7 8 的语法
                 function (res) {
                     if(res.result){
                         layer.msg(res.msg, {

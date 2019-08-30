@@ -8,13 +8,15 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     getlist();
     //表头
     function getlist() {
+        var areaName = $("#areaName").val()
+        var starus = $("#starus").val();
         var name = $("#name").val();
-        var param = {'name':name};
+        var param = {"areaName":areaName,'name':name};
         table.render({
             elem: '#show',
             toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/goods/getGoods",
+            url: "http://chunyin1992.vicp.io/api/areaMerchant/getAreaMerchants",
             where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
@@ -42,16 +44,17 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             cols: [
                 [
                     {type: 'numbers'},
-                    {field: 'name', title: '商品名称', align: 'center'},
-
-                    {field: 'price', title: '价格', align: 'center',},
+                    {field: 'areaName', title: '地区', align: 'center'},
+                    {field: 'name', title: '供应商', align: 'center',templet:function (d) {
+                        return d.user.name;
+                        }},
 
                     {field: 'status', title: '状态', align: 'center',templet:function (d) {
-                        if (d.status==1){
-                                    return "可用";
-                        }else{
-                            return "未知"
-                        }
+                            if (d.status==1){
+                                return "可用";
+                            }else{
+                                return "未知"
+                            }
                         }},
                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
@@ -64,6 +67,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         return false;
     });
 
+
     //监听工具事件
     table.on('tool(show)', function (obj) {
         var data = obj.data;
@@ -75,19 +79,22 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 maxmin: true, //开启最大化最小化按钮
                 area: ['50%', '80%'],
                 success: function (layero, index) {
+                console.log(data);
+                    console.log(data.user.areaName);
                     var body = layer.getChildFrame('body', index);
                     body.find('#id').val(data.id);
-                    body.find('#price').val(data.price);
+                    body.find('#areaName').val(data.user.areaName);
                     body.find('#name').val(data.name);
+                    body.find('#status').val(data.status);
                 },
-                content:"editCommodity"
+                content:"editBusinessArea"
             });
         }
         else
         if (obj.event === 'del') {
             layer.confirm('确定删除吗', function(index){
                 console.log(data)
-                $.get("delGoods?id="+data.id,
+                $.get("delAreaMerchant?id="+data.id,
                     function (res) {
                         if(res.result){
                             layer.msg('已删除！'+res.msg, {

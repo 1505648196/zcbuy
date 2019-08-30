@@ -5,17 +5,31 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             form = layui.form;
         $ = layui.jquery; //jquery控件
 
+        show();
+        //供应商下拉
+        function show(){
+            //单位下拉框
+            $.get("http://chunyin1992.vicp.io/api/user/getMerchants",function (res) {
+                var data=res.data;
+                var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
+                $.each(data,function (index,item) {
+                    htmltwo+="<option value='"+item.id+"'>"+item.name+"</option>";
+                });
+                $("#userId").html(htmltwo);
+                form.render();
+            });
+        }
+
         form.on('submit(sub)',function (data) {
-           var id = $("#id").val();
-            console.log(id) ;
-           var name = $("#name").val();
+            var name = $("#name").val();
             var price = $("#price").val();
-            console.log(price,name);
-            $.post("updateGoods",
-                //status状态没写  后台未定义好状态
-                {"id":id,"name":name,"price":price},//可以试试ES6 7 8 的语法
+            userIdplus = $("#userId").val();
+            console.log(userIdplus) ;
+            $.post("addGoods",
+                {"name":name,"price":price,"userId":userIdplus},
                 function (res) {
                     if(res.result){
+                        console.log(res.msg);
                         layer.msg(res.msg, {
                             time: 1000
                         },function () {
@@ -27,8 +41,6 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     }else {
                         layer.msg(res.msg, {
                             time: 2000
-                        },function () {
-                            console.log(res.msg)
                         });
                     }
                 });

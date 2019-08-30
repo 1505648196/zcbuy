@@ -54,4 +54,25 @@ public class MyUrl {
 	 */
 	public  static  final String  UPDATEGOODS = PRE+"/api/goods/updateGoods";
 
+	/**
+	 * 添加商品
+	 */
+	public  static  final String   ADD_GOODS = PRE+"/api/goods/addGoods";
+
+	/**
+	 * 删除商品
+	 */
+	public  static  final String  DEL_GOODS= PRE+"/api/goods/delGoods";
+
+	/**
+	 * 更新供应商地区对象
+	 */
+	public  static  final String    UPDATE_AREAMER_CHANT= PRE+"/api/areaMerchant/updateAreaMerchant";
+
+
+	/**
+	 * 删除供应商地区对象
+	 * delAreaMerchant
+	 */
+	public  static  final String    DEL_AREA_MERCHANT= PRE+"/api/areaMerchant/delAreaMerchant";
 }
