@@ -72,7 +72,37 @@ public class MyUrl {
 
 	/**
 	 * 删除供应商地区对象
-	 * delAreaMerchant
+	 *
 	 */
 	public  static  final String    DEL_AREA_MERCHANT= PRE+"/api/areaMerchant/delAreaMerchant";
+
+	/**
+	 * 增加供应商地区对象
+	 *
+	 */
+	public  static  final String   ADD_AREA_MERCHANT= PRE+"/api/areaMerchant/addAreaMerchant";
+
+	/**
+	 * 获取全部地区对象
+	 *
+	 */
+	public  static  final String  GET_AREA_ALL= PRE+"/api/area/getAll";
+
+	/**
+	 * 添加新单位
+	 */
+	public  static  final String  ADD_UNIT= PRE+"/api/unit/addUnit";
+
+	/**
+	 * 删除单位
+	 */
+	public  static  final String  DELETE_UNIT= PRE+"/api/unit/deleteUnit";
+
+	/**
+	 * 更新单位
+	 * updateUnit
+	 */
+	public  static  final String  UPDATE_UNIT= PRE+"/api/unit/updateUnit";
+
+
 }

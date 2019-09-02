@@ -7,11 +7,13 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
         form.on('submit(sub)',function (data) {
             var id = $("#id").val();
+            console.log(id) ;
             var name = $("#name").val();
-            var areaName = $("#areaName").val();
-            $.post("updateAreaMerchant",
+            var address = $("#address").val();
+
+            $.post("updateUnit",
                 //status状态没写  后台未定义好状态
-                {"id":id,"name":name,"areaName":areaName},//可以试试ES6 7 8 的语法
+                {"id":id,"name":name,"address":address},//可以试试ES6 7 8 的语法
                 function (res) {
                     if(res.result){
                         layer.msg(res.msg, {

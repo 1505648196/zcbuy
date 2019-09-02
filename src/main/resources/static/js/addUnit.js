@@ -6,14 +6,13 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         $ = layui.jquery; //jquery控件
 
         form.on('submit(sub)',function (data) {
-            var id = $("#id").val();
             var name = $("#name").val();
-            var areaName = $("#areaName").val();
-            $.post("updateAreaMerchant",
-                //status状态没写  后台未定义好状态
-                {"id":id,"name":name,"areaName":areaName},//可以试试ES6 7 8 的语法
+            var address = $("#address").val();
+            $.post("addUnits",
+                {"name":name,"address":address},
                 function (res) {
                     if(res.result){
+                        console.log(res.msg);
                         layer.msg(res.msg, {
                             time: 1000
                         },function () {
@@ -25,8 +24,6 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     }else {
                         layer.msg(res.msg, {
                             time: 2000
-                        },function () {
-                            console.log(res.msg)
                         });
                     }
                 });

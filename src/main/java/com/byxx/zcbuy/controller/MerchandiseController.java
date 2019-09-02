@@ -5,17 +5,16 @@ import com.byxx.zcbuy.model.AreaMerchant;
 import com.byxx.zcbuy.model.Goods;
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
-import com.byxx.zcbuy.utils.ResultBean;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class merchandiseController {
+public class MerchandiseController {
     /**
      * 跳转
      * @return
@@ -62,6 +61,16 @@ public class merchandiseController {
         return "admin/businessArea/editBusinessArea";
     }
 
+    /**
+     * 跳转
+     * @return
+     */
+    @RequestMapping("/addBusinessArea")
+    public String addBusinessArea(){
+        return "admin/businessArea/addBusinessArea";
+    }
+
+
 
 
 
@@ -86,6 +95,16 @@ public class merchandiseController {
     }
 
     /**
+     * 删除商品
+     */
+    @ResponseBody
+    @RequestMapping("/delGoods")
+    public Object delGoods(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.DEL_GOODS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+    /**
      *供应商地区更新
      * @return
      */
@@ -102,6 +121,24 @@ public class merchandiseController {
     public Object delAreaMerchant(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.DEL_AREA_MERCHANT+request.getAttribute("p"), LoginInterceptor.getId());
     }
+    /**
+     * 增加供应商地区对象
+     */
+    @ResponseBody
+    @PostMapping("/addAreaMerchant")
+    public Object addAreaMerchant(AreaMerchant areaMerchant) {
+        return RestTemplateUtil.post(MyUrl.ADD_AREA_MERCHANT,areaMerchant, LoginInterceptor.getId());
+    }
+    /**
+     *     获取全部地区对象
+     */
+    @ResponseBody
+    @GetMapping("/getAreaAll")
+    public Object getAreaAll(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_AREA_ALL+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
 
 
 

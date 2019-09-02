@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -23,15 +32,18 @@
     <form class="layui-form">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">地区名：</label>
+            <label class="layui-form-label">地区：</label>
             <div class="layui-input-block">
-                <input type="text" id="name" name="name" class="layui-input" lay-verify="required">
+                <select type="text" id="areaId" name="areaId" class="layui-input" lay-verify="required" lay-search></select>
             </div>
         </div>
+
+
+
         <div class="layui-form-item">
-            <label class="layui-form-label">供应商名：</label>
+            <label class="layui-form-label">供应商：</label>
             <div class="layui-input-block">
-                <input type="text" id="areaName" name="areaName" lay-verify="required" class="layui-input">
+                <select id="userId" name="userId" class="layui-input" lay-filter="relation"  lay-verify="required" lay-search></select>
             </div>
         </div>
 
@@ -41,13 +53,11 @@
             </div>
         </div>
         <input type="hidden" id="id" name="id"/>
+
     </form>
 </div>
-<input type="hidden" id="rid"/>
-<input type="hidden" id="uid"/>
-<input type="hidden" id="did"/>
 </body>
 
-<script src="static/js/editBusinessArea.js"></script>
+<script src="static/js/addBusinessArea.js"></script>
 
 </html>
