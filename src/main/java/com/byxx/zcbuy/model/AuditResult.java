@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,12 +13,10 @@ import java.util.Date;
 
 public class AuditResult implements Serializable {
     /**
-     *
      * 审批结果id
      */
 
     private String id;
-
 
     /**
      * 审批人ID

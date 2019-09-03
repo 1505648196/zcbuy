@@ -110,6 +110,7 @@ public class UserController {
 		Object post = RestTemplateUtil.post(MyUrl.DO_LOGIN, user);
 		ResultBean resultBean = JSON.parseObject(JSON.toJSONString(post, SerializerFeature.WriteMapNullValue), ResultBean.class);
 		session.setAttribute("userMsg",resultBean.getData());
+		System.out.println("nihao");
 		System.out.println(resultBean.getData());
 		return post;
 	}

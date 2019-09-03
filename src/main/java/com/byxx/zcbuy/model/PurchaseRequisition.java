@@ -1,7 +1,6 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 import java.io.Serializable;
@@ -85,9 +84,17 @@ public class PurchaseRequisition implements Serializable {
 
     private String purchaseTypeName;
 
-
+    /**
+     * 申请人
+     */
 
     private User user;
+
+    /**
+     * 用于标记任务接受者为一个单位的情况（劳保采购）
+     */
+
+    private Integer unitId;
 
 
 

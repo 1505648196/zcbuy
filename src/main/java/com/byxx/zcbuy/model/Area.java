@@ -1,7 +1,6 @@
 package com.byxx.zcbuy.model;
 
 import lombok.Data;
-
 import java.io.Serializable;
 
 

@@ -1,7 +1,10 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
+
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -36,6 +39,10 @@ public class AreaMerchant implements Serializable {
      */
     private Integer status;
 
+    /**
+     * 地区名
+     */
+    private String areaName;
 
 
     private User user;

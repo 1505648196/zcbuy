@@ -105,4 +105,10 @@ public class MyUrl {
 	public  static  final String  UPDATE_UNIT= PRE+"/api/unit/updateUnit";
 
 
+	/**
+	 * 新增采购申请
+	 * addPurchaseRequisition
+	 */
+	public  static  final String ADD_PURCHASE_REQUISITION= PRE+"/api/purchaseRequisition/addPurchaseRequisition";
+
 }

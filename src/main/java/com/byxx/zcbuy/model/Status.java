@@ -1,33 +1,25 @@
 package com.byxx.zcbuy.model;
 
-
 import lombok.Data;
-
-
-
 import java.io.Serializable;
 
 /**
- * 采购类型表
+ * 状态表
  */
 
+
 @Data
-public class PurchaseType implements Serializable {
+public class Status implements Serializable {
     /**
-     * 采购类型ID
+     * 状态表ID
      */
 
-    private String id;
+    private Integer id;
 
     /**
-     * 采购类型名称
+     * 状态名
      */
     private String name;
-
-    /**
-     * 流程定义关联的key
-     */
-    private String processDefinitionKey;
 
 
 
