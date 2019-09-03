@@ -90,11 +90,7 @@
               return d.role.name;
             }},
           {field: 'phone', title: '手机', align: 'center'},
-          {field: 'email', title: '邮箱', align: 'center',templet:function (d) {
-                if (d.email==""||d.email==null){
-                  return "无"
-                }
-            }},
+          {field: 'email', title: '邮箱', align: 'center',},
            //{fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
 
         ]

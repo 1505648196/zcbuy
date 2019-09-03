@@ -16,7 +16,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             elem: '#show',
             toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/unit/getUnitsWithPage",//新分页
+            url: "http://chunyin1992.vicp.io/api/unit/getDepartments",//新分页
             where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
@@ -44,15 +44,11 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             cols: [
                 [
                     {type: 'numbers'},
-                    {field: 'name', title: '单位', align: 'center'},
-                    {field: 'address', title: '地址', align: 'center'},
-                    {field: 'departments', title: '部门', align: 'center',templet:function (d) {
-                            var text ="";
-                            $.each(d.departments,function (index,item) {
-                                text+=item.name;
-                            })
-                            return text;
+                    {field: 'name', title: '部门', align: 'center'},
+                    {field: 'unit', title: '所属的单位', align: 'center',templet:function (d) {
+                                   return d.unitId
                         }},
+
                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
             ]

@@ -4,7 +4,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             layer = layui.layer, //弹层
             form = layui.form;
         $ = layui.jquery; //jquery控件
-        //单位下拉框
+
         $.get("getAreaAll",function (res) {
             var data=res.data;
             var html=" <option value=\"00\" >直接选择或搜索选择</option>";
@@ -14,7 +14,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             $("#areaId").html(html);
             show();
         });
-        //供应商下拉
+
         function show(){
             //单位下拉框
             $.get("http://chunyin1992.vicp.io/api/user/getMerchants",function (res) {
