@@ -23,9 +23,11 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var goodsName = $("#goodsName").val();
         var quantity = $("#quantity").val();
         var price = $("#price").val();
+        var priceplus=  parseInt(price)*100;
+        console.log(priceplus)
         var purchaseTypeName = $("#purchaseTypeName").val();
         $.post("addPurchaseRequisition",
-            {"userId":userId,"goodsName":goodsName,"quantity":quantity,"price":price,"purchaseTypeId":purchaseTypeName},
+            {"userId":userId,"goodsName":goodsName,"quantity":quantity,"price":priceplus,"purchaseTypeId":purchaseTypeName},
             function (res) {
                 if(res.result){
                     console.log(res.msg);

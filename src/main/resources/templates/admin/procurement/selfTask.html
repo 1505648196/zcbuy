@@ -16,6 +16,9 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- groupTask  组任务-->
+
 </head>
 <body>
 <div class="x-nav">
@@ -37,20 +40,7 @@
                     <form class="layui-form layui-col-space5">
 
                         <div class="layui-inline layui-show-xs-block">
-                            <input name="goodsName" id="goodsName" placeholder="商品名称" type="text" class="layui-input"/>
-                        </div>
-
-                        <div class="layui-inline layui-show-xs-block">
                             <select name="purchaseTypeName" id="purchaseTypeName" class="layui-input"></select>
-                        </div>
-
-                        <div class="layui-inline layui-show-xs-block">
-                            <select name="status" id="status" class="layui-input">
-                                <option value=''>状态</option>
-                                <option value='1'>可用</option>
-                                <option value='2'>未知</option>
-
-                            </select>
                         </div>
 
                         <div class="layui-inline layui-show-xs-block">
@@ -66,7 +56,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" th:value="${session.userMsg.unitId}" id="unit"/>
+<input type="hidden" th:value="${session.userMsg.id}" id="userId"/>
 </body>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
@@ -75,9 +65,12 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="editRole">权限</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-sm" lay-event="return">归还任务</a>
+    <a class="layui-btn  layui-btn-normal layui-btn-sm " lay-event="yes">同意</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="no">不同意</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="noreturn">取消任务</a>
+
+
 </script>
-<script src="static/js/buyApply.js"></script>
+<script src="static/js/selfTask.js"></script>
 </html>

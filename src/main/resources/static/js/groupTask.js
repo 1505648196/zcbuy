@@ -9,7 +9,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     function getDepartment() {
         $.get("http://chunyin1992.vicp.io/api/purchaseType/getPurchaseTypes",function (res) {
             var data=res.data;
-            var html="<option value=''>全部采购类型</option>";
+            var html ="";
+            // var html="<option value=''>全部采购类型</option>";
             $.each(data,function (index,item) {
                 html+="<option value='"+item.id+"'>"+item.name+"</option>";
             });
@@ -20,17 +21,19 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     //加载表格数据
     getlist();
     //表头
+
     function getlist() {
-        var goodsName = $("#goodsName").val();
-        var purchaseTypeName = $("#purchaseTypeName").val();
-        console.log(purchaseTypeName);
-        var status = $("#status").val();
-        var param = {'goodsName': goodsName, 'purchaseTypeId': purchaseTypeName,"status":status,};
+        var userId= $("#userId").val();
+        var purchaseTypeId = $("#purchaseTypeName").val();
+        if (purchaseTypeId==""||purchaseTypeId==null) {
+            purchaseTypeId = "10905a6a55664ec5a6f1287eda5b1ac2";
+        }
+        var param = {'userId': userId,'purchaseTypeId': purchaseTypeId,};
         table.render({
             elem: '#show',
-            toolbar: '#toolbarDemo',
+            //toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/purchaseRequisition/getPurchaseRequisitions",
+            url: "getTasksByCandidate",
             where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
@@ -57,18 +60,10 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             },
             cols: [
                 [
-                    {field: 'goodsName', title: '商品名称', align: 'center'},
-                    {field: 'quantity', title: '数量', align: 'center',},
-                    {field: 'createTime', title: '创建时间', align: 'center'},
-                    {field: 'updateTime', title: '更新时间', align: 'center',},
-                    {field: 'status', title: '状态', align: 'center'},
-                    {field: 'price', title: '价格', align: 'center'},
-                    {field: 'purchaseTypeName', title: '采购类型', align: 'center'},
-                    {field: 'username', title: '申请人', align: 'center',templet:function (d) {
-                            return d.user.name;
-                        }},
+                    {field: 'name', title: '任务名', align: 'center'},
+                    {field: 'detail', title: '详情', align: 'center',},
+                    {field: 'startTime', title: '开始时间', align: 'center'},
                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
-
                 ]
             ]
         });
@@ -88,33 +83,12 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var arr = new Array();
         var content ="";
         var data = obj.data;
-
+        console.log(data)
         //用户信息
         if (obj.event === 'edit') {
-            layer.open({
-                title: '编辑',
-                type: 2,
-                maxmin: true, //开启最大化最小化按钮
-                area: ['50%', '80%'],
-                success: function (layero, index) {
-                    // console.log(data.id)
-                    var body = layer.getChildFrame('body', index);
-                    body.find('#id').val(data.id);
-                    body.find('#name').val(data.name);
-                    body.find('#loginName').val(data.loginName);
-                    body.find('#uid').val(data.unit.id);
-                    body.find('#did').val(data.department.id);
-                    body.find('#rid').val(data.role.id);
-                    body.find('#phone').val(data.phone);
-                    body.find('#email').val(data.email);
-                },
-                content:"editUser"
-            });
-        }
-        else
-        if (obj.event === 'del') {
-            layer.confirm('确定删除吗', function(index){
-                $.post("delPurchaseRequisition", {'id':data.id},
+            var userId= $("#userId").val();
+            layer.confirm('确定接受吗', function(index){
+                $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
                     function (res) {
                         if(res.result){
                             getlist();
@@ -124,22 +98,10 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                                 time: 1000
                             });
                         }
-
                     });
             });
         }
     });
-    //头工具栏事件
-    table.on('toolbar(show)', function (obj) {
-        if (obj.event === 'add') {
-            layer.open({
-                title: '添加',
-                type: 2,
-                maxmin: true, //开启最大化最小化按钮
-                area: ['50%', '80%'],
-                content:"addBuyApply"
-            });
-        }
-    });
+
 
 });

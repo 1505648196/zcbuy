@@ -7,9 +7,12 @@ import com.byxx.zcbuy.model.Unit;
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 采购
@@ -44,6 +47,22 @@ public class procurementController {
         return "admin/procurement/addBuyApply";
     }
 
+    /**
+     * 跳转
+     * @return
+     */
+    @RequestMapping("/groupTask")
+    public String groupTask(){
+        return "admin/procurement/groupTask";
+    }
+
+    /**
+     * 跳转
+     */
+    @RequestMapping("/selfTask")
+    public String selfTask(){
+        return "admin/procurement/selfTask";
+    }
 
     /**
      *新增采购申请
@@ -54,6 +73,60 @@ public class procurementController {
     public Object addPurchaseRequisition(PurchaseRequisition PurchaseRequisition) {
         return RestTemplateUtil.post(MyUrl.ADD_PURCHASE_REQUISITION,PurchaseRequisition, LoginInterceptor.getId());
     }
+
+
+    /**
+     * 删除采购申请
+     */
+    @ResponseBody
+    @GetMapping("/delPurchaseRequisition")
+    public Object getAllRole(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.DEL_PURCHASE_REQUISITION+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+    /**
+     * 组任务查看
+     */
+    @ResponseBody
+    @GetMapping("/getTasksByCandidate")
+    public Object getTasksByCandidate(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_TASKS_BY_CANDIDATE+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     *拾取任务
+     */
+    @ResponseBody
+    @GetMapping("/claimTaskByUserId")
+    public Object claimTaskByUserId(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.CLAIM_TASK_BY_USERID+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     *根据流程定义key 查看自己的全部任务（userId）
+     * 	 getTasksByUserId
+     */
+    @ResponseBody
+    @GetMapping("/getTasksByUserId")
+    public Object getTasksByUserId(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_TASKS_BY_USERID+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     *将个人任务归还至组任务
+     * 	 returnTask
+     */
+    @ResponseBody
+    @GetMapping("/returnTask")
+    public Object returnTask(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.RETURN_TASK+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+
+
+
 
 
 

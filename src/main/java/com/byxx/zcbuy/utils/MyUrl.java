@@ -104,11 +104,44 @@ public class MyUrl {
 	 */
 	public  static  final String  UPDATE_UNIT= PRE+"/api/unit/updateUnit";
 
-
 	/**
 	 * 新增采购申请
 	 * addPurchaseRequisition
 	 */
 	public  static  final String ADD_PURCHASE_REQUISITION= PRE+"/api/purchaseRequisition/addPurchaseRequisition";
+
+
+	/**
+	 * 删除采购单位
+	 * delPurchaseRequisition
+	 */
+	public  static  final String DEL_PURCHASE_REQUISITION= PRE+"/api/purchaseRequisition/addPurchaseRequisition";
+
+
+	/**
+	 * 根据流程定义key 查看组任务
+	 * getTasksByCandidate
+	 */
+	public  static  final String GET_TASKS_BY_CANDIDATE= PRE+"/api/activiti/getTasksByCandidate";
+
+
+	/**
+	 * 拾取任务
+	 * claimTaskByUserId
+	 */
+	public  static  final String CLAIM_TASK_BY_USERID= PRE+"/api/activiti/claimTaskByUserId";
+
+
+	/**
+	 * 根据流程定义key 查看自己的全部任务（userId）
+	 * getTasksByUserId
+	 */
+	public  static  final String GET_TASKS_BY_USERID= PRE+"/api/activiti/getTasksByUserId";
+
+	/**
+	 * 将个人任务归还至组任务
+	 * returnTask
+	 */
+	public  static  final String RETURN_TASK= PRE+"/api/activiti/returnTask";
 
 }
