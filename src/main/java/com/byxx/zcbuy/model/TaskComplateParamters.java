@@ -36,6 +36,7 @@ public class TaskComplateParamters implements Serializable {
      */
     boolean boo_needHelp;
     /**
+     *
      * 是否同意通过任务
      */
     boolean boo_pass;
