@@ -11,12 +11,42 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             var data=res.data;
             var html="<option value=''>全部采购类型</option>";
             $.each(data,function (index,item) {
-                html+="<option value='"+item.id+"'>"+item.name+"</option>";
+                html+="<option  value='"+item.id+"'>"+item.name+"</option>";
             });
             $("#purchaseTypeName").html(html);
+            getAllLaobaobu();
+        })
+    }
+
+
+
+
+
+
+
+    function getAllLaobaobu() {
+        $.get("http://chunyin1992.vicp.io/api/unit/getAllLaobaobu",function (res) {
+            var data=res.data;
+            var html="<option value=''>请选择站车劳保部</option>";
+            $.each(data,function (index,item) {
+                html+="<option   value='"+item.id+"'>"+item.name+"</option>";
+            });
+            $("#labour").html(html);
             form.render();
         })
     }
+
+    form.on('select(relation)', function (data) {
+        console.log(data.value);
+        if (data.value="2f00921bceb549b589dc0ee27818f104") {
+            $("#bb").show();
+            $("#kk").show();
+        }else {
+            $("#bb").hide();
+            $("#kk").hide();
+        }
+    });
+
     form.on('submit(sub)',function (data) {
         var userId = $("#unit").val();
         console.log(userId)
@@ -26,8 +56,10 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var priceplus=  parseInt(price)*100;
         console.log(priceplus)
         var purchaseTypeName = $("#purchaseTypeName").val();
+        console.log(purchaseTypeName);
+        var labour =$("#labour").val();
         $.post("addPurchaseRequisition",
-            {"userId":userId,"goodsName":goodsName,"quantity":quantity,"price":priceplus,"purchaseTypeId":purchaseTypeName},
+            {"userId":userId,"goodsName":goodsName,"quantity":quantity,"price":priceplus,"purchaseTypeId":purchaseTypeName,"unitId":labour},
             function (res) {
                 if(res.result){
                     console.log(res.msg);

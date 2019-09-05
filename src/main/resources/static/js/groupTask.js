@@ -93,6 +93,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                         if(res.result){
                             getlist();
                             layer.close(index);
+                            location.reload();
+
                         }else {
                             layer.msg('操作失败！'+res.msg, {
                                 time: 1000

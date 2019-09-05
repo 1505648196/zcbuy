@@ -53,10 +53,21 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">供应商：</label>
+            <label class="layui-form-label">采购类型：</label>
+
             <div class="layui-input-block">
-                <select id="purchaseTypeName" name="purchaseTypeName" class="layui-input" lay-filter="relation"  lay-verify="required"></select>
+                <select id="purchaseTypeName" name="purchaseTypeName" class="layui-input" lay-filter="relation"  lay-verify="required">
+                </select>
             </div>
+
+            <p style="visibility:hidden">555555555</p>
+            <!--<p  style="visibility:hidden">555555555</p>-->
+            <label class="layui-form-label" id="bb" style="display: none;" >站车劳保部:</label>
+            <div class="layui-input-block " id="kk" hidden>
+                <select id="labour" name="labour" class="layui-input" lay-filter="labour"  lay-verify="required">
+                </select>
+            </div>
+
         </div>
 
         <div class="layui-form-item">

@@ -144,4 +144,12 @@ public class MyUrl {
 	 */
 	public  static  final String RETURN_TASK= PRE+"/api/activiti/returnTask";
 
+	/**
+	 * 提交任务
+	 * 注意参数 taskComplete
+	 */
+	public  static  final String TASK_COMPLETE= PRE+"/api/activiti/taskComplete";
+
+
+
 }

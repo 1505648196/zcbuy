@@ -4,18 +4,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 工作流中用到的任务表
+ * 用于 界面展示 “任务“ 信息
  */
 
 @Data
 public class Task implements Serializable {
-
-
-    private String id;
 
     /**
      * 任务名称
@@ -65,11 +63,10 @@ public class Task implements Serializable {
      */
     private String taskId;
 
-
-
-
-
-
+    /**
+     * 采购类型
+     */
+    private String purchaseTypeName;
 
     private Integer page;
 

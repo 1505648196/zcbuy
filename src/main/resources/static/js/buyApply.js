@@ -61,7 +61,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     {field: 'quantity', title: '数量', align: 'center',},
                     {field: 'createTime', title: '创建时间', align: 'center'},
                     {field: 'updateTime', title: '更新时间', align: 'center',},
-                    {field: 'status', title: '状态', align: 'center'},
+                    {field: 'statusName', title: '状态', align: 'center'},
                     {field: 'price', title: '价格', align: 'center'},
                     {field: 'purchaseTypeName', title: '采购类型', align: 'center'},
                     {field: 'username', title: '申请人', align: 'center',templet:function (d) {
@@ -136,7 +136,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 title: '添加',
                 type: 2,
                 maxmin: true, //开启最大化最小化按钮
-                area: ['50%', '80%'],
+                area: ['60%', '80%'],
                 content:"addBuyApply"
             });
         }

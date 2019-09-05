@@ -84,15 +84,16 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var content ="";
         var data = obj.data;
         console.log(data);
-
+        //归还
         if (obj.event === 'return') {
             var userId= $("#userId").val();
             layer.confirm('确定归还吗', function(index){
-                $.get("returnTask", {"userId":userId,'taskId':data.taskId},
+                $.get("returnTask", {'taskId':data.taskId,"userId":userId,},
                     function (res) {
                         if(res.result){
                             getlist();
                             layer.close(index);
+                            location.reload();
                         }else {
                             layer.msg('操作失败！'+res.msg, {
                                 time: 1000
@@ -101,14 +102,16 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
+        //同意
         if (obj.event === 'yes') {
             var userId= $("#userId").val();
             layer.confirm('确定同意吗', function(index){
-                $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
+                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":true},
                     function (res) {
                         if(res.result){
                             getlist();
                             layer.close(index);
+                            location.reload();
                         }else {
                             layer.msg('操作失败！'+res.msg, {
                                 time: 1000
@@ -117,14 +120,16 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
+        //不同意
         if (obj.event === 'no') {
             var userId= $("#userId").val();
             layer.confirm('确定不同意吗', function(index){
-                $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
+                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":false},
                     function (res) {
                         if(res.result){
                             getlist();
                             layer.close(index);
+                            location.reload();
                         }else {
                             layer.msg('操作失败！'+res.msg, {
                                 time: 1000
@@ -133,15 +138,17 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
-        //用户信息
+        //取消
         if (obj.event === 'noreturn') {
             var userId= $("#userId").val();
             layer.confirm('确定取消吗', function(index){
-                $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
+                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':true,"boo_pass":false},
                     function (res) {
                         if(res.result){
                             getlist();
                             layer.close(index);
+                            location.reload();
+
                         }else {
                             layer.msg('操作失败！'+res.msg, {
                                 time: 1000

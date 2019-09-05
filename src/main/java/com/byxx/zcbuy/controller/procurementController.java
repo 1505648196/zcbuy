@@ -3,6 +3,7 @@ package com.byxx.zcbuy.controller;
 
 import com.byxx.zcbuy.config.LoginInterceptor;
 import com.byxx.zcbuy.model.PurchaseRequisition;
+import com.byxx.zcbuy.model.TaskComplateParamters;
 import com.byxx.zcbuy.model.Unit;
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
@@ -122,6 +123,18 @@ public class procurementController {
     public Object returnTask(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.RETURN_TASK+request.getAttribute("p"), LoginInterceptor.getId());
     }
+
+
+    /**
+     * 提交任务
+     * 注意参数 taskComplete
+     */
+    @ResponseBody
+    @PostMapping("/taskComplete")
+    public Object taskComplete(TaskComplateParamters taskComplateParamters) {
+        return RestTemplateUtil.post(MyUrl.TASK_COMPLETE,taskComplateParamters, LoginInterceptor.getId());
+    }
+
 
 
 
