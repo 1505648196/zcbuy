@@ -19,11 +19,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     }
 
 
-
-
-
-
-
     function getAllLaobaobu() {
         $.get("http://chunyin1992.vicp.io/api/unit/getAllLaobaobu",function (res) {
             var data=res.data;
@@ -36,12 +31,13 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         })
     }
 
-    form.on('select(relation)', function (data) {
-        console.log(data.value);
-        if (data.value="2f00921bceb549b589dc0ee27818f104") {
+
+    form.on('select(relation)', function (data){
+        if (data.value=="2f00921bceb549b589dc0ee27818f104") {
             $("#bb").show();
             $("#kk").show();
-        }else {
+        }
+        if(data.value!="2f00921bceb549b589dc0ee27818f104") {
             $("#bb").hide();
             $("#kk").hide();
         }

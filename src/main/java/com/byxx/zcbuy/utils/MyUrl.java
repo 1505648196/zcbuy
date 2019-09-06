@@ -150,6 +150,17 @@ public class MyUrl {
 	 */
 	public  static  final String TASK_COMPLETE= PRE+"/api/activiti/taskComplete";
 
+	/**
+	 * 多条件查找采购类型
+	 * getPurchaseTypes
+	 */
+	public  static  final String GET_PURCHASE_TYPES= PRE+"/api/purchaseType/getPurchaseTypes";
+
+	/**
+	 * 多条件查询采购  申请
+	 * getPurchaseRequisitions
+	 */
+	public  static  final String GET_PURCHASE_REQUISITIONS= PRE+"/api/purchaseRequisition/getPurchaseRequisitions";
 
 
 }

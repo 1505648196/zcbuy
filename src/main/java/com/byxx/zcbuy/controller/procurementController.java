@@ -66,6 +66,25 @@ public class procurementController {
     }
 
     /**
+     * 跳转
+     */
+    @RequestMapping("/addBuyType")
+    public String addBuyType(){
+        return "admin/procurement/addBuyType";
+    }
+
+
+
+    /**
+     * 跳转
+     */
+    @RequestMapping("/providerChange")
+    public String providerChange(){
+        return "admin/procurement/providerChange";
+    }
+
+
+    /**
      *新增采购申请
      * @return
      */
@@ -134,6 +153,27 @@ public class procurementController {
     public Object taskComplete(TaskComplateParamters taskComplateParamters) {
         return RestTemplateUtil.post(MyUrl.TASK_COMPLETE,taskComplateParamters, LoginInterceptor.getId());
     }
+
+    /**
+     * 多条件查找采购类型
+     * getPurchaseTypes
+     */
+    @ResponseBody
+    @GetMapping("/getPurchaseTypes")
+    public Object getPurchaseTypes(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_PURCHASE_TYPES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 多条件查找采购申请
+     * getPurchaseTypes
+     */
+    @ResponseBody
+    @GetMapping("/getPurchaseRequisitions")
+    public Object getPurchaseRequisitions(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_PURCHASE_REQUISITIONS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
 
 
 

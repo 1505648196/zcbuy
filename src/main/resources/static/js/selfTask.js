@@ -5,7 +5,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     $ = layui.jquery; //jquery控件
 
     getDepartment();
-
+    //采购类型
     function getDepartment() {
         $.get("http://chunyin1992.vicp.io/api/purchaseType/getPurchaseTypes",function (res) {
             var data=res.data;
@@ -16,6 +16,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             });
             $("#purchaseTypeName").html(html);
             form.render();
+
         })
     }
     //加载表格数据
@@ -23,6 +24,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     //表头
 
     function getlist() {
+        console.log($("#purchaseTypeName").text()) ;
         var userId= $("#userId").val();
         var purchaseTypeId = $("#purchaseTypeName").val();
         if (purchaseTypeId==""||purchaseTypeId==null) {
@@ -77,7 +79,10 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     form.on('select(change)', function(data){
         getDepartment();
     });
-
+    
+    
+    
+    
     //监听工具事件
     table.on('tool(show)', function (obj) {
         var arr = new Array();
@@ -102,24 +107,25 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
+        
+
         //同意
         if (obj.event === 'yes') {
             var userId= $("#userId").val();
-            layer.confirm('确定同意吗', function(index){
-                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":true},
-                    function (res) {
-                        if(res.result){
-                            getlist();
-                            layer.close(index);
-                            location.reload();
-                        }else {
-                            layer.msg('操作失败！'+res.msg, {
-                                time: 1000
-                            });
-                        }
-                    });
+            layer.open({
+                title: '请选择供应商',
+                type: 2,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['30%', '30%'],
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#user').val(userId);
+                    body.find('#taskId').val(data.taskId);
+                },
+                content:"providerChange"
             });
         }
+
         //不同意
         if (obj.event === 'no') {
             var userId= $("#userId").val();
