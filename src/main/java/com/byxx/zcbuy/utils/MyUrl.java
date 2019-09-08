@@ -163,4 +163,10 @@ public class MyUrl {
 	public  static  final String GET_PURCHASE_REQUISITIONS= PRE+"/api/purchaseRequisition/getPurchaseRequisitions";
 
 
+	/**
+	 * 查询多个历史任务
+	 * http://chunyin1992.vicp.io/api/activiti/getHistoryList
+	 */
+	public  static  final String GET_HISTORYLIST= PRE+"/api/activiti/getHistoryList";
+
 }

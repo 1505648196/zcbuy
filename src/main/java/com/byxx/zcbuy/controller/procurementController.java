@@ -85,6 +85,15 @@ public class procurementController {
 
 
     /**
+     * 跳转
+     */
+    @RequestMapping("/history")
+    public String history(){
+        return "admin/history/history";
+    }
+
+
+    /**
      *新增采购申请
      * @return
      */
@@ -174,6 +183,15 @@ public class procurementController {
         return RestTemplateUtil.get(MyUrl.GET_PURCHASE_REQUISITIONS+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
+
+    /**
+     * 查询多个历史任务
+     */
+    @ResponseBody
+    @GetMapping("/getHistoryList")
+    public Object getHistoryList(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_HISTORYLIST+request.getAttribute("p"), LoginInterceptor.getId());
+    }
 
 
 

@@ -1,7 +1,8 @@
-layui.use(['layer', 'form', 'jquery', 'table'], function () {
+layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
     var form = layui.form,  //表单
         layer = layui.layer, //弹层
         table = layui.table; //表格
+        var laytpl = layui.laytpl;
     $ = layui.jquery; //jquery控件
 
     getDepartment();
@@ -62,10 +63,11 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             },
             cols: [
                 [
+                    {checkbox:true},
                     {field: 'name', title: '任务名', align: 'center'},
                     {field: 'detail', title: '详情', align: 'center',},
                     {field: 'startTime', title: '开始时间', align: 'center'},
-                    {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
+                    {field: 'name',fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
             ]
         });
@@ -107,7 +109,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
-        
 
         //同意
         if (obj.event === 'yes') {
@@ -163,6 +164,60 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     });
             });
         }
+        if (obj.event === 'delivery') {
+            var userId= $("#userId").val();
+            layer.confirm('确定配送吗', function(index){
+                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":true},
+                    function (res) {
+                        if(res.result){
+                            getlist();
+                            layer.close(index);
+                            location.reload();
+
+                        }else {
+                            layer.msg('操作失败！'+res.msg, {
+                                time: 1000
+                            });
+                        }
+                    });
+            });
+        }
+        if (obj.event === 'supply') {
+            var userId= $("#userId").val();
+                layer.open({
+                    title: '请选择供应商',
+                    type: 2,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['30%', '30%'],
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        body.find('#user').val(userId);
+                        body.find('#taskId').val(data.taskId);
+                    },
+                    content:"providerChange"
+                });
+
+        }
+        if (obj.event === 'nosupply') {
+            var userId= $("#userId").val();
+            layer.confirm('确定不供货吗', function(index){
+                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":false},
+                    function (res) {
+                        if(res.result){
+                            getlist();
+                            layer.close(index);
+                            location.reload();
+                        }else {
+                            layer.msg('操作失败！'+res.msg, {
+                                time: 1000
+                            });
+                        }
+                    });
+            });
+        }
+
+
+
     });
 
 
