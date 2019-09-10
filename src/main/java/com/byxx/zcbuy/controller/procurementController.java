@@ -1,6 +1,7 @@
 package com.byxx.zcbuy.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.byxx.zcbuy.config.LoginInterceptor;
 import com.byxx.zcbuy.model.PurchaseRequisition;
 import com.byxx.zcbuy.model.TaskComplateParamters;
@@ -8,10 +9,7 @@ import com.byxx.zcbuy.model.Unit;
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -159,7 +157,7 @@ public class procurementController {
      */
     @ResponseBody
     @PostMapping("/taskComplete")
-    public Object taskComplete(TaskComplateParamters taskComplateParamters) {
+    public Object taskComplete ( TaskComplateParamters taskComplateParamters) {
         return RestTemplateUtil.post(MyUrl.TASK_COMPLETE,taskComplateParamters, LoginInterceptor.getId());
     }
 
@@ -173,7 +171,7 @@ public class procurementController {
         return RestTemplateUtil.get(MyUrl.GET_PURCHASE_TYPES+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
-    /**
+    /**\
      * 多条件查找采购申请
      * getPurchaseTypes
      */
@@ -192,6 +190,60 @@ public class procurementController {
     public Object getHistoryList(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.GET_HISTORYLIST+request.getAttribute("p"), LoginInterceptor.getId());
     }
+
+    /**
+     *获取任务ID 相关的业务实体类
+     * getBusiness
+     */
+    @ResponseBody
+    @GetMapping("/getBusiness")
+    public Object getBusiness(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_BUSINESS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+    /**
+     *获取全部劳保部单位
+     * getAllLaobaobu
+     */
+    @ResponseBody
+    @GetMapping("/getAllLaobaobu")
+    public Object getAllLaobaobu(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_ALL_LAOBAOBU+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 多条件查询 商家地区关联
+     * getAreaMerchants
+     */
+    @ResponseBody
+    @GetMapping("/getAreaMerchants")
+    public Object getAreaMerchants(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_AREA_MERCHANTS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 更新采购申请
+     * updatePurchaseRequisition
+     */
+    @ResponseBody
+    @PostMapping("/updatePurchaseRequisition")
+    public Object updatePurchaseRequisition(PurchaseRequisition purchaseRequisition) {
+        return RestTemplateUtil.post(MyUrl.UPDATE_PURCHASE_REQUISITION,purchaseRequisition, LoginInterceptor.getId());
+    }
+
+    /**
+     *查询候选人(审批候选人与任务发起人处于同一个单位)
+     * selectCandidates
+     */
+    @ResponseBody
+    @GetMapping("/selectCandidates")
+    public Object selectCandidates(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.SELECT_CANDIDATES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+
 
 
 

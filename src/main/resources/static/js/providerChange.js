@@ -10,7 +10,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
         function show(){
         ids = $("#user").val();
             //供应商下拉框
-            $.get("http://chunyin1992.vicp.io/api/purchaseRequisition/selectMerchants?userId="+ids,function (res) {
+            $.get("selectMerchants",{"userId":ids},function (res) {
                 var data=res.data;
                 var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
                 $.each(data,function (index,item) {
@@ -31,7 +31,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
            var arr = new Array();
            arr.push(userId);
            var  ss = JSON.stringify(arr);
-            $.post("taskComplete", {"boo_assignee":true,"taskId":taskId,'boo_delete':false,"boo_pass":true,"users":userId},
+            $.post("taskComplete", {"boo_assignee":true,"taskId":taskId,'boo_delete':false,"boo_pass":true,"str_users":userId},
                 function (res) {
                     if(res.result){
                         layer.msg(res.msg, {

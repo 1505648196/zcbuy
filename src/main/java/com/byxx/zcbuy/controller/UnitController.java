@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author lze
+ * 单位
+ */
 @Controller
 public class UnitController {
 
@@ -75,6 +79,26 @@ public class UnitController {
         return RestTemplateUtil.post(MyUrl.UPDATE_UNIT,unit, LoginInterceptor.getId());
     }
 
+    /**
+     * 获取全部单位(分页)
+     * getUnitsWithPage
+     */
+    @ResponseBody
+    @RequestMapping("/getUnitsWithPage")
+    public Object getUnitsWithPage(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_UNITS_WITH_PAGE+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+    /**
+     * 查询所有和本单位合作的供应商名单
+     * selectMerchants
+     */
+    @ResponseBody
+    @RequestMapping("/selectMerchants")
+    public Object selectMerchants(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.SELECT_MERCHANTS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
 
 
 

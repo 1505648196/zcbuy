@@ -7,7 +7,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     getDepartment();
 
     function getDepartment() {
-        $.get("http://chunyin1992.vicp.io/api/purchaseType/getPurchaseTypes",function (res) {
+        $.get("getPurchaseTypes",function (res) {
             var data=res.data;
             var html="<option value=''>全部采购类型</option>";
             $.each(data,function (index,item) {
@@ -67,7 +67,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     {field: 'username', title: '申请人', align: 'center',templet:function (d) {
                             return d.user.name;
                         }},
-                    {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
+                 //   {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
 
                 ]
             ]

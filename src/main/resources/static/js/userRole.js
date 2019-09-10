@@ -26,7 +26,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
         
         //根据id获取用户权限
-        $.get("http://chunyin1992.vicp.io/api/power/getUserPowers?userId="+ids,function (res) {
+        $.get("getUserPowers",{"userId":ids},function (res) {
                 if (res.result){
                     var   datapluss = res.data;
                     console.log(datapluss)
@@ -36,7 +36,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     var powersplus2 = datapluss.children_ids;
                     console.log(powersplus2)
                     //获取全部管理者的权限
-                    $.get("http://chunyin1992.vicp.io/api/power/getPowers",function (res) {
+                    $.get("getPowers",function (res) {
 
                             var data=res.data;
                             console.log(data);
@@ -64,9 +64,6 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
             }
         );
-
-
-
         // $.ajax({
         //     url: "http://chunyin1992.vicp.io/api/power/getUserPowers?userId="+ids,
         //     type:"get",
@@ -104,7 +101,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             console.log(errplus);
             //修改
             $.ajax({
-                url: "http://chunyin1992.vicp.io/api/power/updateUserPower",
+                url: "updateUserPower",
                 data: JSON.stringify( {userId:id,objs:errplus}),
                 type:"post",
                 dataType: "json",

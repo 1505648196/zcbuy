@@ -133,7 +133,7 @@
     // else
     if (obj.event === 'del') {
       layer.confirm('确定删除吗', function(index){
-        $.post("http://chunyin1992.vicp.io/api/role/delRole", {'id':data.id},
+        $.post("delRole", {'id':data.id},
           function (res) {
             if(res.result){
               getlist();

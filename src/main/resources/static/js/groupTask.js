@@ -7,7 +7,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     getDepartment();
 
     function getDepartment() {
-        $.get("http://chunyin1992.vicp.io/api/purchaseType/getPurchaseTypes",function (res) {
+        $.get("getPurchaseTypes",function (res) {
             var data=res.data;
             var html ="";
             // var html="<option value=''>全部采购类型</option>";

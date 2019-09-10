@@ -8,7 +8,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
     function show(){
         //单位下拉框
-        $.get("http://chunyin1992.vicp.io/api/user/getMerchants",function (res) {
+        $.get("getMerchants",function (res) {
             var data=res.data;
             var htmltwo=" <option value=''>供应商选择</option>";
             $.each(data,function (index,item) {
@@ -32,7 +32,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             elem: '#show',
             toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/areaMerchant/getAreaMerchants",
+            url: "getAreaMerchants",
             where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据

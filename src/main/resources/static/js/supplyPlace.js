@@ -53,7 +53,7 @@
       elem: '#show',
       //toolbar: '#toolbarDemo',
       page: true,
-      url: "http://chunyin1992.vicp.io/api/area/getAreas",
+      url: "getAreas",
       where: param,//自动判断空值
       parseData://转换layui所需格式
         function (res) { //res 即为原始返回的数据
@@ -100,7 +100,7 @@
     console.log(supplyName);
     //增加
     $.ajax({
-      url: "http://chunyin1992.vicp.io/api/area/addArea",
+      url: "addArea",
       data: JSON.stringify({name: supplyName}),
       type: "post",
       dataType: "json",
@@ -127,21 +127,6 @@
       }
 
       })
-
-
-
-
-    // $.post("http://chunyin1992.vicp.io/api/area/addArea",
-    //     {name:supplyName},
-    //     function (res) {
-    //           if (res.result){
-    //             layer.msg("成功");
-    //             location.href = "supplyPlace";
-    //           } else {
-    //             layer.msg("失败");
-    //           }
-    //
-    // })
     return false;
   });
 
@@ -177,7 +162,7 @@
     else
     if (obj.event === 'del') {
       layer.confirm('确定删除吗', function(index){
-        $.get("http://chunyin1992.vicp.io/api/area/delArea", {'id':data.id},
+        $.get("delArea", {'id':data.id},
           function (res) {
             if(res.result){
               layer.msg('成功！'+res.msg, {

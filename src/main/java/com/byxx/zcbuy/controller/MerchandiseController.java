@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author lze
+ * 商品 地区
+ */
 @Controller
 public class MerchandiseController {
     /**
@@ -71,6 +75,16 @@ public class MerchandiseController {
     }
 
 
+
+    /**
+     * 多条件获取商品列表 全部商品
+     * getGoods
+     */
+    @ResponseBody
+    @RequestMapping("/getGoods")
+    public Object getGoods(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_GOODS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
 
 
 
@@ -137,6 +151,16 @@ public class MerchandiseController {
     public Object getAreaAll(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.GET_AREA_ALL+request.getAttribute("p"), LoginInterceptor.getId());
     }
+
+    /**
+     *     更新地区
+     */
+    @ResponseBody
+    @GetMapping("/updateArea")
+    public Object updateArea(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.UPDATE_AREA+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
 
 
 

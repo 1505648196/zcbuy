@@ -38,63 +38,154 @@ public class MyUrl {
 	public  static  final String GET_ALl_Perission = PRE+"/api/power";
 
 	/**
+	 * 根据用户id获取该用户全部权限
+	 * getUserPowers
+	 */
+	public  static  final String GET_USER_POWERS = PRE+"/api/power/getUserPowers";
+
+
+	/**
+	 * 用户权限更新
+	 * updateUserPower
+	 */
+	public  static  final String UPDATE_USER_POWER = PRE+"/api/power/updateUserPower";
+
+	/**
+	 * 获取权限表全部权限
+	 *getPowers
+	 */
+	public  static  final String GET_POWERS = PRE+"/api/power/getPowers";
+
+	/**
+	 *獲取全部角色對應權限
+	 *	 getPowerByRoles
+	 */
+	public  static  final String GET_POWER_BY_ROLES = PRE+"/api/power/getPowerByRoles";
+
+	/**
+	 * 删除角色
+	 * delRole
+	 */
+	public  static  final String DEL_ROLE = PRE+"/api/role/delRole";
+
+	/**
+	 *增加新角色
+	 * addRole
+	 */
+	public  static  final String ADD_ROLE = PRE+"/api/role/addRole";
+
+	/**
+	 * 角色权限更新
+	 * updateRolePower
+	 */
+	public  static  final String UPDATE_ROLE_POWER = PRE+"/api/power/updateRolePower";
+
+	/**
+	 *查询全部商家
+	 * getMerchants
+	 */
+	public  static  final String GET_MERCHANTS = PRE+"/api/user/getMerchants";
+
+	/**
+	 * 更新地区
+	 *	updateArea
+	 */
+	public  static  final String UPDATE_AREA = PRE+"/api/area/updateArea";
+
+	/**
+	 *多条件筛选地区 获取全部地区
+	 * getAreas
+	 */
+	public  static  final String GET_AREAS = PRE+"/api/area/getAreas";
+
+	/**
+	 * 新增地区
+	 * addArea
+	 */
+	public  static  final String ADD_AREA = PRE+"/api/area/addArea";
+
+	/**
+	 * 删除地区
+	 * delArea
+	 */
+	public  static  final String DEL_AERA = PRE+"/api/area/delArea";
+
+	/**
 	 *筛选获取供货商与单位关联信息
+	 * getUnitMerchants
 	 */
 	public  static  final String  UNIT_MERCHANT= PRE+"/api/unitMerchant/getUnitMerchants";
 	/**
 	 * 删除供货商与单位关联信息
+	 * deleteUnitMerchant
 	 */
 	public  static  final String   DELSUPPLYUNITRELATION= PRE+"/api/unitMerchant/deleteUnitMerchant";
 	/**
 	 *添加供货商与单位关联信息
+	 * addUnitMerchant
 	 */
 	public  static  final String  ADDSUPPLYUNITRELATION = PRE+"/api/unitMerchant/addUnitMerchant";
+
+	/**
+	 * 多条件获取商品列表 全部商品
+	 * getGoods
+	 */
+	public  static  final String  GET_GOODS = PRE+"/api/goods/getGoods";
+
+
+
 	/**
 	 *商品更新
+	 * updateGoods
 	 */
 	public  static  final String  UPDATEGOODS = PRE+"/api/goods/updateGoods";
 
 	/**
 	 * 添加商品
+	 * addGoods
 	 */
 	public  static  final String   ADD_GOODS = PRE+"/api/goods/addGoods";
 
 	/**
 	 * 删除商品
+	 * delGoods
 	 */
 	public  static  final String  DEL_GOODS= PRE+"/api/goods/delGoods";
 
 	/**
 	 * 更新供应商地区对象
+	 * updateAreaMerchant
 	 */
 	public  static  final String    UPDATE_AREAMER_CHANT= PRE+"/api/areaMerchant/updateAreaMerchant";
 
 
 	/**
 	 * 删除供应商地区对象
-	 *
+	 *delAreaMerchant
 	 */
 	public  static  final String    DEL_AREA_MERCHANT= PRE+"/api/areaMerchant/delAreaMerchant";
 
 	/**
 	 * 增加供应商地区对象
-	 *
+	 *addAreaMerchant
 	 */
 	public  static  final String   ADD_AREA_MERCHANT= PRE+"/api/areaMerchant/addAreaMerchant";
 
 	/**
 	 * 获取全部地区对象
-	 *
+	 *getAll
 	 */
 	public  static  final String  GET_AREA_ALL= PRE+"/api/area/getAll";
 
 	/**
 	 * 添加新单位
+	 * addUnit
 	 */
 	public  static  final String  ADD_UNIT= PRE+"/api/unit/addUnit";
 
 	/**
 	 * 删除单位
+	 * deleteUnit
 	 */
 	public  static  final String  DELETE_UNIT= PRE+"/api/unit/deleteUnit";
 
@@ -117,6 +208,11 @@ public class MyUrl {
 	 */
 	public  static  final String DEL_PURCHASE_REQUISITION= PRE+"/api/purchaseRequisition/addPurchaseRequisition";
 
+	/**
+	 * 多条件查找采购类型
+	 * getPurchaseTypes
+	 */
+	public  static  final String GET_PURCHASE_TYPES= PRE+"/api/purchaseType/getPurchaseTypes";
 
 	/**
 	 * 根据流程定义key 查看组任务
@@ -150,11 +246,7 @@ public class MyUrl {
 	 */
 	public  static  final String TASK_COMPLETE= PRE+"/api/activiti/taskComplete";
 
-	/**
-	 * 多条件查找采购类型
-	 * getPurchaseTypes
-	 */
-	public  static  final String GET_PURCHASE_TYPES= PRE+"/api/purchaseType/getPurchaseTypes";
+
 
 	/**
 	 * 多条件查询采购  申请
@@ -165,8 +257,64 @@ public class MyUrl {
 
 	/**
 	 * 查询多个历史任务
-	 * http://chunyin1992.vicp.io/api/activiti/getHistoryList
+	 * http://chunyin1992.vicp.io/api/activiti/
+	 * getHistoryList
 	 */
 	public  static  final String GET_HISTORYLIST= PRE+"/api/activiti/getHistoryList";
+
+	/**
+	 * 获取任务ID 相关的业务实体类
+	 * getBusiness
+	 */
+	public  static  final String GET_BUSINESS= PRE+"/api/activiti/getBusiness";
+
+	/**
+	 *获取全部劳保部单位
+	 * getAllLaobaobu
+	 */
+	public  static  final String GET_ALL_LAOBAOBU= PRE+"/api/unit/getAllLaobaobu";
+
+	/**
+	 * 多条件查询 商家地区关联
+	 * getAreaMerchants
+	 */
+	public  static  final String GET_AREA_MERCHANTS= PRE+"/api/areaMerchant/getAreaMerchants";
+
+	/**
+	 * 条件查询或获取全部部门
+	 *getDepartments
+	 */
+	public  static  final String GET_DEPARTMENTS= PRE+"/api/unit/getDepartments";
+
+	/**
+	 * 获取全部单位(分页)
+	 * getUnitsWithPage
+	 */
+	public  static  final String GET_UNITS_WITH_PAGE= PRE+"/api/unit/getUnitsWithPage";
+
+
+	/**
+	 * 查询所有和本单位合作的供应商名单
+	 * selectMerchants
+	 */
+	public  static  final String SELECT_MERCHANTS= PRE+"/api/purchaseRequisition/selectMerchants";
+
+	/**
+	 * 更新采购申请
+	 * updatePurchaseRequisition
+	 */
+	public  static  final String UPDATE_PURCHASE_REQUISITION= PRE+"/api/purchaseRequisition/updatePurchaseRequisition";
+
+
+	/**
+	 *查询候选人(审批候选人与任务发起人处于同一个单位)
+	 * selectCandidates
+	 */
+	public  static  final String SELECT_CANDIDATES= PRE+"/api/purchaseRequisition/selectCandidates";
+
+
+
+
+
 
 }

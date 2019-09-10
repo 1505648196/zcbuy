@@ -16,7 +16,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             elem: '#show',
             toolbar: '#toolbarDemo',
             page: true,
-            url: "http://chunyin1992.vicp.io/api/unit/getDepartments",//新分页
+            url: "getDepartments",//新分页getDepartments
             where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据

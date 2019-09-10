@@ -11,8 +11,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         table.render({
             elem: '#shows',
              // toolbar: '#toolbarDemo',
-            page: true, //我把分页关了
-            url: "http://chunyin1992.vicp.io/api/power/getPowerByRoles",
+            page: true,
+            url: "getPowerByRoles",//獲取全部角色對應權限
             //    where: param,
             parseData://转换layui所需格式
                 function (res) { //res 即为原始返回的数据
@@ -60,31 +60,13 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
                             }
                         }},
-
-                    // {field: 'department', title: '部门', align: 'center',templet:function (d) {
-                    //         return d.department.name;
-                    //     }},
-                    // {field: 'name', title: '姓名', align: 'center'},
-                    // {field: 'role', title: '角色22', align: 'center',templet:function (d) {
-                    //         return d.role.name;
-                    //     }},
-                    // {field: 'phone', title: '手机', align: 'center'},
-                    // {field: 'email', title: '邮箱', align: 'center'},
-                    //
                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
             ]
         });
     }
 
-    // //搜索
-    // form.on('submit(sub)', function (data) {
-    //     getlist();
-    //     return false;
-    // });
-    // form.on('select(change)', function(data){
-    //     getDepartment();
-    // });
+
 
     //监听工具事件
     table.on('tool(shows)', function (obj) {
@@ -107,7 +89,8 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         }
         else if (obj.event === 'del') {
             layer.confirm('确定删除吗', function(index){
-                $.post("http://chunyin1992.vicp.io/api/role/delRole", {'id':data.role.id},
+                //删除角色
+                $.post("delRole", {'id':data.role.id},
                     function (res) {
                         if(res.result){
                             getlist();
@@ -122,20 +105,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             });
         }
     });
-   // 头工具栏事件
-   //  table.on('toolbar(show)', function (obj) {
-   //      if (obj.event === 'add') {
-   //          layer.open({
-   //              title: '添加',
-   //              type: 2,
-   //              maxmin: true, //开启最大化最小化按钮
-   //              area: ['50%', '80%'],
-   //              content:"editUser"
-   //          });
-   //      }
-   //  });
 
-    //
     $(".subAddPowertwo").click(function () {
         var name =  $("#name").val();
         console.log(name);
@@ -146,30 +116,9 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             })
             return false;
         }else {
-            // console.log("来了")
-            // $.ajax({
-            //     url: "http://chunyin1992.vicp.io/api/role/addRole",
-            //     //data :{name:data.field.name},
-            //     data: JSON.stringify( {name:data.field.name}),
-            //     type:"post",
-            //     dataType: "json",
-            //     contentType : "application/json",//否则报错类型不能少
-            //     // jsonp: "selfNamedReplaceCallback",
-            //     // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
-            //     success:function (res) {
-            //         console.log("来了2");
-            //         if(res.result){
-            //             layer.alert(res.msg);
-            //             location.href = "user";
-            //         }
-            //     },
-            //     error:function () {
-            //         console.log("出错了")
-            //     }
-            // })
             //增加
             $.ajax({
-                url: "http://chunyin1992.vicp.io/api/role/addRole",
+                url: "addRole",
                 data: JSON.stringify( {name:name}),
                 type:"post",
                 dataType: "json",

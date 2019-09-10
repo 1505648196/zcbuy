@@ -81,16 +81,62 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
     form.on('select(change)', function(data){
         getDepartment();
     });
-    
-    
-    
-    
+
     //监听工具事件
     table.on('tool(show)', function (obj) {
         var arr = new Array();
         var content ="";
         var data = obj.data;
         console.log(data);
+        //不同意  驳回后申请编辑
+        if (obj.event === 'edit') {
+            var userId= $("#userId").val();
+            layer.open({
+                title: '申请编辑',
+                type: 2,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['50%', '50%'],
+                success: function (layero, index) {
+                    $.get("getBusiness", {'taskId':data.taskId,},
+                        function (res) {
+                            if(res.result){
+                               dataplus= res.data;
+                                var body = layer.getChildFrame('body', index);
+                                body.find('#purchaseTypeName').val(dataplus.purchaseTypeId);
+                                setTimeout(function () {
+                                    body.find('#id').val(dataplus.id);
+                                    body.find('#happen').val("update");
+                                    body.find('#user').val(userId);//可能用不上
+                                    body.find('#taskId').val(data.taskId);
+                                    console.log(data.taskId)
+                                    body.find('#goodsName').val(dataplus.goodsName);
+                                    body.find('#quantity').val(dataplus.quantity);
+                                    body.find('#price').val(parseInt(dataplus.price)/100);
+                                },100);
+
+                            }else {
+                                layer.msg('操作失败！'+res.msg, {
+                                    time: 1000
+                                });
+                            }
+                        });
+                },
+                content:"addBuyApply"
+            });
+        }
+
+
+        function set(body) {
+            body.find('#id').val(dataplus.id);
+            body.find('#happen').val("update");
+            body.find('#user').val(userId);//可能用不上
+            body.find('#taskId').val(data.taskId);
+            console.log(data.taskId)
+            body.find('#goodsName').val(dataplus.goodsName);
+            body.find('#quantity').val(dataplus.quantity);
+            body.find('#price').val(dataplus.price);
+        }
+
         //归还
         if (obj.event === 'return') {
             var userId= $("#userId").val();
@@ -164,6 +210,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                     });
             });
         }
+        //配送
         if (obj.event === 'delivery') {
             var userId= $("#userId").val();
             layer.confirm('确定配送吗', function(index){
@@ -182,6 +229,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                     });
             });
         }
+        //提交供应商供货
         if (obj.event === 'supply') {
             var userId= $("#userId").val();
                 layer.open({
@@ -196,8 +244,8 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                     },
                     content:"providerChange"
                 });
-
         }
+        //不能供货
         if (obj.event === 'nosupply') {
             var userId= $("#userId").val();
             layer.confirm('确定不供货吗', function(index){

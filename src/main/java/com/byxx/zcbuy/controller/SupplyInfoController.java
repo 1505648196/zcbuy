@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author luozien
- *
+ *供应商页面
  */
 @Controller
 public class SupplyInfoController {

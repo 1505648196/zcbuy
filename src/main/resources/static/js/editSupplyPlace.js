@@ -6,7 +6,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
 
     function show(name){
-        $.post("http://chunyin1992.vicp.io/api/area/updateArea",
+        $.post("updateArea",
             {id:ids,name:nameplus},function (res) {
                 if (res.result){
                     layer.msg("成功");
@@ -25,13 +25,11 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var nameplus = $("#name").val();
         console.log(nameplus);
         $.ajax({
-            url: "http://chunyin1992.vicp.io/api/area/updateArea",
+            url: "updateArea",
             data: JSON.stringify( {id:ids,name:nameplus}),
             type:"post",
             dataType: "json",
             contentType : "application/json",//否则报错类型不能少
-            // jsonp: "selfNamedReplaceCallback",
-            // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
             success:function (res) {
                 console.log(res.result);
                 if (res.result) {

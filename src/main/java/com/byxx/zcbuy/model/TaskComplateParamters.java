@@ -1,6 +1,4 @@
 package com.byxx.zcbuy.model;
-
-import com.byxx.zcbuy.model.PurchaseRequisition;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,7 +16,7 @@ public class TaskComplateParamters implements Serializable {
     /**
      * 指定的用户集合（任务负责人、任务候选人）
      */
-    String[] users;
+    String str_users;
     /**
      * 是否设置任务责任人
      */
@@ -36,14 +34,67 @@ public class TaskComplateParamters implements Serializable {
      */
     boolean boo_needHelp;
     /**
-     *
      * 是否同意通过任务
      */
     boolean boo_pass;
 
     /**
-     * 采购申请单（用于驳回后申请单修改，重新发起申请请求）
+     * 采购申请单Id（用于驳回后申请单修改，重新发起申请请求）
      */
-    PurchaseRequisition purchaseRequisition;
+    String purchaseRequisitionId;
 
+    /**
+     * 采购类型Id
+     */
+    String purchaseTypeId;
+
+    /**
+     * 流程定义名称
+     */
+    String processDefinitionName;
+
+    /**
+     * 第几页
+     */
+    Integer page;
+
+    /**
+     * 每页条数
+     */
+    Integer limit;
+
+    /**
+     * 任务完成时间之后
+     */
+    String taskCompletedAfterTime;
+
+    /**
+     * 任务完成时间之前
+     */
+    String taskCompletedBeforeTime;
+
+    /**
+     * 任务创建时间之后
+     */
+    String taskCreatedAfterTime;
+
+    /**
+     * 任务创建时间之前
+     */
+    String taskCreatedBeforeTime;
+
+
+    public Integer getPage ( ) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        return page;
+    }
+
+    public Integer getLimit ( ) {
+        if (limit == null || limit < 1) {
+            limit = 10;
+        }
+        return limit;
+    }
 }

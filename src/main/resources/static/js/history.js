@@ -114,7 +114,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     var body = layer.getChildFrame('body', index);//获得子窗口
                     var iframe = window['layui-layer-iframe' + index];//反正就是传递
                     iframe.childs(data)//通过js传值：child()是子界面的Js方法
-
                 },
                 content:"userRole"
             });

@@ -17,7 +17,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         //供应商下拉
         function show(){
             //单位下拉框
-            $.get("http://chunyin1992.vicp.io/api/user/getMerchants",function (res) {
+            $.get("getMerchants",function (res) {
                 var data=res.data;
                 var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
                 $.each(data,function (index,item) {

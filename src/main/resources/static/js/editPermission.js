@@ -22,8 +22,8 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         //传递过来原本有的权限集合
         var powersplus=rolePermission.fatherPowers_ids;
         var powersplus2 = rolePermission.children_ids
-        //获取管理者的权限
-        $.get("http://chunyin1992.vicp.io/api/power/getPowers",function (res) {
+        //获取权限表全部权限
+        $.get("getPowers",function (res) {
                 var data=res.data;
                 console.log(data);
                 var html="";
@@ -59,7 +59,8 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             }
             //修改
             $.ajax({
-                url: "http://chunyin1992.vicp.io/api/power/updateRolePower",
+                //角色权限更新
+                url: "updateRolePower",
                 data: JSON.stringify( {id:id,"objs":errplus,name:name}),
                 type:"post",
                 dataType: "json",
@@ -84,26 +85,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                         });
                     }
                 }
-
-
             });
-            // $.post("http://chunyin1992.vicp.io/api/power/updateRolePower",{"id":10,"objs":[1,2,3,4,5,6,7,8,9,10,11,12]},
-            //     success:function (res) {
-            //         if(res.result){
-            //             layer.msg('修改成功！', {
-            //                 time: 1000
-            //             },function () {
-            //                 var index = parent.layer.getFrameIndex(window.name);
-            //                 parent.layer.close(index);
-            //                 parent.location.reload();
-            //             });
-            //         }else {
-            //             console.log(res.msg);
-            //             layer.msg('修改失败！'+res.msg, {
-            //                 time: 1000
-            //             });
-            //         }
-            //     });
             return false;
         });
     });
