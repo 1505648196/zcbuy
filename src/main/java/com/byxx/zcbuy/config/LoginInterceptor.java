@@ -20,6 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+
 	    String uri = request.getRequestURI();
 	    String params = request.getQueryString()==null?"":"?"+ URLDecoder.decode(request.getQueryString(),"utf-8");
 	    request.setAttribute("p",params);//参数请求

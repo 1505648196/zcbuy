@@ -18,7 +18,7 @@
     <![endif]-->
 </head>
 <body>
-<div id="layer-photos-demo" class="layer-photos-demo" style="margin: auto;">
+<div id="layer-photos-demo" class="layer-photos-demo">
 
 </div>
 
@@ -30,24 +30,21 @@
     layui.use(['element', 'jquery', 'form', 'layer'], function() {
         $ = layui.jquery;
         layer = layui.layer;
-
         layer.photos({
             photos: '#layer-photos-demo'
             , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
         })
-
-        $.get("http://chunyin1992.vicp.io/api/activiti/getProcessPng",
+        var index = layer.load(2, {time: 10*1000}); //又换了种风格，并且设定最长等待10秒
+        $.get("getProcessPng",
             {processDefinitionKey:"woju"},
             function (res) {
                 if (res.result){
                     var  data = res.data;
-                    var html =" <img src='"+data+"'>";
+                    var html =" <img src='"+data+"'  width=\"30%\" height=\"30%\">";
                     $("#layer-photos-demo").append(html);
+                    layer.close(index);
                 }
-
-
         })
-
-
+        //可以使用这个禁止多次提交
     });
 </script>

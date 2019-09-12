@@ -4,49 +4,66 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
 
-    getDepartment();
+    // getDepartment();
 
-    function getDepartment() {
-        $.get("getPurchaseTypes",function (res) {
+    // function getDepartment() {
+    //     $.get("getPurchaseTypes",function (res) {
+    //         var data=res.data;
+    //         var html="<option value=''>全部采购类型</option>";
+    //         $.each(data,function (index,item) {
+    //             html+="<option  value='"+item.id+"'>"+item.name+"</option>";
+    //         });
+    //         $("#purchaseTypeName").html(html);
+    //         getAllLaobaobu();
+    //     })
+    // }
+
+
+    getAllGoodsByUserId();
+
+    function getAllGoodsByUserId() {
+        var userId = $("#userId").val();
+           console.log(userId);
+        $.get("getAllGoodsByUserId",{"userId":userId},function (res) {
             var data=res.data;
-            var html="<option value=''>全部采购类型</option>";
-            $.each(data,function (index,item) {
-                html+="<option  value='"+item.id+"'>"+item.name+"</option>";
-            });
-            $("#purchaseTypeName").html(html);
-            getAllLaobaobu();
-        })
-    }
-
-
-    function getAllLaobaobu() {
-        $.get("getAllLaobaobu",function (res) {
-            var data=res.data;
-            var html="<option value=''>请选择站车劳保部</option>";
+            var html="<option value=''></option>";
             $.each(data,function (index,item) {
                 html+="<option   value='"+item.id+"'>"+item.name+"</option>";
             });
-            $("#labour").html(html);
+            $("#goods").html(html);
             form.render();
         })
     }
 
+    form.on('select(goods)', function (data){
+        var id= data.value;
+        $.get("getById",{"id":id},function (res) {
+            var data=res.data;
+            var  price =data.price;
+            var  statusName = data.statusName;
+            var  goodsTypeName =  data.goodsType.name;
+            var userName= data.user.name;
+            var phone = data.user.phone;
+            var email = data.user.email;
+            var unitName = data.user.unit.name;
+            var address = data.user.unit.address;
+            console.log(userName,phone,email,unitName,address)
+            $("#price").val(price);
+            $("#statusName").val(statusName);
+            $("#goodsTypeName").val(goodsTypeName);
+            $("#userName").val(userName);
+            $("#phone").val(phone);
+            $("#email").val(email);
+            $("#unitName").val(unitName);
+            $("#address").val(address);
+    })
 
-    form.on('select(relation)', function (data){
-        if (data.value=="2f00921bceb549b589dc0ee27818f104") {
-            $("#bb").show();
-            $("#kk").show();
-        }
-        if(data.value!="2f00921bceb549b589dc0ee27818f104") {
-            $("#bb").hide();
-            $("#kk").hide();
-        }
     });
     var context ="";
     form.on('submit(sub)',function (data) {
         var purchaseRequisitionId =$("#id").val();
         var happen = $("#happen").val();
-        var userId = $("#unit").val();
+        var userId = $("#userId").val();
         console.log(userId)
         var goodsName = $("#goodsName").val();
         var quantity = $("#quantity").val();
@@ -76,9 +93,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     return context
             })
             console.log(context);
-
-
-
             $.post("updatePurchaseRequisition",
                 {"id":purchaseRequisitionId,"goodsName":goodsName,"quantity":quantity,"price":priceplus},
                 function (res) {
@@ -113,12 +127,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                         });
                     }
                 });
-
-
-
-
-
-
         }else {
             $.post("addPurchaseRequisition",
                 {

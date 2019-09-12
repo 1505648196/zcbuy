@@ -312,7 +312,23 @@ public class MyUrl {
 	 */
 	public  static  final String SELECT_CANDIDATES= PRE+"/api/purchaseRequisition/selectCandidates";
 
+	/**
+	 * 显示流程图
+	 *getProcessPng
+	 */
+	public  static  final String GET_PROCESSPNG= PRE+"/api/activiti/getProcessPng";
 
+	/**
+	 * 根据登录用户的角色 显示 合作商 对应的全部商品（适用于电话下单）
+	 * getAllGoodsByUserId
+	 */
+	public  static  final String GET_ALL_GOODS_BY_USERID= PRE+"/api/goods/getAllGoodsByUserId";
+
+	/**
+	 *获取单个商品（id）
+	 * getById
+	 */
+	public  static  final String GET_BY_ID= PRE+"/api/goods/getById";
 
 
 

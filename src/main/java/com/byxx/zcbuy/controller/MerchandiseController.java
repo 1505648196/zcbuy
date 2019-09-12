@@ -161,6 +161,16 @@ public class MerchandiseController {
         return RestTemplateUtil.get(MyUrl.UPDATE_AREA+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
+    /**
+     *  获取单个商品（id）
+     */
+    @ResponseBody
+    @GetMapping("/getById")
+    public Object getById(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_BY_ID+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
 
 
 

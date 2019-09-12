@@ -101,10 +101,6 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     var body = layer.getChildFrame('body', index);
                     body.find('#id').val(data.id);
                     body.find('#name').val(data.name);
-                    body.find('#loginName').val(data.loginName);
-                    body.find('#uid').val(data.unit.id);
-                    body.find('#did').val(data.department.id);
-                    body.find('#rid').val(data.role.id);
                     body.find('#phone').val(data.phone);
                     body.find('#email').val(data.email);
                 },

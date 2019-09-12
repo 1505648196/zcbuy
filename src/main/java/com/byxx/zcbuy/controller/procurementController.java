@@ -1,11 +1,12 @@
 package com.byxx.zcbuy.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
+
 import com.byxx.zcbuy.config.LoginInterceptor;
-import com.byxx.zcbuy.model.PurchaseRequisition;
+
+import com.byxx.zcbuy.model.PurchaseRequisitionList;
 import com.byxx.zcbuy.model.TaskComplateParamters;
-import com.byxx.zcbuy.model.Unit;
+
 import com.byxx.zcbuy.utils.MyUrl;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import org.springframework.stereotype.Controller;
@@ -97,8 +98,8 @@ public class procurementController {
      */
     @ResponseBody
     @PostMapping("/addPurchaseRequisition")
-    public Object addPurchaseRequisition(PurchaseRequisition PurchaseRequisition) {
-        return RestTemplateUtil.post(MyUrl.ADD_PURCHASE_REQUISITION,PurchaseRequisition, LoginInterceptor.getId());
+    public Object addPurchaseRequisition(PurchaseRequisitionList purchaseRequisitionList) {
+        return RestTemplateUtil.post(MyUrl.ADD_PURCHASE_REQUISITION, purchaseRequisitionList, LoginInterceptor.getId());
     }
 
 
@@ -228,8 +229,8 @@ public class procurementController {
      */
     @ResponseBody
     @PostMapping("/updatePurchaseRequisition")
-    public Object updatePurchaseRequisition(PurchaseRequisition purchaseRequisition) {
-        return RestTemplateUtil.post(MyUrl.UPDATE_PURCHASE_REQUISITION,purchaseRequisition, LoginInterceptor.getId());
+    public Object updatePurchaseRequisition(PurchaseRequisitionList purchaseRequisitionList) {
+        return RestTemplateUtil.post(MyUrl.UPDATE_PURCHASE_REQUISITION, purchaseRequisitionList, LoginInterceptor.getId());
     }
 
     /**
@@ -241,6 +242,17 @@ public class procurementController {
     public Object selectCandidates(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.SELECT_CANDIDATES+request.getAttribute("p"), LoginInterceptor.getId());
     }
+
+    /**
+     * 根据登录用户的角色 显示 合作商 对应的全部商品（适用于电话下单）
+     * getAllGoodsByUserId
+     */
+    @ResponseBody
+    @GetMapping("/getAllGoodsByUserId")
+    public Object getAllGoodsByUserId(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_ALL_GOODS_BY_USERID+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
 
 
 

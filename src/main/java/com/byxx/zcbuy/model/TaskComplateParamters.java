@@ -1,4 +1,6 @@
 package com.byxx.zcbuy.model;
+
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -42,6 +44,12 @@ public class TaskComplateParamters implements Serializable {
      * 采购申请单Id（用于驳回后申请单修改，重新发起申请请求）
      */
     String purchaseRequisitionId;
+
+
+    /**
+     * 审批备注
+     */
+    String activitiComment;
 
     /**
      * 采购类型Id

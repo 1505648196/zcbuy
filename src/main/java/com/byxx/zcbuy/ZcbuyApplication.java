@@ -10,5 +10,4 @@ public class ZcbuyApplication {
 		SpringApplication.run(ZcbuyApplication.class, args);
 		System.err.println("(♥◠‿◠)ﾉﾞ 启动成功 !");
 	}
-
 }
