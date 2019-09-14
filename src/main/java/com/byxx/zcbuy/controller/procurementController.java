@@ -104,7 +104,7 @@ public class procurementController {
 
 
     /**
-     * 删除采购申请 
+     * 删除采购申请
      */
     @ResponseBody
     @GetMapping("/delPurchaseRequisition")
