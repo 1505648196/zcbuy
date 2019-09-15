@@ -252,7 +252,7 @@ public class MyUrl {
 	 * 多条件查询采购  申请
 	 * getPurchaseRequisitions
 	 */
-	public  static  final String GET_PURCHASE_REQUISITIONS= PRE+"/api/purchaseRequisition/getPurchaseRequisitions";
+	public  static  final String GET_PURCHASE_REQUISITIONS= PRE+"/api/purchaseRequisition/getPurchaseRequisitionsLists";
 
 
 	/**
@@ -329,6 +329,12 @@ public class MyUrl {
 	 * getById
 	 */
 	public  static  final String GET_BY_ID= PRE+"/api/goods/getById";
+
+	/**
+	 * 查看同一单位的全部用户
+	 * getUserToOneUnit
+	 */
+	public  static  final String GET_USER_TO_ONE_UNIT= PRE+"/api/user/getUserToOneUnit";
 
 
 

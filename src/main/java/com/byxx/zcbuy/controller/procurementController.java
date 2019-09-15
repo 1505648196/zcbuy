@@ -253,19 +253,15 @@ public class procurementController {
         return RestTemplateUtil.get(MyUrl.GET_ALL_GOODS_BY_USERID+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 查看同一单位的全部用户
+     * getUserToOneUnit
+     */
+    @ResponseBody
+    @GetMapping("/getUserToOneUnit")
+    public Object getUserToOneUnit(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_USER_TO_ONE_UNIT+request.getAttribute("p"), LoginInterceptor.getId());
+    }
 
 
 }

@@ -39,10 +39,17 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">数量：</label>
+        <div class="layui-form-item" style="color: red">
+            <label class="layui-form-label">申请用户：</label>
             <div class="layui-input-block">
-                <input type="text" id="quantity" name="quantity" class="layui-input" lay-verify="required">
+                <select id="applyuser" name="applyuser" class="layui-input" lay-filter="relation"  lay-verify="required" lay-search></select>
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="color: red">
+            <label class="layui-form-label">数量：</label>
+            <div class="layui-input-block" >
+                <input  type="text" style="color: red" id="quantity" name="quantity" class="layui-input" lay-verify="required|number" >
             </div>
         </div>
 
@@ -52,6 +59,7 @@
                 <input type="text" id="price" name="price" class="layui-input" lay-verify="required" readonly="readonly">
             </div>
         </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">状态：</label>
             <div class="layui-input-block">
@@ -101,46 +109,15 @@
             </div>
         </div>
 
+        <div id="laobao">
+            <!--劳保显示-->
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="layui-form-item" hidden>
-            <label class="layui-form-label">采购类型：</label>
-
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">订单备注：</label>
             <div class="layui-input-block">
-                <select id="purchaseTypeName" name="purchaseTypeName" class="layui-input" lay-filter="relation"  lay-verify="required">
-                </select>
+                <textarea name="desc" style="color: red" id="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
-
-            <p style="visibility:hidden">555555555</p>
-
-            <label class="layui-form-label" id="bb" style="display: none;" >站车劳保部:</label>
-            <div class="layui-input-block " id="kk" hidden>
-                <select id="labour" name="labour" class="layui-input" lay-filter="labour"  >
-                </select>
-            </div>
-
         </div>
 
         <div class="layui-form-item">
@@ -148,10 +125,10 @@
                 <button lay-submit class="layui-btn" id="sub" lay-filter="sub">提交</button>
             </div>
         </div>
-        <!--<input type="hidden" id="id" name="id"/>-->
-        <!--<input type="hidden" id="happen" name="happen"/>-->
-        <!--<input type="hidden" id="taskId" name="taskId"/>-->
-        <!---->
+        <input type="hidden" id="id" name="id"/>
+        <input type="hidden" id="happen" name="happen"/>
+        <input type="hidden" id="taskId" name="taskId"/>
+
         <input type="hidden" th:value="${session.userMsg.id}" id="userId"/>
     </form>
 </div>

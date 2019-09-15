@@ -57,13 +57,21 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             },
             cols: [
                 [
-                    {field: 'goodsName', title: '商品名称', align: 'center'},
+                    {field: 'goodsName', title: '商品名称', align: 'center',templet:function (d) {
+                            return d.goods.name;
+                     }},
                     {field: 'quantity', title: '数量', align: 'center',},
                     {field: 'createTime', title: '创建时间', align: 'center'},
                     {field: 'updateTime', title: '更新时间', align: 'center',},
-                    {field: 'statusName', title: '状态', align: 'center'},
-                    {field: 'price', title: '价格', align: 'center'},
-                    {field: 'purchaseTypeName', title: '采购类型', align: 'center'},
+                    {field: 'statusName', title: '状态', align: 'center',templet:function (d) {
+                            return d.goods.statusName;
+                        }},
+                    {field: 'price', title: '价格', align: 'center',templet:function (d) {
+                            return d.goods.price;
+                        }},
+                    {field: 'purchaseTypeName', title: '采购类型', align: 'center',templet:function (d) {
+                        return d.purchaseType.name;
+                    }},
                     {field: 'username', title: '申请人', align: 'center',templet:function (d) {
                             return d.user.name;
                         }},

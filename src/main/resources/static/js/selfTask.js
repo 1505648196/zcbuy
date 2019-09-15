@@ -172,7 +172,6 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                 content:"providerChange"
             });
         }
-
         //不同意
         if (obj.event === 'no') {
             var userId= $("#userId").val();

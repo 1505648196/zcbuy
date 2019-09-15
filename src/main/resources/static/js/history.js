@@ -19,7 +19,6 @@ layui.use(['layer', 'form', 'jquery', 'table','laydate'], function () {
             endMax = end.config.max;
             end.config.min = date;
             end.config.min.month = date.month -1;
-            console.log(value);
             start_time = value;
         }
     });
@@ -61,6 +60,8 @@ layui.use(['layer', 'form', 'jquery', 'table','laydate'], function () {
         console.log($('#start_time').val());
         userId  = $("userId").val();
         var param = {"userId":userId,"taskCreatedAfterTime":start_time,"taskCreatedBeforeTime":end_time};
+        start_time ="";
+        end_time=""
         table.render({
             elem: '#show',
             //toolbar: '#toolbarDemo',
