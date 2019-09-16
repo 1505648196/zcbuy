@@ -336,7 +336,29 @@ public class MyUrl {
 	 */
 	public  static  final String GET_USER_TO_ONE_UNIT= PRE+"/api/user/getUserToOneUnit";
 
+	/**
+	 * 查询大宗采购 经开部 候选人
+	 * 	selectJKBCandidates
+	 */
+	public  static  final String SELECT_JKBC_AND_IDATES= PRE+"/api/purchaseRequisition/selectJKBCandidates";
+
+	/**
+	 * 获取全部状态
+	 * getAllStatus
+	 */
+	public  static  final String GET_ALL_STATUS= PRE+"/api/status/getAllStatus";
+
+	/**
+	 * 获取商品状态
+	 * getGoodsStatus
+	 */
+	public  static  final String GET_GOODS_STATUS= PRE+"/api/status/getGoodsStatus";
 
 
+	/**
+	 * getAllGoodsTypes
+	 * 获取全部商品小类
+	 */
+	public  static  final String GET_ALL_GOODS_TYPES= PRE+"/api/goodsType/getAllGoodsTypes";
 
 }

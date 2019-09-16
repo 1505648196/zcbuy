@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @create: 2018-04-24 17:20
@@ -46,6 +47,14 @@ public class JsonUtils {
     public static <E> List<E> toList(String json, Class<E> eClass) {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, eClass));
+        } catch (IOException e) {
+            log.error("json解析出错：" + json, e);
+            return null;
+        }
+    }
+    public static <E> List<E> toSet(String json, Class<E> eClass) {
+        try {
+            return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(Set.class, eClass));
         } catch (IOException e) {
             log.error("json解析出错：" + json, e);
             return null;

@@ -47,27 +47,20 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         );
 
         form.on('submit(sub)',function (data) {
-            var id = data.field.id
-            var name = data.field.name
+            var id = data.field.id;
+
+            var name = data.field.name;
             var err =  $("[name=cc]:checked");
             console.log($("[name=cc]:checked"));
-            var errplus = new Array()
+            var array = new Array();
             for (var i =0 ;i<err.length;i++){
-                var aa = err[i].value;
+                var aa = array.value;
                 console.log(aa);
-                errplus.push(aa);
+                array.push(aa);
             }
-            //修改
-            $.ajax({
-                //角色权限更新
-                url: "updateRolePower",
-                data: JSON.stringify( {id:id,"objs":errplus,name:name}),
-                type:"post",
-                dataType: "json",
-                contentType : "application/json",//否则报错类型不能少
-                // jsonp: "selfNamedReplaceCallback",
-                // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
-                success:function (res) {
+            $.post("updateRolePower",
+            {"id":id,"objs":array,"name":name} ,
+                function (res) {
                     if(res.result){
                         console.log(res.result);
                         layer.msg('修改成功！', {
@@ -81,11 +74,43 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     }else {
                         console.log(res.msg);
                         layer.msg('修改失败！'+res.msg, {
-                            time: 1000
+                            time: 10000
                         });
                     }
-                }
-            });
+
+
+            })
+            // //修改
+            // $.ajax({
+            //     //角色权限更新
+            //     url: "updateRolePower",
+            //     data: JSON.stringify( {id:id,objs:array,name:name}),
+            //     traditional:true,
+            //     type:"post",
+            //     dataType: "json",
+            //     contentType : "application/json",//否则报错类型不能少
+            //
+            //     // jsonp: "selfNamedReplaceCallback",
+            //     // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
+            //     success:function (res) {
+            //         if(res.result){
+            //             console.log(res.result);
+            //             layer.msg('修改成功！', {
+            //                 time: 1000
+            //             },function () {
+            //                 //传到爹哪里去
+            //                 var index = parent.layer.getFrameIndex(window.name);
+            //                 parent.layer.close(index);
+            //                 parent.location.reload();
+            //             });
+            //         }else {
+            //             console.log(res.msg);
+            //             layer.msg('修改失败！'+res.msg, {
+            //                 time: 10000
+            //             });
+            //         }
+            //     }
+            // });
             return false;
         });
     });

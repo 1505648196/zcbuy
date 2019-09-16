@@ -2,16 +2,17 @@ package com.byxx.zcbuy.model;
 
 import lombok.Data;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 
 @Data
 
 public class Power implements Serializable {
+
     /**
      * 权限id
      */
-
     private Integer id;
 
     /**

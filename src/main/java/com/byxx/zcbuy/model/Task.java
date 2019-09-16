@@ -1,9 +1,7 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
-
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,7 +21,8 @@ public class Task implements Serializable {
     /**
      * 任务开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss:SSS")
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss:SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
@@ -68,20 +67,20 @@ public class Task implements Serializable {
      */
     private String purchaseTypeName;
 
+
     private Integer page;
+    private Integer limit;
 
-    private  Integer limit;
-
-    public Integer getPage() {
-        if(page==null||page<1){
-            page=1;
+    public Integer getPage ( ) {
+        if (page == null || page < 1) {
+            page = 1;
         }
         return page;
     }
 
-    public Integer getLimit() {
-        if(limit==null||limit<1){
-            limit=10;
+    public Integer getLimit ( ) {
+        if (limit == null || limit < 1) {
+            limit = 10;
         }
         return limit;
     }

@@ -2,9 +2,7 @@ package com.byxx.zcbuy.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -15,7 +13,6 @@ public class User implements Serializable {
     /**
      * 用户id
      */
-
     private String id;
 
     /**
@@ -91,6 +88,8 @@ public class User implements Serializable {
     private Set objs;
 
     private Object obj;
+
+    private String statusName;
 
     private Integer page;
 

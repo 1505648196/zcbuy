@@ -36,18 +36,18 @@ public class GoodsType implements Serializable {
 
     private Integer page;
 
-    private  Integer limit;
+    private Integer limit;
 
-    public Integer getPage() {
-        if(page==null||page<1){
-            page=1;
+    public Integer getPage ( ) {
+        if (page == null || page < 1) {
+            page = 1;
         }
         return page;
     }
 
-    public Integer getLimit() {
-        if(limit==null||limit<1){
-            limit=10;
+    public Integer getLimit ( ) {
+        if (limit == null || limit < 1) {
+            limit = 10;
         }
         return limit;
     }

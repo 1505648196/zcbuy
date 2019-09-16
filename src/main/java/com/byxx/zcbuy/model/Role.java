@@ -3,6 +3,7 @@ package com.byxx.zcbuy.model;
 import lombok.Data;
 
 import java.io.Serializable;
+
 import java.util.List;
 import java.util.Set;
 
@@ -20,9 +21,7 @@ public class Role implements Serializable {
      */
     private String name;
 
-
-
-    private Set<Integer> objs;
+    private List<Integer> objs;
 
     private Integer page;
 

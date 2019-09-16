@@ -263,5 +263,47 @@ public class procurementController {
         return RestTemplateUtil.get(MyUrl.GET_USER_TO_ONE_UNIT+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
+    /**
+     * 查询大宗采购 经开部 候选人
+     * 	selectJKBCandidates
+     */
+    @ResponseBody
+    @GetMapping("/selectJKBCandidates")
+    public Object selectJKBCandidates(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.SELECT_JKBC_AND_IDATES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 获取全部状态
+     * getAllStatus
+     */
+    @ResponseBody
+    @GetMapping("/getAllStatus")
+    public Object getAllStatus(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_ALL_STATUS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 获取商品状态
+     * getGoodsStatus
+     * */
+     @ResponseBody
+     @GetMapping("/getGoodsStatus")
+     public Object getGoodsStatus(HttpServletRequest request) {
+     return RestTemplateUtil.get(MyUrl.GET_GOODS_STATUS+request.getAttribute("p"), LoginInterceptor.getId());
+     }
+
+    /**
+     * getAllGoodsTypes
+     * 获取全部商品小类
+     */
+    @ResponseBody
+    @GetMapping("/getAllGoodsTypes")
+    public Object getAllGoodsTypes(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_ALL_GOODS_TYPES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+
 
 }

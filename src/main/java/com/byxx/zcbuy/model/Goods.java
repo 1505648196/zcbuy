@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 
 @Data
 
@@ -14,7 +15,6 @@ public class Goods implements Serializable {
     /**
      * 商品id
      */
-
     private String id;
 
     /**
@@ -43,10 +43,30 @@ public class Goods implements Serializable {
      */
     private Integer status;
 
+    /**
+     * 商品小类 分类Id
+     */
+    private String goodsTypeId;
+
+
+    /*状态名*/
+
+    private String statusName;
+
+    /*卖家*/
+
+    private User user;
+
+    /*商品小类*/
+
+    private GoodsType goodsType;
+    /*采购类型*/
+
+    private PurchaseType purchaseType;
 
     /*关联的供货单位集合*/
-
-    private List<UnitMerchant> unitMerchants;
+    /*@Transient
+    private List<UnitMerchant> unitMerchants;*/
 
 
     private Long maxPrice;  //价格区间最高价

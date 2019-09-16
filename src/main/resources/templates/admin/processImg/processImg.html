@@ -54,7 +54,7 @@
 <script>
     var $;
     var layer;
-    layui.use(['layer', 'form', 'jquery', 'table'], function () {
+    layui.use(['element','layer', 'form', 'jquery', 'table'], function () {
         var form = layui.form,  //表单
             layer = layui.layer, //弹层
             table = layui.table; //表格
@@ -64,8 +64,8 @@
             photos: '#layer-photos-demo'
             , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
         })
-
-            $.get("getPurchaseTypes",function (res) {
+        var index = layer.load(2, {time: 10*1000});
+        $.get("getPurchaseTypes",function (res) {
                 var data=res.data;
                 var html="<option value=''>请选择采购类型流程图</option>";
                 $.each(data,function (index,item) {
@@ -73,6 +73,7 @@
                 });
                 $("#purchaseTypeName").html(html);
                 form.render();
+            layer.close(index);
             })
 
 

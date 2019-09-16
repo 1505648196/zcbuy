@@ -42,16 +42,23 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             cols: [
                 [
                     {type: 'numbers'},
+
                     {field: 'name', title: '商品名称', align: 'center'},
 
                     {field: 'price', title: '价格', align: 'center',},
 
-                    {field: 'status', title: '状态', align: 'center',templet:function (d) {
-                        if (d.status==1){
-                                    return "可用";
-                        }else{
-                            return "未知"
-                        }
+                    {field: 'statusName', title: '状态', align: 'center',},
+
+                    {field: 'createTime', title: '创建时间', align: 'center',},
+
+                    {field: 'userName', title: '供应商', align: 'center',templet:function (d) {
+                            return d.user.name;
+                        }},
+                    {field: 'goodsTypeName', title: '商品类型', align: 'center',templet:function (d) {
+                            return d.goodsType.name;
+                        }},
+                    {field: 'purchaseTypeName', title: '采购类型', align: 'center',templet:function (d) {
+                            return d.purchaseType.name;
                         }},
                     {fixed: 'right', title: '操作', align: 'center',toolbar: '#barDemo'}
                 ]
@@ -70,15 +77,35 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         //用户信息
         if (obj.event === 'edit') {
             layer.open({
-                title: '编辑',
+                title: '编辑，红色的不可编辑',
                 type: 2,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['50%', '80%'],
                 success: function (layero, index) {
+                    var  statusName = data.statusName;
+                    var  goodsTypeName =  data.goodsType.name;
+                    var userName= data.user.name;
+                    var phone = data.user.phone;
+                    var email = data.user.email;
+                    var unitName = data.user.unit.name;
+                    var address = data.user.unit.address;
+                    var ptNames = data.purchaseType.name;
+                    console.log(statusName,goodsTypeName,userName,phone,email,unitName,address,ptNames);
                     var body = layer.getChildFrame('body', index);
                     body.find('#id').val(data.id);
                     body.find('#price').val(data.price);
                     body.find('#name').val(data.name);
+                    body.find('#statusId').val(data.status);
+                    body.find('#goodsTypeIds').val(data.goodsTypeId);
+                    body.find('#userName').val(userName);
+                    body.find('#phone').val(phone);
+                    body.find('#unitName').val(unitName);
+                    body.find('#address').val(address);
+
+
+
+
+
                 },
                 content:"editCommodity"
             });

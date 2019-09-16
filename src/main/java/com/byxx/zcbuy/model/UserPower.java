@@ -36,7 +36,7 @@ public class UserPower implements Serializable {
 
     private String fatherPowers_ids;
 
-    private Set objs;
+    private List<Integer> objs;
 
     private Object obj;
 

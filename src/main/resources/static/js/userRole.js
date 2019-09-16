@@ -64,27 +64,6 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
             }
         );
-        // $.ajax({
-        //     url: "http://chunyin1992.vicp.io/api/power/getUserPowers?userId="+ids,
-        //     type:"get",
-        //     dataType: "json",
-        //     contentType : "application/json",//否则报错   类型不能少
-        //     success:function (res) {
-        //         if (res.result){
-        //          var   datapluss = res.data;
-        //          console.log(datapluss)
-        //             //传递过来原本有的权限集合
-        //             var powersplus=datapluss.fatherPowers_ids;
-        //             var powersplus2 = datapluss.children_ids;
-        //         }
-        //     }
-        // });
-
-
-
-
-
-
 
 
         form.on('submit(sub)',function (data) {
@@ -93,16 +72,16 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
             var err =  $("[name=cc]:checked");
             console.log($("[name=cc]:checked"));
-            var errplus = new Array()
+            var array = new Array()
             for (var i =0 ;i<err.length;i++){
                 var aa = err[i].value;
-                errplus.push(aa);
+                array.push(aa);
             }
             console.log(errplus);
             //修改
             $.ajax({
                 url: "updateUserPower",
-                data: JSON.stringify( {userId:id,objs:errplus}),
+                data: JSON.stringify( {userId:id,objs:array}),
                 type:"post",
                 dataType: "json",
                 contentType : "application/json",//否则报错类型不能少

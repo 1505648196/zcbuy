@@ -78,6 +78,12 @@ public class UserController {
 		return "admin/editUser";
 	}
 
+	@RequestMapping("/userRoleplus")
+	public String userRoleplus() {
+		return "admin/userRoleplus";
+	}
+
+
 	/**
 	 * 无用
 	 * @return
@@ -86,7 +92,6 @@ public class UserController {
 	public  String editUSerplus(){
 		return "admin/editUSerplus";
 	}
-
 
 	/**
 	 * 无用

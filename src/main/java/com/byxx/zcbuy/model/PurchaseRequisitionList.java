@@ -1,5 +1,7 @@
 package com.byxx.zcbuy.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 import java.beans.Transient;
@@ -17,7 +19,6 @@ public class PurchaseRequisitionList implements Serializable {
      */
 
     private String id;
-
 
     /**
      * 商品Id
@@ -42,11 +43,13 @@ public class PurchaseRequisitionList implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
@@ -78,7 +81,6 @@ public class PurchaseRequisitionList implements Serializable {
     private PurchaseType purchaseType;
 
 
-
     /**
      * 用于标记任务接受者为一个单位的情况（劳保采购）
      */
@@ -88,18 +90,18 @@ public class PurchaseRequisitionList implements Serializable {
 
     private Integer page;
 
-    private  Integer limit;
+    private Integer limit;
 
-    public Integer getPage() {
-        if(page==null||page<1){
-            page=1;
+    public Integer getPage ( ) {
+        if (page == null || page < 1) {
+            page = 1;
         }
         return page;
     }
 
-    public Integer getLimit() {
-        if(limit==null||limit<1){
-            limit=10;
+    public Integer getLimit ( ) {
+        if (limit == null || limit < 1) {
+            limit = 10;
         }
         return limit;
     }

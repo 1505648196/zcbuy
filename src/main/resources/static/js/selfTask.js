@@ -160,7 +160,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
         if (obj.event === 'yes') {
             var userId= $("#userId").val();
             layer.open({
-                title: '请选择供应商或经开部',
+                title: '请选择经开部',
                 type: 2,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['30%', '30%'],

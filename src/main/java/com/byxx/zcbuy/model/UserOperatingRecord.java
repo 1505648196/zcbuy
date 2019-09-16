@@ -1,9 +1,8 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
-
+import java.beans.Transient;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

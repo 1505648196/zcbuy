@@ -127,7 +127,7 @@
           iframe.childs(data)//通过js传值：child()是子界面的Js方法
 
         },
-        content:"userRole"
+        content:"userRoleplus"
       });
     }
     //用户信息

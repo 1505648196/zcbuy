@@ -1,6 +1,7 @@
 package com.byxx.zcbuy.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.byxx.zcbuy.config.LoginInterceptor;
 import com.byxx.zcbuy.model.Area;
 import com.byxx.zcbuy.model.Role;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author lze
@@ -93,6 +95,8 @@ public class PowerrController {
     @ResponseBody
     @PostMapping("/updateRolePower")
     public Object updateRolePower(Role role) {
+        System.out.println(1111);
+        System.out.println(role);
         return RestTemplateUtil.post(MyUrl.UPDATE_ROLE_POWER,role, LoginInterceptor.getId());
     }
 

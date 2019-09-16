@@ -1,15 +1,13 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
-
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
-
 public class UnitMerchant implements Serializable {
     /**
      * 供货商单位关联表Id
@@ -48,6 +46,7 @@ public class UnitMerchant implements Serializable {
 
     private Unit unit;
 
+    private String statusName;
 
 
 

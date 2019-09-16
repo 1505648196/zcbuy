@@ -9,8 +9,8 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
         //供应商下拉
         function show(){
         ids = $("#user").val();
-            //供应商下拉框
-            $.get("selectMerchants",{"userId":ids},function (res) {
+            //经开部门下拉框
+            $.get("selectJKBCandidates",{"userId":ids},function (res) {
                 var data=res.data;
                 var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
                 $.each(data,function (index,item) {
