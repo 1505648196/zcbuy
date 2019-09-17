@@ -4,12 +4,11 @@ import lombok.Data;
 
 import java.beans.Transient;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 
 @Data
-public class Role implements Serializable {
+public class RolePlus implements Serializable {
 
     /**
      * 角色id
@@ -26,7 +25,7 @@ public class Role implements Serializable {
      * 用于更新权限
      */
 
-    private List<Integer> objs;
+    private Set<Integer> objs;
 
 
 

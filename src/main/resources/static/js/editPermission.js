@@ -47,52 +47,30 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         );
 
         form.on('submit(sub)',function (data) {
-            var id = data.field.id;
-
-            var name = data.field.name;
+            var ids = data.field.id;
+            var names = data.field.name;
             var err =  $("[name=cc]:checked");
             console.log($("[name=cc]:checked"));
-            var array = new Array();
+            var array = new Set;
             for (var i =0 ;i<err.length;i++){
-                var aa = array.value;
+                var aa = parseInt(err[i].value);
                 console.log(aa);
-                array.push(aa);
+                array.add(aa);
             }
-            $.post("updateRolePower",
-            {"id":id,"objs":array,"name":name} ,
-                function (res) {
-                    if(res.result){
-                        console.log(res.result);
-                        layer.msg('修改成功！', {
-                            time: 1000
-                        },function () {
-                            //传到爹哪里去
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                            parent.location.reload();
-                        });
-                    }else {
-                        console.log(res.msg);
-                        layer.msg('修改失败！'+res.msg, {
-                            time: 10000
-                        });
-                    }
+            console.log(array);
+            test(ids,names,array)
+            // setTimeout(function () {
+            //     test(ids,names,array);
+            // },2000)
+            return false;
+        });
 
-
-            })
-            // //修改
-            // $.ajax({
-            //     //角色权限更新
-            //     url: "updateRolePower",
-            //     data: JSON.stringify( {id:id,objs:array,name:name}),
-            //     traditional:true,
-            //     type:"post",
-            //     dataType: "json",
-            //     contentType : "application/json",//否则报错类型不能少
-            //
-            //     // jsonp: "selfNamedReplaceCallback",
-            //     // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
-            //     success:function (res) {
+        function test(ids,names,array){
+            //  var str=array.join(",");
+            // console.log(ids,names,array);
+            // $.post("http://chunyin1992.vicp.io/api/unitOrderSettlementList/test",
+            //     JSON.stringify({id:ids,objs:array,name:names})  ,
+            //     function (res) {
             //         if(res.result){
             //             console.log(res.result);
             //             layer.msg('修改成功！', {
@@ -109,8 +87,47 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             //                 time: 10000
             //             });
             //         }
-            //     }
-            // });
-            return false;
-        });
+            //     })
+            //  var str=array.join(",");
+
+            //http://chunyin1992.vicp.io/api/unitOrderSettlementList/test
+            var x={id:ids,objs:array};
+            console.log("参数："+x);
+            alert(x);
+            $.ajax({
+                //角色权限更新
+                url: "updateRolePowerPlus",
+                data:  x,
+               // traditional:true,
+               /* beforeSend: function (XMLHttpRequest) {
+                    XMLHttpRequest.setRequestHeader("id", $("#userId").val());
+                },*/
+                //blog.csdn.net/asdfghzqlj/article/details/78666352
+                type:"post",
+                dataType: "json",
+                contentType : "application/json",//否则报错类型不能少
+                // jsonp: "selfNamedReplaceCallback",
+                // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
+                success:function (res) {
+                    if(res.result){
+                        console.log(res.data);
+                        console.log(res.result);
+                        layer.msg('修改成功！', {
+                            time: 1000
+                        },function () {
+                            //传到爹哪里去
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            parent.location.reload();
+                        });
+                    }else {
+                        console.log(res.msg);
+                        layer.msg('修改失败！'+res.msg, {
+                            time: 10000
+                        });
+                    }
+                }
+            });
+        }
+
     });
