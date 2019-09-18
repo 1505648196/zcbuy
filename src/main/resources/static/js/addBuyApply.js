@@ -104,7 +104,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var goodsName = $("#goodsName").val();//已被删除
         var quantity = $("#quantity").val();
         var taskId =$("#taskId").val();
-        var desc = $("desc").val();
+        var desc = $("#desc").val();
         console.log(taskId)
 
         var purchaseTypeName = $("#purchaseTypeName").val();//拿的是id 不是名字
