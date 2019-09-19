@@ -3,19 +3,18 @@ package com.byxx.zcbuy.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.byxx.zcbuy.model.*;
+import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.byxx.zcbuy.config.LoginInterceptor;
-import com.byxx.zcbuy.model.Area;
-import com.byxx.zcbuy.model.Role;
-import com.byxx.zcbuy.model.RolePlus;
-import com.byxx.zcbuy.model.UserPower;
 import com.byxx.zcbuy.utils.MyUrl;
+import com.byxx.zcbuy.utils.NpResult;
 import com.byxx.zcbuy.utils.RestTemplateUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author lze
@@ -153,8 +152,22 @@ public class PowerrController {
      */
     @ResponseBody
     @PostMapping("/updateUserPower")
-    public Object updateUserPower(UserPower userPower) {
-        return RestTemplateUtil.post(MyUrl.UPDATE_USER_POWER,userPower, LoginInterceptor.getId());
+    public Object updateUserPower( @RequestParam Map<String,String> map) {
+        UserPower u = new UserPower();//别把对象放进参数,否则会报错
+        u.setUserId(map.get("id"));
+        map.remove("id");
+        map.remove("name");
+        System.out.println();
+        if (map.size() > 0) {
+            Set<Integer> set=new HashSet<Integer>();
+            Collection<String> values = map.values();
+            for (String value : values) {
+                Integer zz = Integer.valueOf(value);
+                set.add(zz);
+            }
+            u.setObjs(set);
+        }
+        return RestTemplateUtil.post(MyUrl.UPDATE_USER_POWER,u, LoginInterceptor.getId());
     }
 
     /**
@@ -163,40 +176,34 @@ public class PowerrController {
      */
     @ResponseBody
     @PostMapping("/updateRolePowerPlus")
-    public Object updateRolePower( @RequestBody Role role) {
-        System.out.println(JSONObject.toJSONString(role));
+    public Object updateRolePower( @RequestParam Map<String,String> map,Role role) {
+//        直接接受表单
+        String id = map.get("id");
+        Integer s = null;
+        if(id!=null){
+            s = Integer.valueOf(id);
+        }
+        String name = map.get("name");
+        if (StringUtils.isBlank(id) || StringUtils.isBlank(name)) {
+            return NpResult.error("参数有误!");
+        }
+        map.remove("id");
+        map.remove("name");
+        Role r = new Role();
+        role.setId(s);
+        role.setName(name);
+        if (map.size() > 0) {
+            Set<Integer> set=new HashSet<Integer>();
+            Collection<String> values = map.values();
+            for (String value : values) {
+                Integer zz = Integer.valueOf(value);
+                set.add(zz);
+                zz = null;
+            }
+          role.setObjs(set);
+        }
         return RestTemplateUtil.post(MyUrl.UPDATE_ROLE_POWER,role, LoginInterceptor.getId());
 }
-
-/*    @ResponseBody
-    @PostMapping("/updateRolePowerPlus")
-    public Object updateRolePower() {
-        String url="http://chunyin1992.vicp.io/api/power/updateRolePower";
-        String id="b037f22e9b174a06ba0c13152285fac9";
-        HashMap<Object, Object> m = new HashMap<>();
-        m.put("id","3");
-        m.put("objs",new int[]{1,2,3});
-        m.put("name","业务负责人3");
-        System.err.println(JSONObject.toJSONString(m));
-        return RestTemplateUtil.post(url,JSONObject.toJSONString(m),id);
-    }*/
-
-    @ResponseBody
-    @PostMapping("/t")
-    public Object t() {
-        String url="http://chunyin1992.vicp.io/api/power/updateRolePower";
-        String id="b037f22e9b174a06ba0c13152285fac9";
-        HashMap<Object, Object> m = new HashMap<>();
-        m.put("id","3");
-        m.put("objs",new int[]{1,2,3});
-        m.put("name","业务负责人3");
-        System.err.println(JSONObject.toJSONString(m));
-        Object post = RestTemplateUtil.post(url,JSONObject.toJSONString(m),id);
-        String s = JSONObject.toJSONString(post);
-        System.err.println(s);
-        System.err.println("我进来了！");
-        return post;
-    }
 }
 
 

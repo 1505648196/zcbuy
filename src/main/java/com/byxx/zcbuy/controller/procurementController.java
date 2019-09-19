@@ -21,6 +21,31 @@ import javax.servlet.http.HttpServletRequest;
 public class procurementController {
 
     /**
+     * editApply
+     */
+    @RequestMapping("/editApply")
+    public String editApply(){
+        return "admin/procurement/editApply";
+    }
+
+    /**
+     *跳转
+     */
+    @RequestMapping("/groupTaskList")
+    public String groupTaskList(){
+        return "admin/procurement/groupTaskList";
+    }
+
+    /**
+     * 跳转
+     */
+    @RequestMapping("/providerChange")
+    public String providerChange(){
+        return "admin/procurement/providerChange";
+    }
+
+
+    /**
      * 跳转
      * @return
      */
@@ -77,9 +102,9 @@ public class procurementController {
     /**
      * 跳转
      */
-    @RequestMapping("/providerChange")
-    public String providerChange(){
-        return "admin/procurement/providerChange";
+    @RequestMapping("/jingkaiChanger")
+    public String jingkaiChanger(){
+        return "admin/procurement/jingkaiChanger";
     }
 
 
@@ -301,6 +326,16 @@ public class procurementController {
     @GetMapping("/getAllGoodsTypes")
     public Object getAllGoodsTypes(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.GET_ALL_GOODS_TYPES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
+     * 查询大宗负责候选人(审批候选人与任务发起人处于同一个单位)
+     * selectDazongCandidates
+     */
+    @ResponseBody
+    @GetMapping("/selectDazongCandidates")
+    public Object selectDazongCandidates(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.SELECT_DAZONG_CANDIDATES+request.getAttribute("p"), LoginInterceptor.getId());
     }
 
 

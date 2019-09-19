@@ -41,7 +41,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     //根据userId查询旗下的拥有的商品申请权限
     function getAllGoodsByUserId() {
         var userId = $("#userId").val();
-           console.log(userId);
+        console.log(userId);
         $.get("getAllGoodsByUserId",{"userId":userId},function (res) {
             console.log(res.msg);
             var data=res.data;
@@ -84,7 +84,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 getAllLaobaobu()
             }
             console.log(userName,phone,email,unitName,address.purchaseType);
-            $("#price").val(price);
+            $("#price").val(parseInt(price/100));
             $("#statusName").val(statusName);
             $("#goodsTypeName").val(goodsTypeName);
             $("#userName").val(userName);
@@ -95,6 +95,17 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
     })
 
     });
+
+    $("#sum").on("input",function(e){
+        //获取input输入的值
+        console.log(e.delegateTarget.value);
+      var a =   parseInt($("#price").val());
+      var c=  parseInt($("#quantity").val());
+      var b =parseInt(a*c);
+      $("#sum").val(b);
+    });
+
+
     var context ="";
     form.on('submit(sub)',function (data) {
         var  happen =$("#happen").val();
@@ -105,8 +116,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         var quantity = $("#quantity").val();
         var taskId =$("#taskId").val();
         var desc = $("#desc").val();
-        console.log(taskId)
-
+        console.log(taskId);
         var purchaseTypeName = $("#purchaseTypeName").val();//拿的是id 不是名字
         console.log(purchaseTypeName);
         var  arrplus = [];
@@ -114,7 +124,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         console.log(labour);
         console.log(purchaseTypeId);
         console.log(purchaseTypeId,goodsId,$("#applyuser").val(),quantity,desc)
-        if (happen=="update"){
+        if (happen=="edit"){
             //同步
             $.ajaxSetup({
                 async: false

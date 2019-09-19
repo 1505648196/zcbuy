@@ -86,22 +86,42 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         console.log(data)
         //用户信息
         if (obj.event === 'edit') {
-            var userId= $("#userId").val();
-            layer.confirm('确定接受吗', function(index){
-                $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
-                    function (res) {
-                        if(res.result){
-                            getlist();
-                            layer.close(index);
-                            location.reload();
-
-                        }else {
-                            layer.msg('操作失败！'+res.msg, {
-                                time: 1000
-                            });
-                        }
-                    });
+            console.log(data.detail);
+            layer.open({
+                title: '请核对信息',
+                type: 2,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['50%', '50%'],
+                success: function (layero, index) {
+                    var userId= $("#userId").val();
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#user').val(userId);
+                    body.find('#taskId').val(data.taskId);
+                    body.find('#detail').val(data.detail);
+                    body.find('#name').val(data.name);
+                    body.find('#purchaseTypeName').val(data.purchaseTypeName);
+                    body.find('#startTime').val(data.startTime);
+                    body.find('#happen').val("接受任务");
+                },
+                content:"groupTaskList"
             });
+
+            // var userId= $("#userId").val();
+            // layer.confirm('确定接受吗', function(index){
+            //     $.get("claimTaskByUserId", {"userId":userId,'taskId':data.taskId},
+            //         function (res) {
+            //             if(res.result){
+            //                 getlist();
+            //                 layer.close(index);
+            //                 location.reload();
+            //
+            //             }else {
+            //                 layer.msg('操作失败！'+res.msg, {
+            //                     time: 1000
+            //                 });
+            //             }
+            //         });
+            // });
         }
     });
 

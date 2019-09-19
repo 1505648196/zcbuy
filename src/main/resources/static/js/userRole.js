@@ -43,16 +43,15 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                             var html="";
                             //循环管理者拥有的权限对象集合
                             $.each(data,function (index, item) {
-
                                 //判断是否含有这个权限id  有就true
                                 if (powersplus.search(item.id)!=-1||powersplus2.search(item.id)!=-1){
                                     b = true;
                                 }
                                 if(b){
-                                    html+="<input lay-skin='primary' type='checkbox' checked name='cc'  value='"+item.id+"' title='"+item.name+"'/>";
-                                    b=false;//记得清空
+                                    html+="<input lay-skin='primary' type='checkbox' checked name='"+item.id+"'  value='"+item.id+"' title='"+item.name+"'/>";
+                                    b=false;
                                 }else {
-                                    html+="<input lay-skin='primary' type='checkbox' name='cc' value='"+item.id+"' title='"+item.name+"'/>";
+                                    html+="<input lay-skin='primary' type='checkbox' name='"+item.id+"' value='"+item.id+"' title='"+item.name+"'/>";
                                 }
                             });
                             $("#select").html(html);
@@ -67,27 +66,17 @@ layui.use(['layer', 'form', 'table', 'laydate'],
 
 
         form.on('submit(sub)',function (data) {
-            var id = data.field.id
-            console.log(id)
+          var  dataplus = data.field;
+          console.log(dataplus)
+          test(dataplus);
+            return false;
+        });
 
-            var err =  $("[name=cc]:checked");
-            console.log($("[name=cc]:checked"));
-            var array = new Array()
-            for (var i =0 ;i<err.length;i++){
-                var aa = err[i].value;
-                array.push(aa);
-            }
-            console.log(errplus);
+        function test(dataplus) {
             //修改
-            $.ajax({
-                url: "updateUserPower",
-                data: JSON.stringify( {userId:id,objs:array}),
-                type:"post",
-                dataType: "json",
-                contentType : "application/json",//否则报错类型不能少
-                // jsonp: "selfNamedReplaceCallback",
-                // jsonpCallback: "jsonpFn", // server side：req.query.callback = "jsonpFn"
-                success:function (res) {
+            $.post("updateUserPower",
+                dataplus ,
+                function (res) {
                     if(res.result){
                         console.log(res.result);
                         layer.msg('修改成功！', {
@@ -101,30 +90,10 @@ layui.use(['layer', 'form', 'table', 'laydate'],
                     }else {
                         console.log(res.msg);
                         layer.msg('修改失败！'+res.msg, {
-                            time: 1000
+                            time: 10000
                         });
                     }
-                }
+                })
 
-
-            });
-            // $.post("http://chunyin1992.vicp.io/api/power/updateRolePower",{"id":10,"objs":[1,2,3,4,5,6,7,8,9,10,11,12]},
-            //     success:function (res) {
-            //         if(res.result){
-            //             layer.msg('修改成功！', {
-            //                 time: 1000
-            //             },function () {
-            //                 var index = parent.layer.getFrameIndex(window.name);
-            //                 parent.layer.close(index);
-            //                 parent.location.reload();
-            //             });
-            //         }else {
-            //             console.log(res.msg);
-            //             layer.msg('修改失败！'+res.msg, {
-            //                 time: 1000
-            //             });
-            //         }
-            //     });
-            return false;
-        });
+        }
     });

@@ -26,7 +26,7 @@ public class Role implements Serializable {
      * 用于更新权限
      */
 
-    private List<Integer> objs;
+    private Set<Integer> objs;
 
 
 

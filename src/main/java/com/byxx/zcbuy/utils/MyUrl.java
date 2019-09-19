@@ -361,4 +361,10 @@ public class MyUrl {
 	 */
 	public  static  final String GET_ALL_GOODS_TYPES= PRE+"/api/goodsType/getAllGoodsTypes";
 
+	/**
+	 * \	查询大宗负责候选人(审批候选人与任务发起人处于同一个单位)
+	 * selectDazongCandidates
+	 */
+	public  static  final String SELECT_DAZONG_CANDIDATES= PRE+"/api/purchaseRequisition/selectDazongCandidates";
+
 }

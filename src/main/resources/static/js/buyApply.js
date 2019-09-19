@@ -63,9 +63,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     {field: 'quantity', title: '数量', align: 'center',},
                     {field: 'createTime', title: '创建时间', align: 'center'},
                     {field: 'updateTime', title: '更新时间', align: 'center',},
-                    {field: 'statusName', title: '状态', align: 'center',templet:function (d) {
-                            return d.goods.statusName;
-                        }},
+                    {field: 'statusName', title: '状态', align: 'center',},
                     {field: 'price', title: '价格', align: 'center',templet:function (d) {
                             return d.goods.price;
                         }},
