@@ -82,6 +82,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     "        </div>";
                 $("#laobao").html(htmlLaoBao);
                 getAllLaobaobu()
+
             }
             console.log(userName,phone,email,unitName,address.purchaseType);
             $("#price").val(parseInt(price/100));
