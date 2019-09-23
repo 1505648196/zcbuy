@@ -1,10 +1,8 @@
-layui.use(['layer', 'form', 'jquery', 'table'], function () {
+layui.use(['layer', 'form', 'jquery', 'table','element'], function () {
     var form = layui.form,  //表单
         layer = layui.layer, //弹层
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
-
-
     show();
     function show(){
         var showId = $("#userId").val();
@@ -30,6 +28,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             var html="<option value=''>请选择站车劳保部</option>";
             $.each(data,function (index,item) {
                 html+="<option   value='"+item.id+"'>"+item.name+"</option>";
+                console.log(item.id,item.name)
             });
             $("#labour").html(html);
             form.render();
@@ -63,6 +62,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             goodsId = data.id;
             purchaseTypeId = data.purchaseType.id;
             var  price = data.price;
+            console.log(price);
             var  statusName = data.statusName;
             var  goodsTypeName =  data.goodsType.name;
             var userName= data.user.name;
@@ -76,7 +76,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 var htmlLaoBao="<div class=\"layui-form-item\" style='color: red'>\n" +
                     "            <label class=\"layui-form-label\">站车劳保部:</label>\n" +
                     "            <div class=\"layui-input-block \">\n" +
-                    "                <select id=\"labour\" name=\"labour\" class=\"layui-input\" lay-filter=\"labour\"  >\n" +
+                    "                <select id=\"labour\" name=\"labour\" class=\"layui-input\" lay-filter=\"labour\"  lay-verify=\"required\">\n" +
                     "                </select>\n" +
                     "            </div>\n" +
                     "        </div>";
@@ -85,7 +85,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
             }
             console.log(userName,phone,email,unitName,address.purchaseType);
-            $("#price").val(parseInt(price/100));
+            $("#price").val(divideByHundred(price));
             $("#statusName").val(statusName);
             $("#goodsTypeName").val(goodsTypeName);
             $("#userName").val(userName);
@@ -97,14 +97,33 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
     });
 
-    $("#sum").on("input",function(e){
-        //获取input输入的值
-        console.log(e.delegateTarget.value);
-      var a =   parseInt($("#price").val());
-      var c=  parseInt($("#quantity").val());
-      var b =parseInt(a*c);
-      $("#sum").val(b);
+    //ES6语法
+    function divideByHundred(str) {
+        let floatVal = parseFloat(str);
+        if (isNaN(floatVal )) {
+            return false;
+        }
+        floatVal = Math.round(str * 100) / 10000;
+        let strVal = floatVal .toString();
+        let searchVal = strVal.indexOf('.');
+        if (searchVal < 0) {
+            searchVal = strVal.length;
+            strVal += '.';
+        }
+        while (strVal.length <= searchVal + 2) {
+            strVal += '0';
+        }
+        return strVal;
+    }
+
+
+    $("#quantity").bind('input propertychange', function () {
+        var a=$("#price").val();
+        var b =$("#quantity").val();
+        var  c = parseFloat(a*b).toFixed(2);//保留两位
+        $("#sum").val(c);
     });
+
 
 
     var context ="";
@@ -125,6 +144,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         console.log(labour);
         console.log(purchaseTypeId);
         console.log(purchaseTypeId,goodsId,$("#applyuser").val(),quantity,desc)
+        var index = layer.load(0, {time: 10*1000});
         if (happen=="edit"){
             //同步
             $.ajaxSetup({
@@ -141,6 +161,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     return context
             })
             console.log(context);
+
             $.post("updatePurchaseRequisition",
                 {"id":purchaseRequisitionId,"goodsName":goodsName,"quantity":quantity,"price":priceplus},
                 function (res) {
@@ -158,12 +179,14 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                                         var index = parent.layer.getFrameIndex(window.name);
                                         parent.layer.close(index);
                                         parent.location.reload();
+                                        layer.close(index);
                                     });
                                 }else {
                                     layer.msg(res.msg, {
                                         time: 2000
                                     },function () {
                                         console.log(res.msg)
+                                        layer.close(index);
                                     });
                                 }
                             });
@@ -176,6 +199,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     }
                 });
         }else {
+            console.log(purchaseTypeId,goodsId,$("#applyuser").val(),quantity,desc,labour);
             $.post("addPurchaseRequisition",
                 {
                     "purchaseTypeId":purchaseTypeId,
@@ -197,11 +221,13 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);
                             parent.location.reload();
+                            layer.close(index);
                         });
                     } else {
                         layer.msg(res.msg, {
                             time: 20000
                         });
+                        layer.close(index);
                     }
                 });
         }

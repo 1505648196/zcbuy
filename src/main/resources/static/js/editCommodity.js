@@ -73,7 +73,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             console.log(price,name,statusId,goodsTypeId);
             $.post("updateGoods",
                 //status状态没写  后台未定义好状态
-                {"id":id,"name":name,"price":price,"status":statusId,"goodsTypeId":goodsTypeId},//可以试试ES6 7 8 的语法
+                {"id":id,"name":name,"price":parseInt(price*100),"status":statusId,"goodsTypeId":goodsTypeId},//可以试试ES6 7 8 的语法
                 function (res) {
                     if(res.result){
                         layer.msg(res.msg, {

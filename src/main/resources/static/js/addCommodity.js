@@ -5,13 +5,14 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             form = layui.form;
         $ = layui.jquery; //jquery控件
 
-        show();
-        //供应商下拉
-        function show(){
+        getMerchants();
+        getAllGoodsTypes();
+        getMeasurements();
+        function getMerchants(){
             //单位下拉框
             $.get("getMerchants",function (res) {
                 var data=res.data;
-                var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
+                var htmltwo=" <option value='' >直接选择或搜索选择</option>";
                 $.each(data,function (index,item) {
                     htmltwo+="<option value='"+item.id+"'>"+item.name+"</option>";
                 });
@@ -20,13 +21,48 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             });
         }
 
+        function getAllGoodsTypes(){
+            //商品小类
+            $.get("getAllGoodsTypes",function (res) {
+                var data=res.data;
+                var htmltwo=" <option value='' >直接选择或搜索选择</option>";
+                $.each(data,function (index,item) {
+                    htmltwo+="<option value='"+item.id+"'>"+item.name+"</option>";
+                });
+                $("#cmy").html(htmltwo);
+                form.render();
+            });
+        }
+
+        function getMeasurements(){
+            $.get("getMeasurements",function (res) {
+                var data=res.data;
+                console.log(data);
+                var dataPlus = new Array();
+                for(var str of data){
+                    dataPlus.push(str);
+                }
+                var htmltwo=" <option value='' >直接选择或搜索选择</option>";
+                $.each(dataPlus,function (index,item) {
+                    htmltwo+="<option value='"+item+"'>"+item+"</option>";
+                });
+                $("#sumUnit").html(htmltwo);
+                form.render();
+            });
+        }
+
+
+
         form.on('submit(sub)',function (data) {
             var name = $("#name").val();
             var price = $("#price").val();
-            userIdplus = $("#userId").val();
-            console.log(userIdplus) ;
+            var  userId = $("#userId").val();
+            var cmy =$("#cmy").val();
+            var sumUnit=  $("#sumUnit").val();
+            console.log(userId) ;
+            console.log(cmy,sumUnit);
             $.post("addGoods",
-                {"name":name,"price":price,"userId":userIdplus},
+                {"name":name,"price":parseInt(price*100),"userId":userId,"goodsTypeId":cmy,"measurement":sumUnit},
                 function (res) {
                     if(res.result){
                         console.log(res.msg);

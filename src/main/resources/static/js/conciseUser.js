@@ -83,7 +83,10 @@
               return d.unit.name;
             }},
           {field: 'department', title: '部门', align: 'center',templet:function (d) {
-              return d.department.name;
+            if (d.department==null){
+              return ""
+            } else {  return d.department.name;}
+
             }},
           {field: 'name', title: '姓名', align: 'center'},
           {field: 'role', title: '角色', align: 'center',templet:function (d) {

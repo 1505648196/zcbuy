@@ -367,4 +367,9 @@ public class MyUrl {
 	 */
 	public  static  final String SELECT_DAZONG_CANDIDATES= PRE+"/api/purchaseRequisition/selectDazongCandidates";
 
+	/**
+	 *获取 商品的 全部计量单位
+	 * getMeasurements
+	 */
+	public  static  final String GET_MEASURE_MENTS= PRE+"/api/goods/getMeasurements";
 }

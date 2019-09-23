@@ -165,7 +165,7 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
             console.log(data);
             var userId= $("#userId").val();
             layer.open({
-                title: '请选择经开部',
+                title: '核对信息',
                 type: 2,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['80%', '80%'],
@@ -174,9 +174,27 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                     body.find('#user').val(userId);
                     body.find('#taskId').val(data.taskId);
                 },
+
                 content:"jingkaiChanger"
             });
         }
+        if (obj.event === 'editsub') {
+            var userId= $("#userId").val();
+            layer.open({
+                title: '请再次编辑',
+                type: 2,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['60%', '60%'],
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#user').val(userId);
+                    body.find('#taskId').val(data.taskId);
+                    body.find('#happen').val("editsub");
+                },
+                content:"editApply"
+            });
+        }
+
         //不同意
         if (obj.event === 'no') {
             var userId= $("#userId").val();
@@ -197,20 +215,6 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                 },
                 content:"groupTaskList"
             });
-            // layer.confirm('确定不同意吗', function(index){
-            //     $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":false,"activitiComment":activitiComment},
-            //         function (res) {
-            //             if(res.result){
-            //                 getlist();
-            //                 layer.close(index);
-            //                 location.reload();
-            //             }else {
-            //                 layer.msg('操作失败！'+res.msg, {
-            //                     time: 1000
-            //                 });
-            //             }
-            //         });
-            // });
         }
         //取消
         if (obj.event === 'noreturn') {
@@ -232,21 +236,6 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                 },
                 content:"groupTaskList"
             });
-            // layer.confirm('确定取消吗', function(index){
-            //     $.post("taskComplete", {"taskId":data.taskId,'boo_delete':true,"boo_pass":false},
-            //         function (res) {
-            //             if(res.result){
-            //                 getlist();
-            //                 layer.close(index);
-            //                 location.reload();
-            //
-            //             }else {
-            //                 layer.msg('操作失败！'+res.msg, {
-            //                     time: 1000
-            //                 });
-            //             }
-            //         });
-            // });
         }
         //配送
         if (obj.event === 'delivery') {
@@ -268,22 +257,6 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                 },
                 content:"groupTaskList"
             });
-            // var userId= $("#userId").val();
-            // layer.confirm('确定配送吗', function(index){
-            //     $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":true},
-            //         function (res) {
-            //             if(res.result){
-            //                 getlist();
-            //                 layer.close(index);
-            //                 location.reload();
-            //
-            //             }else {
-            //                 layer.msg('操作失败！'+res.msg, {
-            //                     time: 1000
-            //                 });
-            //             }
-            //         });
-            // });
         }
         //supply
         if (obj.event === 'supply') {
@@ -301,41 +274,13 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                 },
                 content:"editApply"
             });
-
-
-            // layer.confirm('确定供货吗', function(index){
-            //     $.post("taskComplete",{"boo_assignee":true,"taskId":data.taskId,'boo_delete':false,"boo_pass":true,"str_users":userIds},
-            //         function (res) {
-            //             if(res.result){
-            //                 getlist();
-            //                 layer.close(index);
-            //                 location.reload();
-            //             }else {
-            //                 layer.msg('操作失败！'+res.msg, {
-            //                     time: 1000
-            //                 });
-            //             }
-            //         });
-            // });
-            // layer.open({
-            //     title: '请选择供应商',
-            //     type: 2,
-            //     maxmin: true, //开启最大化最小化按钮
-            //     area: ['30%', '30%'],
-            //     success: function (layero, index) {
-            //         var body = layer.getChildFrame('body', index);
-            //         body.find('#user').val(userId);
-            //         body.find('#taskId').val(data.taskId);
-            //     },
-            //     content:"providerChange"
-            // });
         }
-        //提交经开部供货
-        if (obj.event === 'supplyPlus') {
+        //劳保
+        if (obj.event === 'supplyplus') {
             var userId= $("#userId").val();
             console.log(userId);
                 layer.open({
-                    title: '请选择经开部',
+                    title: '请核对信息',
                     type: 2,
                     maxmin: true, //开启最大化最小化按钮
                     area: ['60%', '60%'],
@@ -343,31 +288,36 @@ layui.use(['layer', 'form', 'jquery', 'table','laytpl'], function () {
                         var body = layer.getChildFrame('body', index);
                         body.find('#user').val(userId);
                         body.find('#taskId').val(data.taskId);
+                        body.find("#happen").val("劳保卧具")
                     },
                     content:"jingkaiChanger"
                 });
         }
         //不能供货
         if (obj.event === 'nosupply') {
+
             var userId= $("#userId").val();
-            layer.confirm('确定不供货吗', function(index){
-                $.post("taskComplete", {"taskId":data.taskId,'boo_delete':false,"boo_pass":false},
-                    function (res) {
-                        if(res.result){
-                            getlist();
-                            layer.close(index);
-                            location.reload();
-                        }else {
-                            layer.msg('操作失败！'+res.msg, {
-                                time: 1000
-                            });
-                        }
-                    });
+            layer.open({
+                title: '核对信息',
+                type: 2,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['60%', '60%'],
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#user').val(userId);
+                    body.find('#taskId').val(data.taskId);
+                    body.find('#detail').val(data.detail);
+                    body.find('#name').val(data.name);
+                    body.find('#purchaseTypeName').val(data.purchaseTypeName);
+                    body.find('#startTime').val(data.startTime);
+                    body.find('#happen').val("不能供货");
+                },
+                content:"groupTaskList"
             });
+
+
+
         }
-
-
-
     });
 
 

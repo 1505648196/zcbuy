@@ -4,10 +4,13 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
 
-    loadData();
+
     $.ajaxSetup({
         async: false
     });
+    setTimeout(function () {
+        loadData();
+    },200);
     var userIds ="";
 
     function show(){
@@ -64,6 +67,31 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
             })
         }
 
+    //ES6语法
+    function divideByHundred(str) {
+        let floatVal = parseFloat(str);
+        if (isNaN(floatVal )) {
+            return false;
+        }
+        floatVal = Math.round(str * 100) / 10000;
+        let strVal = floatVal .toString();
+        let searchVal = strVal.indexOf('.');
+        if (searchVal < 0) {
+            searchVal = strVal.length;
+            strVal += '.';
+        }
+        while (strVal.length <= searchVal + 2) {
+            strVal += '0';
+        }
+        return strVal;
+    }
+    $("#quantity").bind('input propertychange', function () {
+        var a=$("#price").val();
+        var b =$("#quantity").val();
+        var  c = parseFloat(a*b).toFixed(2);//保留两位
+        $("#totalPrice").val(c);
+    });
+
 
 
 
@@ -103,7 +131,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 userIds = data.goods.userId;
                 var purchaseRequisitionId = data.id;
                 var totalPrice = data.totalPrice;
-                var  comment = data.activitiComment;
+                var  comment = data.comment;
                 var  price = data.goods.price;
                 var  statusName = data.goods.statusName;
                 var  goodsTypeName =  data.goods.goodsType.name;
@@ -123,9 +151,9 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                 $("#goods").val(goods);
                 $("#applyuser").val(applyuser);
                 $("#quantity").val(quantity);
-                $("#totalPrice").val(totalPrice);
+                $("#totalPrice").val(divideByHundred(totalPrice));
                 $("#desc").val(comment);
-                $("#price").val(price);
+                $("#price").val(divideByHundred(price));
                 $("#statusName").val(statusName);
                 $("#goodsTypeName").val(goodsTypeName);
                 $("#userName").val(userName);
@@ -227,9 +255,64 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     }
                 });
         })
-
-
     }
+    //卧具劳保
+    function editsub(){
+        var purchaseRequisitionId = $("#purchaseRequisitionId").val();
+        var taskId = $("#taskId").val();
+        var quantity = $("#quantity").val();
+        var context ="";
+        var userId  = $("#userId").val();
+        $.ajaxSetup({
+            async: false
+        });
+        $.get("selectCandidates",
+            {"userId":userId},
+            function (res) {
+                datas = res.data;
+                $.each(datas,function (index,item) {
+                    context+=item.id+","
+                })
+                return context
+            })
+        layer.confirm('确定再次申请吗', function(index){
+            $.post("updatePurchaseRequisition",
+                {"id":purchaseRequisitionId,"quantity":quantity},
+                function (res) {
+                    if(res.result){
+                        $.post("taskComplete",
+                            //taskId  users  boo_candidate true  boo_delete false boo_pass true PurchaseRequisition
+                            {"taskId":taskId,"str_users":context,"boo_candidate":true,"boo_delete":false,"boo_pass":true,"purchaseRequisitionId": purchaseRequisitionId} ,
+                            function (res) {
+                                if(res.result){
+                                    console.log(res.msg);
+                                    layer.msg(res.msg, {
+                                        time: 1000
+                                    },function () {
+                                        //传到爹哪里去
+                                        var index = parent.layer.getFrameIndex(window.name);
+                                        parent.layer.close(index);
+                                        parent.location.reload();
+                                    });
+                                }else {
+                                    layer.msg(res.msg, {
+                                        time: 2000
+                                    },function () {
+
+                                    });
+                                }
+                            });
+                    }else {
+                        layer.msg(res.msg, {
+                            time: 2000
+                        },function () {
+                            console.log(res.msg)
+                        });
+                    }
+                });
+        })
+    }
+
 
 
     form.on('submit(sub)',function (data) {
@@ -238,6 +321,9 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         switch(happen){
             case "supply":
                 supply();
+                break;
+            case "editsub":
+                editsub();
                 break;
             case "":
                 go()

@@ -65,15 +65,15 @@
 </script>
 
 <script type="text/html" id="barDemo">
-
     {{#  if(d.name=="【站车劳保部】确认是否可以供货"||d.name =="【业务负责人】确认卧具备品采购订单是否可以供货"){ }}
-    <a class="layui-btn layui-btn-sm" lay-event="supply">可以供货</a>
-    <a class="layui-btn layui-btn-sm" lay-event="nosupply">不可以供货</a>\
+    <a class="layui-btn layui-btn-sm" lay-event="supplyplus">可以供货</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="nosupply">不可以供货</a>
     {{#  }if(d.name =="【经营开发部】确认是否可以供货"){ }}
     <a class="layui-btn layui-btn-sm" lay-event="supply">确定供货</a>
-    <a class="layui-btn layui-btn-sm" lay-event="nosupply">不可以供货</a>
-    {{#  }if(d.name =="【业务负责人】确认卧具备品采购订单是否可以供货"){ }}
-    <a class="layui-btn layui-btn-sm" lay-event="noreturn">取消任务</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="nosupply">不可以供货</a>
+    {{#  }if(d.name =="【业务员】提交卧具采购清单"){ }}
+    <a class="layui-btn layui-btn-sm" lay-event="editsub">编辑提交</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="noreturn">取消任务</a>
     {{#  }if(d.name =="【供货商】接单配送"){ }}
     <a class="layui-btn layui-btn-sm" lay-event="delivery">确认配送</a>
     {{#  }if(d.name =="【业务负责人】审核大宗采购订单") { }}

@@ -339,6 +339,16 @@ public class procurementController {
     }
 
 
+    /**
+     * 查询大宗负责候选人(审批候选人与任务发起人处于同一个单位)
+     * selectDazongCandidates
+     */
+    @ResponseBody
+    @GetMapping("/getMeasurements")
+    public Object getMeasurements(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_MEASURE_MENTS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
 
 
 }

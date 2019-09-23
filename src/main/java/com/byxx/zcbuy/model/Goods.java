@@ -8,13 +8,12 @@ import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
-
 @Data
-
 public class Goods implements Serializable {
     /**
      * 商品id
      */
+
     private String id;
 
     /**
@@ -47,6 +46,20 @@ public class Goods implements Serializable {
      * 商品小类 分类Id
      */
     private String goodsTypeId;
+
+    /**
+     * 商品计量单位
+     */
+    private String measurement;
+
+    public final static String[] measurements = {
+        "件","箱","袋","罐","瓶" ,"只","双","套","把","桶",
+            "打","卷","罗","辆","头","包","千克",
+            "公吨","长吨","短吨","盎司","蒲式耳",
+            "公升","加仑","码","米","英尺","厘米",
+            "平方米","平方码","平方英尺","平方英寸",
+            "立方米","立方码","立方英尺","立方英寸"
+    };
 
 
     /*状态名*/

@@ -65,7 +65,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     {field: 'updateTime', title: '更新时间', align: 'center',},
                     {field: 'statusName', title: '状态', align: 'center',},
                     {field: 'price', title: '价格', align: 'center',templet:function (d) {
-                            return d.goods.price;
+                            return d.goods.price/100.00;
                         }},
                     {field: 'purchaseTypeName', title: '采购类型', align: 'center',templet:function (d) {
                         return d.purchaseType.name;

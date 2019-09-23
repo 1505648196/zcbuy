@@ -7,7 +7,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
         //单位下拉框
         $.get("getAllUnit",function (res) {
             var data=res.data;
-            var html=" <option value=\"00\" >直接选择或搜索选择</option>";
+            var html=" <option value='' >直接选择或搜索选择</option>";
             $.each(data,function (index,item) {
                     html+="<option value='"+item.id+"'>"+item.name+"</option>";
             });
@@ -19,7 +19,7 @@ layui.use(['layer', 'form', 'table', 'laydate'],
             //单位下拉框
             $.get("getMerchants",function (res) {
                 var data=res.data;
-                var htmltwo=" <option value=\"00\" >直接选择或搜索选择</option>";
+                var htmltwo=" <option value=''>直接选择或搜索选择</option>";
                 $.each(data,function (index,item) {
                     htmltwo+="<option value='"+item.id+"'>"+item.name+"</option>";
                 });

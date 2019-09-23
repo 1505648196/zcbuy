@@ -4,6 +4,23 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
         table = layui.table; //表格
     $ = layui.jquery; //jquery控件
 
+    function divideByHundred(str) {
+        let floatVal = parseFloat(str);
+        if (isNaN(floatVal )) {
+            return false;
+        }
+        floatVal = Math.round(str * 100) / 10000;
+        let strVal = floatVal .toString();
+        let searchVal = strVal.indexOf('.');
+        if (searchVal < 0) {
+            searchVal = strVal.length;
+            strVal += '.';
+        }
+        while (strVal.length <= searchVal + 2) {
+            strVal += '0';
+        }
+        return strVal;
+    };
     //加载表格数据
     getlist();
     //表头
@@ -45,7 +62,9 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
 
                     {field: 'name', title: '商品名称', align: 'center'},
 
-                    {field: 'price', title: '价格', align: 'center',},
+                    {field: 'price', title: '价格', align: 'center',templet:function (d) {
+                          return  d.price/100.00;
+                        }},
 
                     {field: 'statusName', title: '状态', align: 'center',},
 
@@ -93,7 +112,7 @@ layui.use(['layer', 'form', 'jquery', 'table'], function () {
                     console.log(statusName,goodsTypeName,userName,phone,email,unitName,address,ptNames);
                     var body = layer.getChildFrame('body', index);
                     body.find('#id').val(data.id);
-                    body.find('#price').val(data.price);
+                    body.find('#price').val(divideByHundred(data.price));
                     body.find('#name').val(data.name);
                     body.find('#statusId').val(data.status);
                     body.find('#goodsTypeIds').val(data.goodsTypeId);
