@@ -9,5 +9,6 @@ public class ZcbuyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ZcbuyApplication.class, args);
 		System.err.println("(♥◠‿◠)ﾉﾞ 启动成功 !");
+		System.err.println("http://localhost:8888/zcbuy_okadmin/");
 	}
 }

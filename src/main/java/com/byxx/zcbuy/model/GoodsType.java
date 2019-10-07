@@ -5,13 +5,14 @@ import lombok.Data;
 
 import java.beans.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 商品小类 分类
  */
 
 @Data
-public class GoodsType implements Serializable {
+public class GoodsType  implements Serializable {
     /**
      * 商品小类Id
      */
@@ -28,10 +29,17 @@ public class GoodsType implements Serializable {
      */
     private String purchaseTypeId;
 
+    /**
+     * 自关联父id
+     */
+    private String pid;
+
 
 
     private PurchaseType purchaseType;
 
+
+    private List children;
 
 
     private Integer page;
@@ -52,4 +60,7 @@ public class GoodsType implements Serializable {
         return limit;
     }
 
+    public GoodsType ( ) {}
+
+    public GoodsType ( String id ) {this.id = id;}
 }

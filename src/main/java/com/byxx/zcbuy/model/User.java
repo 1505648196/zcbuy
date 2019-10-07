@@ -3,16 +3,18 @@ package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-
 
 @Data
 public class User implements Serializable {
     /**
      * 用户id
      */
+
     private String id;
 
     /**

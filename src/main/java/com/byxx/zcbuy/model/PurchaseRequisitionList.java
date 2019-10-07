@@ -72,6 +72,36 @@ public class PurchaseRequisitionList implements Serializable {
      */
     private String activitiComment;
 
+    /**
+     * 收件人姓名
+     */
+    private String recipientName;
+
+    /**
+     * 收件人联系电话
+     */
+    private String recipientPhone;
+
+    /**
+     * 收件单位
+     */
+    private String recipientUnit;
+
+    /**
+     * 收件详细地址
+     */
+    private String recipientAddress;
+
+    /**
+     * 要求到货时间
+     */
+    private String requestArrivalTime;
+
+    /**
+     * 已收货数量
+     */
+    private Integer receiptQuantity;
+
 
 
     private User user;
@@ -79,6 +109,8 @@ public class PurchaseRequisitionList implements Serializable {
     private Goods goods;
 
     private PurchaseType purchaseType;
+
+    private String statusName;
 
 
     /**
@@ -104,5 +136,9 @@ public class PurchaseRequisitionList implements Serializable {
             limit = 10;
         }
         return limit;
+    }
+
+    public Integer getReceiptQuantity ( ) {
+        return receiptQuantity == null ? 0 : receiptQuantity;
     }
 }

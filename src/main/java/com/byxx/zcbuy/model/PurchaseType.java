@@ -3,7 +3,6 @@ package com.byxx.zcbuy.model;
 
 import lombok.Data;
 
-
 import java.beans.Transient;
 import java.io.Serializable;
 

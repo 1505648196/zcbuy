@@ -77,11 +77,31 @@ public class MerchandiseController {
 
 
     /**
+     * 跳转
+     * @return
+     */
+    @RequestMapping("/salesPrice")
+    public String salesPrice(){
+        return "admin/merchandiseControl/salesPrice";
+    }
+
+    /**
+     * 跳转
+     * @return
+     */
+    @RequestMapping("/smallGoods")
+    public String smallGoods(){
+        return "admin/merchandiseControl/smallGoods";
+    }
+
+
+
+    /**
      * 多条件获取商品列表 全部商品
      * getGoods
      */
     @ResponseBody
-    @RequestMapping("/getGoods")
+    @GetMapping("/getGoods")
     public Object getGoods(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.GET_GOODS+request.getAttribute("p"), LoginInterceptor.getId());
     }
@@ -169,6 +189,19 @@ public class MerchandiseController {
     public Object getById(HttpServletRequest request) {
         return RestTemplateUtil.get(MyUrl.GET_BY_ID+request.getAttribute("p"), LoginInterceptor.getId());
     }
+
+
+    /**
+     * 多条件查询商品销售价(分页)
+     * getSalePrices
+     */
+    @ResponseBody
+    @GetMapping("/getSalePrices")
+    public Object getSalePrices(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_SALE_PRICES+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
 
 
 

@@ -7,7 +7,9 @@ package com.byxx.zcbuy.utils;
 public class MyUrl {
 
 	/**ip */
-	private static final String PRE ="http://chunyin1992.vicp.io";
+	//private static final String PRE ="http://chunyin1993.uicp.io";
+	private static final String PRE ="http://139.9.66.230:8888/ProcurementSystem";
+	//private static final String PRE ="http://chunyin1992.vicp.io";
 	/**用户注册 */
 	public static final String REGISTER =PRE+"/api/user/register";
 	/**检查用户名重复 */
@@ -372,4 +374,24 @@ public class MyUrl {
 	 * getMeasurements
 	 */
 	public  static  final String GET_MEASURE_MENTS= PRE+"/api/goods/getMeasurements";
+
+	/***
+	 * 菜单栏实现
+	 * nav
+	 */
+	public  static  final String NAV= PRE+"/api/power/nav";
+
+
+	/**
+	 * 获取权限表分级权限
+	 * getAllPowers
+	 */
+	public  static  final String GET_ALL_POWERS= PRE+"/api/power/getAllPowers";
+
+
+	/**
+	 * 多条件查询商品销售价(分页)
+	 * getSalePrices
+	 */
+	public  static  final String GET_SALE_PRICES= PRE+"/api/goodsSalePrice/getSalePrices";
 }

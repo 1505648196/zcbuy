@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.beans.Transient;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 
@@ -46,5 +45,11 @@ public class Role implements Serializable {
             limit=10;
         }
         return limit;
+    }
+
+    public Role ( ) {}
+
+    public Role ( String name ) {
+        this.name = name;
     }
 }

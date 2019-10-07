@@ -1,10 +1,8 @@
 package com.byxx.zcbuy.model;
 
-import com.byxx.zcbuy.model.Power;
-import com.byxx.zcbuy.model.User;
 import lombok.Data;
 
-
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -33,15 +31,14 @@ public class UserPower implements Serializable {
 
     private Power power;
 
-    /*子权限集合*/
-    private List<Power> powers;
+    /*子权限集合*/ private List powers;
 
     private String children_ids;
 
     private String fatherPowers_ids;
     /*更新用户权限是用的，跟新的权限id集合*/
 
-    private Set<Integer> objs;
+    private Set objs;
 
     private Object obj;
 
@@ -62,4 +59,4 @@ public class UserPower implements Serializable {
         }
         return limit;
     }
-}
+ }

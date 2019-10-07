@@ -32,9 +32,17 @@
         <div class="layui-form-item">
             <label class="layui-form-label">价格：</label>
             <div class="layui-input-block">
-                <input type="text" id="price" name="price" lay-verify="required" class="layui-input">
+                <input type="number" id="price" name="price" lay-verify="required" class="layui-input">
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">计量单位：</label>
+            <div class="layui-input-block">
+                <select id="measurement" name="measurement" class="layui-input" lay-filter="status"  lay-verify="required" lay-search></select>
+            </div>
+        </div>
+
 
         <div class="layui-form-item">
             <label class="layui-form-label">状态：</label>
@@ -96,6 +104,8 @@
 <input type="hidden" id="statusId"/>
 <input type="hidden" id="goodsTypeIds"/>
 <input type="hidden" id="did"/>
+<input type="hidden" id="userId"/>
+<input type="hidden" id="measurementplus"/>
 </body>
 
 <script src="static/js/editCommodity.js"></script>

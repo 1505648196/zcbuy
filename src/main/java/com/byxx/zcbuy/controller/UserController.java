@@ -37,7 +37,11 @@ public class UserController {
 		return "login";
 	}
 
-	@GetMapping("/permission")
+	/**
+	 * 权限管理
+	 * @return
+	 */
+	@RequestMapping("/permission")
 	public String permission(){
 		return  "admin/permission";
 	}
@@ -51,6 +55,11 @@ public class UserController {
 	@RequestMapping("/index")
 	public String index() {
 		return "index";
+	}
+
+	@RequestMapping("/userAdd")
+	public String userAdd() {
+		return "admin/userAdd";
 	}
 
 	@RequestMapping("/welcome")

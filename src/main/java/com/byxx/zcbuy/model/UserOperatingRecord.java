@@ -1,7 +1,7 @@
 package com.byxx.zcbuy.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+
 import java.beans.Transient;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -12,7 +12,6 @@ import java.util.Date;
  * 历史操作记录表
  */
 
-@Data
 public class UserOperatingRecord implements Serializable {
 
     /**

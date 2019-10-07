@@ -8,11 +8,10 @@ import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Data
+
 public class Goods implements Serializable {
-    /**
-     * 商品id
-     */
 
     private String id;
 
@@ -22,7 +21,7 @@ public class Goods implements Serializable {
     private String name;
 
     /**
-     * 商品价格（分，RMB）
+     * 商品采购价（分，RMB）
      */
     private Long price;
 
@@ -43,7 +42,7 @@ public class Goods implements Serializable {
     private Integer status;
 
     /**
-     * 商品小类 分类Id
+     * 商品类别Id
      */
     private String goodsTypeId;
 
@@ -52,11 +51,24 @@ public class Goods implements Serializable {
      */
     private String measurement;
 
+    /**
+     * 产品编码
+     */
+    private String code;
+
+    /**
+     * 规格
+     */
+    private String specification;
+
+
     public final static String[] measurements = {
-        "件","箱","袋","罐","瓶" ,"只","双","套","把","桶",
-            "打","卷","罗","辆","头","包","千克",
-            "公吨","长吨","短吨","盎司","蒲式耳",
-            "公升","加仑","码","米","英尺","厘米",
+        "件","箱","袋","罐","瓶" ,"只","双","套",
+            "把","桶","令","台","组","张",
+            "打","卷","罗","辆","头","包",
+            "千克","公吨","长吨","短吨","盎司",
+            "蒲式耳","公升","加仑",
+            "码","米","英尺","厘米",
             "平方米","平方码","平方英尺","平方英寸",
             "立方米","立方码","立方英尺","立方英寸"
     };
@@ -76,10 +88,6 @@ public class Goods implements Serializable {
     /*采购类型*/
 
     private PurchaseType purchaseType;
-
-    /*关联的供货单位集合*/
-    /*@Transient
-    private List<UnitMerchant> unitMerchants;*/
 
 
     private Long maxPrice;  //价格区间最高价

@@ -13,8 +13,15 @@ public class TestController {
 
     @RequestMapping("Test")
     public String testShow(){
-        return "admin/processImg/Test";
+        return "admin/Test/Test";
     }
+
+
+    @RequestMapping("Test2")
+    public String testShow2(){
+        return "admin/Test/Test2";
+    }
+
 
 
 

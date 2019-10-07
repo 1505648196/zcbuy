@@ -34,6 +34,15 @@ public class PowerrController {
     }
 
     /**
+     * 菜单控制
+     */
+    @ResponseBody
+    @GetMapping("/nav")
+    public Object nav(HttpServletRequest request){
+        return RestTemplateUtil.get(MyUrl.NAV+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+    /**
      * 查询所有的权限
      * @param request
      * @return
@@ -204,6 +213,22 @@ public class PowerrController {
         }
         return RestTemplateUtil.post(MyUrl.UPDATE_ROLE_POWER,role, LoginInterceptor.getId());
 }
+
+
+    /**
+     * 获取权限表分级权限
+     * getAllPowers
+     */
+
+    @ResponseBody
+    @GetMapping("/getAllPowers")
+    public Object getAllPowers(HttpServletRequest request) {
+        return RestTemplateUtil.get(MyUrl.GET_ALL_POWERS+request.getAttribute("p"), LoginInterceptor.getId());
+    }
+
+
+
+
 }
 
 
