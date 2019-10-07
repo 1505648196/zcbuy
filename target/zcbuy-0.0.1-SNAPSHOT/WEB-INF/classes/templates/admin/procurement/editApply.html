@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes,
+				minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="static/css/font.css">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="static/css/xadmin.css">
+    <script src="static/layui/layui.js"></script>
+    <script src="static/js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="overflow-y: scroll">
+
+<div class="layui-container" style="margin-top: 20px;margin-right: 20px">
+    <form class="layui-form">
+
+        <!--<div class="layui-form-item" style="color: red;">-->
+            <!--<label class="layui-form-label">选择经开部</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<select id="userId" name="userId" class="layui-input" lay-filter="relation"  lay-verify="required" lay-search></select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名字：</label>
+            <div class="layui-input-block">
+                <select id="goods" name="goods" class="layui-input" lay-filter="goods"  lay-verify="required" disabled></select>
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="color: red">
+            <label class="layui-form-label">申请用户：</label>
+            <div class="layui-input-block">
+                <select id="applyuser" name="applyuser" class="layui-input" lay-filter="applyuser"  lay-verify="required" disabled></select>
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="color: red">
+            <label class="layui-form-label">数量：</label>
+            <div class="layui-input-block" >
+                <input  type="number" style="color: red" id="quantity" name="quantity" class="layui-input"  >
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格：</label>
+            <div class="layui-input-block">
+                <input type="text" id="price" name="price" class="layui-input" lay-verify="required" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">总金额：</label>
+            <div class="layui-input-block">
+                <input type="text" id="totalPrice" name="totalPrice" class="layui-input" lay-verify="required" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block">
+                <input type="text" id="statusName" name="statusName" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品类型：</label>
+            <div class="layui-input-block">
+                <input type="text" id="goodsTypeName" name="goodsTypeName" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">供应商：</label>
+            <div class="layui-input-block">
+                <input type="text" id="userName" name="userName" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号：</label>
+            <div class="layui-input-block">
+                <input type="text" id="phone" name="phone" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱：</label>
+            <div class="layui-input-block">
+                <input type="text" id="email" name="email" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司：</label>
+            <div class="layui-input-block">
+                <input type="text" id="unitName" name="unitName" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司地址：</label>
+            <div class="layui-input-block">
+                <input type="text" id="address" name="address" class="layui-input" readonly="readonly">
+            </div>
+        </div>
+
+        <div id="laobao">
+            <!--劳保显示-->
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">订单备注：</label>
+            <div class="layui-input-block">
+                <textarea name="desc" style="color: red" id="desc" placeholder="请输入内容" class="layui-textarea" ></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button lay-submit class="layui-btn" id="sub" lay-filter="sub">提交</button>
+            </div>
+        </div>
+        <input type="hidden" id="id" name="id"/>
+        <input type="hidden" id="goodsId" name="goodsId"/>
+        <input type="hidden" id="user" name="user"/>
+        <input type="hidden" id="taskId" name="taskId"/>
+        <input type="hidden" th:value="${session.userMsg.id}" id="userId"/>
+        <input type="hidden"  id="purchaseRequisitionId" name="purchaseRequisitionId"/>
+        <input type="hidden"  id="happen" name="happen"/>
+    </form>
+</div>
+
+
+</body>
+
+<script src="static/js/editApply.js"></script>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>权限列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="static/css/oksub.css">
+</head>
+<style> .layui-table-view .layui-table[lay-size=sm] .layui-table-cell {
+    height: 26px;
+    line-height: 24px;
+}</style>
+<body class="ok-body-scroll">
+<!--<div class="ok-body">-->
+    <!--&lt;!&ndash;&lt;!&ndash;面包屑导航区域&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<div class="ok-body-breadcrumb">&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="layui-breadcrumb">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a><cite>首页</cite></a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a><cite>常用页面</cite></a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a><cite>权限列表</cite></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a class="layui-btn layui-btn-sm" href="javascript:location.replace(location.href);" title="刷新">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="layui-icon layui-icon-refresh"></i>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;模糊搜索区域&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="layui-row">&ndash;&gt;-->
+        <!--&lt;!&ndash;<form class="layui-form layui-col-md12 ok-search">&ndash;&gt;-->
+            <!--&lt;!&ndash;<input class="layui-input" placeholder="开始日期" autocomplete="off" id="startTime">&ndash;&gt;-->
+            <!--&lt;!&ndash;<input class="layui-input" placeholder="截止日期" autocomplete="off" id="endTime">&ndash;&gt;-->
+            <!--&lt;!&ndash;<input class="layui-input" placeholder="请输入权限名" autocomplete="off">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button class="layui-btn" lay-submit="" lay-filter="search">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="layui-icon layui-icon-search"></i>&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</form>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+    <!--<div class="layui-row">-->
+        <!--&lt;!&ndash;<div class="layui-col-md3">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div id="permissionTree"></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="layui-col-md12">&ndash;&gt;-->
+            <!--&lt;!&ndash;<table class="layui-hide" id="permissionTable" lay-filter="tableFilter"></table>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+    <!--</div>-->
+    <!--<table class="layui-hide" id="permissionTable" lay-filter="tableFilter"></table>-->
+<!--</div>-->
+<div class="ok-body">
+    <!--面包屑导航区域-->
+    <div class="ok-body-breadcrumb">
+        <span class="layui-breadcrumb">
+            <a><cite>首页</cite></a>
+            <a><cite>会员管理</cite></a>
+            <a><cite>用户列表</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-sm" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon layui-icon-refresh"></i>
+        </a>
+    </div>
+    <!--模糊搜索区域-->
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 ok-search">
+            <input class="layui-input" placeholder="开始日期" autocomplete="off" id="startTime">
+            <input class="layui-input" placeholder="截止日期" autocomplete="off" id="endTime">
+            <input class="layui-input" placeholder="请输入用户名" autocomplete="off">
+            <button class="layui-btn" lay-submit="" lay-filter="search">
+                <i class="layui-icon">&#xe615;</i>
+            </button>
+        </form>
+    </div>
+    <!--数据表格-->
+    <table class="layui-hide" id="permissionTable" lay-filter="tableFilter"></table>
+</div>
+<!--js逻辑-->
+<script src="static/lib/layui/layui.js"></script>
+<script>
+    layui.use(["element", "table", "laydate", "tree", "okUtils", "okMock"], function () {
+        let table = layui.table;
+        let laydate = layui.laydate;
+        let tree = layui.tree;
+        let okUtils = layui.okUtils;
+        let okMock = layui.okMock;
+
+        laydate.render({elem: '#startTime', type: "datetime"});
+        laydate.render({elem: '#endTime', type: "datetime"});
+
+        function initPermissionTree() {
+            okUtils.ajax(okMock.api.permission.tree, "get", null).done(function (response) {
+                tree.render({
+                    elem: '#permissionTree',
+                    data: response.data,
+                    showCheckbox: true,
+                    id: 'demoId1',
+                    isJump: true,
+                    click: function(obj){
+                        var data = obj.data;
+                        layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
+                    }
+                });
+
+				initPermissionTable();
+            }).fail(function (error) {
+                console.log(error)
+            });
+        }
+        initPermissionTable();
+
+		function initPermissionTable() {
+			table.render({
+			    elem: '#permissionTable',
+			    url: "getPowers",
+			    limit: 20,
+			    page: true,
+			    size: "sm",
+                parseData://转换layui所需格式
+                    function (res) { //res 即为原始返回的数据
+                        var code=0;
+                        if (!res.result){
+                            code=1;
+                        }
+                        return {
+                            "code": code,
+                            "msg": res.msg,
+                            "count": res.count,
+                            "data": res.data
+                        };
+                    },
+			    cols: [
+			        [
+			            {type: "checkbox", fixed: "left"},
+			        {field: "id", title: "ID", width: 80, sort: true,align: 'center'},
+			        {field: "title", title: "权限名称", width: 180,align: 'center',style:"background-image: url(static/images/flower.jpg);  background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;"},
+			        {field: "href", title: "权限路径", width: 134,align: 'center'},
+					{field: "pid", title: "父菜单",align: 'center', width: 100},
+			        {field: "type", title: "类型", width: 100,align: 'center', templet: "#typeTpl",},
+			        {field: "createTime", title: "创建时间", width: 220,align: 'center'},
+					{field: "updateTime", title: "更改时间", width: 220,align: 'center'},
+                        {fixed: 'right', title: '操作', align: 'center',toolbar: "#operationTp4",width:170,}
+			    ]
+                ],
+			    done: function (res, curr, count) {
+			        console.info(res, curr, count);
+			    }
+			});
+		}
+
+
+    });
+</script>
+<script type="text/html" id="operationTp4">
+    <button class="layui-btn layui-btn layui-btn-xs"><i class="layui-icon">&#xe642;</i>
+        <a href="javascript:" title="编辑" lay-event="edit"><i class="layui-icon" style="color: white">编辑</i></a>
+    </button>
+    <button class="layui-btn-danger layui-btn layui-btn-xs"><i class="layui-icon">&#xe640;</i>
+        <a href="javascript:" title="编辑" lay-event="del" style="color: white"><i class="layui-icon">删除</i></a>
+    </button>
+</script>
+<!--行工具栏模板-->
+<script type="text/html" id="operationTpl">
+    <a href="javascript:" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+    <a href="javascript:" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
+</script>
+
+<script type="text/html" id="typeTpl">
+    {{#  if(d.type == 1){ }}
+        <span class="layui-btn layui-btn-normal layui-btn-xs">菜单</span>
+    {{#  } else if(d.type == 2) { }}
+        <span class="layui-btn layui-btn-warm layui-btn-xs">按钮</span>
+    {{#  } }}
+</script>
+</body>
+</html>
